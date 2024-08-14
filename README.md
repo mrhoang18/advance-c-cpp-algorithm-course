@@ -150,7 +150,19 @@ int int_test;
 ```
 ### 2.1. Variadic macro
 Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
+```bash
+#include <stdio.h>
 
+// Định nghĩa một variadic macro
+#define PRINT_ARGS(format, ...) printf(format, __VA_ARGS__)
+
+int main() {
+    // Sử dụng variadic macro để in ra các giá trị
+    PRINT_ARGS("This is a variadic macro example: %d, %f\n", 42, 3.14);
+
+    return 0;
+}
+```
 # Bài 2: STDARG-ASSERT
 ## 1. Thư viện STDARG
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
