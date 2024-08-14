@@ -40,8 +40,47 @@ Quá trình biên dịch gồm các giai đoạn như sau:
    #include <stdio.h>
    #incldue "test1.h"
 - #define: thay thế một đoạn chương trình bị lặp lại, không có kiểu dữ liệu. Việc sử dụng từ khóa #define để định nghĩa thường được gọi là Macro.
+  ```bash
+  #define PI 3.14
+  #define DISPLAY_SUM(a,b)
 - #undef: để hủy định nghĩa một #define đã được định nghĩa trước đó.
-- #if, #elif, #else
+  ```bash
+  #include <stdio.h>
+  #define MAX_SIZE 100
+  
+  int main() {
+      printf("MAX_SIZE is defined as: %d\n", MAX_SIZE);
+  
+      // Bỏ định nghĩa của MAX_SIZE
+      #undef MAX_SIZE
+  
+      // Định nghĩa lại MAX_SIZE với giá trị khác
+      #define MAX_SIZE 50
+  
+      printf("MAX_SIZE is now redefined as: %d\n", MAX_SIZE);
+  
+      return 0;
+  }
+- #if, #elif, #else: để kiểm tra điều kiện của Macro
+  ```bash
+  #include <stdio.h>
+
+  // Định nghĩa một macro
+  #define VERSION 3
+  
+  int main() {
+      // Sử dụng #if, #elif, #else
+      #if VERSION == 1                               // Điều kiện #if sai, nếu không còn kiểm tra điều kiện nào nữa đi tới #endif luôn
+          printf("This is version 1.\n");
+      #elif VERSION == 2                             // Tiếp tục kiểm tra với #elif
+          printf("This is version 2.\n");            
+      #else                                          // Không có điều kiện nào ở trên đúng
+          printf("This is another version.\n");
+      #endif
+  
+      return 0;
+  }
+
 - #ifdef, #ifndef: kiểm tra xem macro này đã được định nghĩa hoặc chưa được định nghĩa(đã được ứng với #ifdef và chưa ứng với #ifndef) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
   
 
