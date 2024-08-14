@@ -1,5 +1,5 @@
 # Bài 1: COMPILER - MACRO
-## 1. Biên dịch một chương trình C/C
+## 1. Compiler-Biên dịch một chương trình C/C++
 IDE-Integrated Development Environment là môi trường để viết code hỗ trợ các tính năng như Compiler, Debugger. 
 
 Text Editor là một trình soạn thảo (Ví dụ: Notepad++, VScode,...) không tích hợp sẵn trình biên dịch, muốn chạy được code phải dùng riêng Compiler bên ngoài với C/C++ thường là GCC/G++. 
@@ -35,14 +35,14 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   gcc test1.o test2.o main.o -o main
   ./main
 ## 2. Macro
+### 2.1. Các chỉ thị tiền xử lý
 - #include: mang toàn bộ mã nguồn của file được include vào file .i mà không cần viết lại, giúp chương trình dễ quản lý do phân chia thành các module.
    ```bash
    #include <stdio.h>
    #incldue "test1.h"
-- #define: thay thế một đoạn chương trình bị lặp lại, không có kiểu dữ liệu. Việc sử dụng từ khóa #define để định nghĩa thường được gọi là Macro.
+- #define: thay thế một đoạn chương trình bị lặp lại, không có kiểu dữ liệu. Việc sử dụng từ khóa #define để định nghĩa được gọi là Macro.
   ```bash
   #define PI 3.14
-  #define DISPLAY_SUM(a,b)
 - #undef: để hủy định nghĩa một #define đã được định nghĩa trước đó.
   ```bash
   #include <stdio.h>
@@ -61,7 +61,7 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   
       return 0;
   }
-- #if, #elif, #else: để kiểm tra điều kiện của Macro
+- #if, #elif, #else: để kiểm tra điều kiện của Macro.
   ```bash
   #include <stdio.h>
 
@@ -81,6 +81,38 @@ Quá trình biên dịch gồm các giai đoạn như sau:
       return 0;
   }
 
-- #ifdef, #ifndef: kiểm tra xem macro này đã được định nghĩa hoặc chưa được định nghĩa(đã được ứng với #ifdef và chưa ứng với #ifndef) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
+- #ifdef, #ifndef: kiểm tra xem macro này đã hoặc chưa được định nghĩa ("đã" ứng với #ifdef và "chưa" ứng với #ifndef) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
+  ```bash
+  #include <stdio.h>
+
+  // Định nghĩa một macro
+  #define FEATURE_ENABLED
   
+  int main() {
+      // Kiểm tra xem FEATURE_ENABLED đã được định nghĩa đúng không?
+      #ifdef FEATURE_ENABLED
+          printf("Feature is enabled.\n");
+      #endif
+  
+      // Kiểm tra xem ANOTHER_FEATURE chưa được định nghĩa đúng không?
+      #ifndef ANOTHER_FEATURE
+          printf("Another feature is not enabled.\n");
+      #endif
+  
+      return 0;
+  }
+### 2.1. Macro function
+- Macro function là khi đoạn chương trình #define là một hàm có tham số truyền vào. Nếu macro function có nhiều dòng thì cuối các dòng kết thúc bằng kí tự \ và dòng cuối cùng không cần.
+  ```bash
+  #include <stdio.h>
+  
+  #define DISPLAY_SUM(a,b)	                     \
+  printf("This is macro to sum 2 number\n");	    \
+  printf("Result is: %d", a+b);
+  
+  int main() {
+      DISPLAY_SUM(5,6);
+      return 0;
+  }
+- Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong main(), programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
 
