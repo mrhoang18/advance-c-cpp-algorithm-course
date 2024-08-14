@@ -35,10 +35,13 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   gcc test1.o test2.o main.o -o main
   ./main
 ## 2. Macro
-- #include
-- #define
-- #undef
+- #include: mang toàn bộ mã nguồn của file được include vào file .i mà không cần viết lại, giúp chương trình dễ quản lý do phân chia thành các module.
+   ```bash
+   #include <stdio.h>
+   #incldue "test1.h"
+- #define: thay thế một đoạn chương trình bị lặp lại, không có kiểu dữ liệu. Việc sử dụng từ khóa #define để định nghĩa thường được gọi là Macro.
+- #undef: để hủy định nghĩa một #define đã được định nghĩa trước đó.
 - #if, #elif, #else
-- #ifdef, #ifndef
+- #ifdef, #ifndef: kiểm tra xem macro này đã được định nghĩa hoặc chưa được định nghĩa(đã được ứng với #ifdef và chưa ứng với #ifndef) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
   
 
