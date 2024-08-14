@@ -160,7 +160,7 @@ Thư viện stdarg.h hỗ trợ viết function với số lượng tham số kh
   
 - va_arg(va, type): lấy giá trị của tham số tiếp theo từ chuỗi va và ép kiểu nó sang kiểu dữ liệu được chỉ định. Khi gọi hàm va_arg(va, type) thì nó đọc giá trị tại ô phía sau va_start và trỏ tới ô tiếp theo.
 
-- va_end(va_list ap): Kết thúc việc sử dụng danh sách đối số biến đổi.
+- va_end(va_list ap): kết thúc việc sử dụng danh sách đối số biến đổi, giải phóng bộ nhớ.
 
 Ví dụ nhập vào 5 tham số:
   ```bash
@@ -194,5 +194,45 @@ Output:
   Value at 3: 10
   Value at 4: 13
   ```
+## 2. Thư viện ASSERT
+Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
+- Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
+
+Code mẫu báo lỗi chia cho 0: 
+  ```bash
+  #include <stdio.h>
+  #include <assert.h>
+  
+  double thuong(int a, int b){
+      assert( b != 0 && "Mẫu bằng 0");
+      return (double) a/b;
+  }
+  
+  int main(int argc, char const*argv[])
+  {
+      printf("Thuong: %f\n", thuong(6, 0)); 
+      return 0;
+  }
+  ```
+Báo lỗi như sau:
+  ```bash
+  Assertion failed: b != 0 && "Mẫu bằng 0", file tempCodeRunnerFile.c, line 5
+  ```
+- Thường thấy hơn sẽ sử dụng macro để định nghĩa một lỗi.
+  ```bash
+  #include <stdio.h>
+  #include <assert.h>
+  #define LOG(condition, cmd) assert(condition && #cmd)
+  
+  double thuong(int a, int b){
+      LOG(b != 0, "Mau bang bang 0");
+  }
+  
+  int main(int argc, char const *argv[])
+  {
+      thuong(6,0);
+      return 0;
+  }
+  ```
 
