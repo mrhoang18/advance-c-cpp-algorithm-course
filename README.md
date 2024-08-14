@@ -1,4 +1,4 @@
-# Bài 1: COMPILER - MACRO
+# Bài 1: COMPILER-MACRO
 ## 1. Compiler-Biên dịch một chương trình C/C++
 IDE-Integrated Development Environment là môi trường để viết code hỗ trợ các tính năng như Compiler, Debugger. 
 
@@ -106,8 +106,8 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   ```bash
   #include <stdio.h>
   
-  #define DISPLAY_SUM(a,b)	                     \
-  printf("This is macro to sum 2 number\n");	    \
+  #define DISPLAY_SUM(a,b)                        \
+  printf("This is macro to sum 2 number\n");      \
   printf("Result is: %d", a+b);
   
   int main() {
@@ -115,4 +115,38 @@ Quá trình biên dịch gồm các giai đoạn như sau:
       return 0;
   }
 - Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong main(), programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
+### 2.1. Toán tử trong macro
+- Toán tử #: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
+- Toán tử ##: nối các chuỗi lại với nhau.
+```bash
+  #include <stdio.h>
+  
+  // Sử dụng toán tử tự chuẩn hóa 
+  #define CREATE_FUNC(func, cmd)  \
+  void func() {                   \
+      printf(#cmd);               \
+      printf("\n");               \
+  }
+  
+  // Sử dụng toán tử nối chuỗi
+  #define CREATE_VAR(name)        \
+  int int_##name;                 
+  
+  CREATE_FUNC (test1, this is function test1); 
+  CREATE_VAR(test);
+  
+  int main() {
+      return 0;
+  }
+```
+Kết quả trong file .i:
+```bash
+void test1() { printf("this is function test1"); printf("\n"); };
+int int_test;
+```
+### 2.1. Variadic macro
+Là loại macro có thể chấp nhận một số lượng tham số không cố định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
+
+# Bài 2: STDARG-ASSERT
+
 
