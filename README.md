@@ -247,4 +247,89 @@ Báo lỗi như sau:
       return 0;
   }
   ```
+# Bài 3: POINTER
+## 1.Pointer
+Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
+
+**Cách khai báo con trỏ:**
+   ```bash
+  int   *ptr;        // con trỏ đến kiểu int
+  char  *ptr_char;   // con trỏ đến kiểu char
+  float *ptr_float;  // con trỏ đến kiểu float
+  ```
+**Các sử dụng con trỏ:**
+   ```bash
+  #include <stdio.h>
+  
+  int a = 10;
+  int *ptr = &a;                 // toán tử lấy địa chỉ &
+  int *ptr1 = (int*)0x01101010;  // phải ép kiểu khi gán trực tiếp cho địa chỉ
+  
+  int main(int argc, char const*argv[]){
+      printf("Dia chi a: %p\n", &a);
+      printf("Gia tri ptr: %p\n", ptr); 
+      printf("Gia tri ptr: %p\n", ptr1); 
+      return 0;
+  }
+  ```
+**Output từ Terminal:**
+  ```bash
+  > Dia chi a: 00007FF7960F3000  
+  > Gia tri ptr: 00007FF7960F3000
+  > Gia tri ptr: 0000000001101010
+  ```
+## 2.Function pointer
+Pointer to function (con trỏ hàm) là một biến mà giữ địa chỉ của một hàm.
+
+**Cách khai báo con trỏ hàm:**
+  ```bash
+  void (*ptr)(int, double);  
+  ```
+  - Con trỏ ptr trỏ đến hàm kiểu trả về là `void`, tham số truyền vào là kiểu `int` và `double`.
+  - Tất cả các hàm nào có cùng cú pháp như thế này, con trỏ đều trỏ đến được.
+    
+**Cách sử dụng con trỏ hàm:**
+  ```bash
+  #include <stdio.h>
+  #include <assert.h>
+  
+  void chao() {
+      printf("Hello!\n");
+  }
+  
+  void thuong(int a, int b) {
+      assert(b != 0);
+      printf("Thuong %d va %d: %d\n", a, b, (double)a / b);
+  }
+  
+  int main(int argc, char const *argv[])
+  {
+      // Khai báo con trỏ hàm
+      void (*ptr0)();
+      void (*ptr1)(int, int);
+  
+      // Gán địa chỉ của hàm cho con trỏ hàm
+      ptr0 = chao;
+      ptr1 = &thuong;
+  
+      // Gọi hàm ra
+      ptr0();
+      ptr1(8, 2);
+
+      // Gọi hàm ra
+      (*ptr0)();
+      (*ptr1)(8, 2);
+  
+      return 0;
+  }
+  ```
+**Output từ Terminal:**
+  ```bash
+  > Hello!
+  > Thuong 8 va 2: 0
+  > Hello!
+  > Thuong 8 va 2: 0
+  ```
+
+
 
