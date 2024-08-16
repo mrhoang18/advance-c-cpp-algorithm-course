@@ -118,7 +118,7 @@ Macro function là khi đoạn chương trình #define là một hàm có tham s
   }
   ```
 - Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong main(), programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
-### 2.1. Toán tử trong macro
+### 2.2. Toán tử trong macro
 Toán tử #: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
 
 Toán tử ##: nối các chuỗi lại với nhau.
@@ -148,7 +148,7 @@ Kết quả trong file .i:
 void test1() { printf("this is function test1"); printf("\n"); };
 int int_test;
 ```
-### 2.1. Variadic macro
+### 2.3. Variadic macro
 Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
 ```bash
 #include <stdio.h>
@@ -248,7 +248,7 @@ Báo lỗi như sau:
   }
   ```
 # Bài 3: POINTER
-## 1.Pointer
+## 1. Pointer
 Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
 
 **Cách khai báo con trỏ:**
@@ -278,14 +278,14 @@ Con trỏ (pointer) là một biến chứa địa chỉ của một đối tư�
   > Gia tri ptr: 00007FF7960F3000
   > Gia tri ptr: 0000000001101010
   ```
-## 2.Function pointer
+## 2. Function pointer
 Pointer to function (con trỏ hàm) là một biến mà giữ địa chỉ của một hàm.
 
-**Cách khai báo con trỏ hàm:**
+  **Cách khai báo con trỏ hàm:**
   ```bash
   void (*ptr)(int, double);  
   ```
-  - Con trỏ ptr trỏ đến hàm kiểu trả về là `void`, tham số truyền vào là kiểu `int` và `double`.
+  - Con trỏ ptr trỏ đến hàm kiểu trả về là `void`(ngoài ra còn có thể là `int`,...) , tham số truyền vào là kiểu `int` và `double`.
   - Tất cả các hàm nào có cùng cú pháp như thế này, con trỏ đều trỏ đến được.
     
 **Cách sử dụng con trỏ hàm:**
@@ -330,6 +330,131 @@ Pointer to function (con trỏ hàm) là một biến mà giữ địa chỉ c�
   > Hello!
   > Thuong 8 va 2: 0
   ```
+**Cách sử dụng mảng lưu địa chỉ nhiều con trỏ hàm:**
+  ```bash
+  #include <stdio.h>
+  #include <assert.h>
+  
+  void tong(int a, int b) {
+      printf("Tong %d va %d: %d\n", a, b, a + b);
+  }
+  
+  void hieu(int a, int b) {
+      printf("Hieu %d va %d: %d\n", a, b, a - b);
+  }
+  
+  void tich(int a, int b) {
+      printf("Tich %d va %d: %d\n", a, b, a * b);
+  }
+  
+  void thuong(int a, int b) {
+      assert(b != 0);
+      printf("Thuong %d va %d: %d\n", a, b, a / b);
+  }
+  
+  int main(int argc, char const *argv[])
+  {
+      // Khai báo con trỏ hàm
+      void (*array[])(int, int)={&tong,&hieu,&tich,&thuong};
+      //void (*array[4])(int, int)={&tong,&hieu,&tich,&thuong};
+  
+      // Tính
+      array[0](1,1);
+      array[1](1,1);
+      return 0;
+  }
+  ```
+**Output từ Terminal:**
+  ```bash
+  > Tong 1 va 1: 2
+  > Hieu 1 va 1: 0
+  ```
+**ỨNG DỤNG CON TRỎ HÀM: Tham số truyền vào hàm là một hàm khác.**
+  ```bash
+  #include <stdio.h>
+  #include <assert.h>
+  
+  void tong(int a, int b) {
+      printf("Tong %d va %d: %d\n", a, b, a + b);
+  }
+  
+  void tinhToan(void (*ptr)(int, int), int a, int b) {
+      printf("Thuc hien phep toan duoi:\n");
+      ptr(a, b);
+  }
+  
+  int main(int argc, char const *argv[])
+  {
+      // Gọi hàm
+      tinhToan(&tong, 5, 3);
+      return 0;
+  }
+  ```
+## 2. Void pointer
+Void pointer (con trỏ void) là một con trỏ có thể trỏ đến bất kỳ kiểu dữ liệu nào. 
 
+Khi in ra giá trị được void point trỏ đến, do nó không biết kiểu dữ liệu của giá trị được trỏ đến nên phải ép kiểu con trỏ void thành con trỏ kiểu đó trước rồi mới giải tham chiếu (Vd: `*(int*)ptr`).
+  
+**Cách sử dụng con trỏ void:**
+  ```bash
+  #include <stdio.h>
+  
+  void tong(int a, int b) {
+      printf("Tong cua %d va %d la: %d\n", a, b, a + b);
+  }
+  
+  int main() {
+      int a = 10;
+      double b = 20.5;
+      char c = 'X';
+  
+      void *ptr;
+  
+      // Trỏ đến biến kiểu int
+      ptr = &a;
+      printf("Gia tri cua a = %d\n", *(int*)ptr);       // Ép kiểu và giải tham chiếu
+  
+      // Trỏ đến biến kiểu double
+      ptr = &b;
+      printf("Gia tri cua b = %.2f\n", *(double*)ptr);  // Ép kiểu và giải tham chiếu
+  
+      // Trỏ đến biến kiểu char
+      ptr = &c;
+      printf("Gia tri cua c = %c\n", *(char*)ptr);      // Ép kiểu và giải tham chiếu
 
+      // Trỏ đến hàm
+      ptr = &tong;
+      ((void (*)(int, int))ptr)(9, 3);                  // Ép kiểu về con trỏ hàm
+  
+      return 0;
+  }
+  ```
+**Output từ Terminal:**
+  ```bash
+  > Gia tri cua a = 10
+  > Gia tri cua b = 20.50
+  > Gia tri cua c = X
+  > Tong cua 9 va 3 la: 12
+  ```
+## 3. NULL pointer
+Null Pointer là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
+**Cách khai báo con trỏ NULL:**
+  ```bash
+  int *ptr = NULL;
+   ```
+## 4. Pointer to Constant
+Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa chỉ ra nhưng không được phép dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
+
+**Cách khai báo:**
+  ```bash
+  int const *ptr_const; 
+  const int *ptr_const;
+  ```
+## 5. Constant Pointer
+Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chiếu `*` truy cập tới địa chỉ của nó để thay đổi giá trị.
+**Cách khai báo:**
+  ```bash
+  int *const const_ptr = &value;
+  ```
+## 5. Pointer to Pointer
 
