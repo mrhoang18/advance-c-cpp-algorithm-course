@@ -200,7 +200,7 @@ int main() {
 <details><summary>Chi tiết</summary>
 <p>
   
-## Thư viện STDARG
+## 1. Thư viện STDARG
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - va_list va: va_list là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là va. (Bản chất nó giống như con trỏ lưu kiểu dữ liệu: typedef char* va_list;).
 
@@ -242,7 +242,7 @@ Output:
   Value at 3: 10
   Value at 4: 13
   ```
-## Thư viện ASSERT
+## 2. Thư viện ASSERT
 Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
 - Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
@@ -290,7 +290,7 @@ Báo lỗi như sau:
 <details><summary>Chi tiết</summary>
 <p>
   
-## Định nghĩa con trỏ
+## 1. Định nghĩa con trỏ
 <details><summary>Chi tiết</summary>
 <p>
   
@@ -326,7 +326,7 @@ Con trỏ (pointer) là một biến chứa địa chỉ của một đối tư�
 </p>
 </details>
 
-## Các kiểu con trỏ
+## 2. Các kiểu con trỏ
 ### Function pointer (Con trỏ hàm)
 <details><summary>Chi tiết</summary>
 <p>
