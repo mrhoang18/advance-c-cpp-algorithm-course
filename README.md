@@ -38,7 +38,7 @@ Quá trình biên dịch gồm các giai đoạn như sau:
 <details><summary>Chi tiết</summary>
 <p>
   
-### 2.1. Các chỉ thị tiền xử lý
+### 1. Các chỉ thị tiền xử lý
 Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền xử lý để xử lý những thông tin trước khi bắt đầu quá trình biên dịch. Các chỉ thị tiền xử lý bắt đầu với #:
 - #include: mang toàn bộ mã nguồn của file được include vào file .i mà không cần viết lại, giúp chương trình dễ quản lý do phân chia thành các module.
    ```bash
@@ -105,7 +105,7 @@ Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền x
   
       return 0;
   }
-### 2.1. Macro function
+### 2. Macro function
 Macro function là khi đoạn chương trình #define là một hàm có tham số truyền vào. Nếu macro function có nhiều dòng thì cuối các dòng kết thúc bằng kí tự \ và dòng cuối cùng không cần.
   ```bash
   #include <stdio.h>
@@ -120,7 +120,7 @@ Macro function là khi đoạn chương trình #define là một hàm có tham s
   }
   ```
 - Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong main(), programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
-### 2.2. Toán tử trong macro
+### 3. Toán tử trong macro
 Toán tử #: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
 
 Toán tử ##: nối các chuỗi lại với nhau.
@@ -150,7 +150,7 @@ Kết quả trong file .i:
 void test1() { printf("this is function test1"); printf("\n"); };
 int int_test;
 ```
-### 2.3. Variadic macro
+### 4. Variadic macro
 Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
 ```bash
 #include <stdio.h>
