@@ -1,5 +1,10 @@
-# Bài 1: COMPILER-MACRO
-## 1. Compiler-biên dịch một chương trình C/C++
+# COMPILER-MACRO
+<details><summary>Chi tiết</summary>
+<p>
+  
+## Compiler
+<details><summary>Chi tiết</summary>
+<p>
 IDE-Integrated Development Environment là môi trường để viết code hỗ trợ các tính năng như Compiler, Debugger. 
 
 Text Editor là một trình soạn thảo (Ví dụ: Notepad++, VScode,...) không tích hợp sẵn trình biên dịch, muốn chạy được code phải dùng riêng Compiler bên ngoài với C/C++ thường là GCC/G++. 
@@ -35,7 +40,13 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   gcc test1.o test2.o main.o -o main
   ./main
   ```
-## 2. Macro
+</p>
+</details>
+
+## Macro
+<details><summary>Chi tiết</summary>
+<p>
+  
 ### 2.1. Các chỉ thị tiền xử lý
 Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền xử lý để xử lý những thông tin trước khi bắt đầu quá trình biên dịch. Các chỉ thị tiền xử lý bắt đầu với #:
 - #include: mang toàn bộ mã nguồn của file được include vào file .i mà không cần viết lại, giúp chương trình dễ quản lý do phân chia thành các module.
@@ -163,7 +174,15 @@ int main() {
     return 0;
 }
 ```
+</p>
+</details>
+
+</p>
+</details>
+
 # Bài 2: STDARG-ASSERT
+<details><summary>Chi tiết</summary>
+<p>
 ## 1. Thư viện STDARG
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - va_list va: va_list là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là va. (Bản chất nó giống như con trỏ lưu kiểu dữ liệu: typedef char* va_list;).
@@ -247,7 +266,12 @@ Báo lỗi như sau:
       return 0;
   }
   ```
+</p>
+</details>
+
 # Bài 3: POINTER
+<details><summary>Chi tiết</summary>
+<p>
 ## 1. Pointer
 Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
 
@@ -458,3 +482,5 @@ Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chi�
   ```
 ## 5. Pointer to Pointer
 
+</p>
+</details>
