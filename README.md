@@ -35,10 +35,9 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   ./main
   ```
 ## Macro
-<details><summary>Chi tiết</summary>
-<p>
-  
 ### 1. Các chỉ thị tiền xử lý
+<details><summary></summary>
+<p>
 Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền xử lý để xử lý những thông tin trước khi bắt đầu quá trình biên dịch. Các chỉ thị tiền xử lý bắt đầu với #:
 - #include: mang toàn bộ mã nguồn của file được include vào file .i mà không cần viết lại, giúp chương trình dễ quản lý do phân chia thành các module.
    ```bash
@@ -105,8 +104,15 @@ Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền x
   
       return 0;
   }
+  ```
+</p>
+</details>
+
 ### 2. Macro function
+<details><summary></summary>
+<p>
 Macro function là khi đoạn chương trình #define là một hàm có tham số truyền vào. Nếu macro function có nhiều dòng thì cuối các dòng kết thúc bằng kí tự \ và dòng cuối cùng không cần.
+  
   ```bash
   #include <stdio.h>
   
@@ -120,7 +126,13 @@ Macro function là khi đoạn chương trình #define là một hàm có tham s
   }
   ```
 - Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong main(), programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
+
+</p>
+</details>
+
 ### 3. Toán tử trong macro
+<details><summary></summary>
+<p>
 Toán tử #: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
 
 Toán tử ##: nối các chuỗi lại với nhau.
@@ -150,8 +162,14 @@ Kết quả trong file .i:
 void test1() { printf("this is function test1"); printf("\n"); };
 int int_test;
 ```
+</p>
+</details>
+
 ### 4. Variadic macro
+<details><summary></summary>
+<p>
 Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
+  
 ```bash
 #include <stdio.h>
 
@@ -165,15 +183,14 @@ int main() {
     return 0;
 }
 ```
-</p>
-</details>
 
 </p>
 </details>
 
-# Bài 2: STDARG-ASSERT
-<details><summary>Chi tiết</summary>
-<p>
+</p>
+</details>
+
+# STDARG-ASSERT
 ## 1. Thư viện STDARG
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - va_list va: va_list là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là va. (Bản chất nó giống như con trỏ lưu kiểu dữ liệu: typedef char* va_list;).
