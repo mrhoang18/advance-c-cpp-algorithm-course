@@ -2,7 +2,10 @@
 <details><summary>Chi tiết</summary>
 <p>
   
-## Compiler
+## 1. Compiler
+<details><summary>Chi tiết</summary>
+<p>
+  
 Compiler (trình biên dịch) là chương trình có nhiệm vụ xử lý chương trình ngôn ngữ bậc cao (C/C++, Python,...) thành ngôn ngữ bậc thấp hơn để máy tính thực thi (thường là ngôn ngữ máy).
 
 Quá trình biên dịch gồm các giai đoạn như sau:
@@ -34,7 +37,10 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   gcc test1.o test2.o main.o -o main
   ./main
   ```
-## Macro
+</p>
+</details>
+
+## 2. Macro
 ### Các chỉ thị tiền xử lý
 <details><summary></summary>
 <p>
