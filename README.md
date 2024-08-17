@@ -3,12 +3,6 @@
 <p>
   
 ## Compiler
-<details><summary>Chi tiết</summary>
-<p>
-IDE-Integrated Development Environment là môi trường để viết code hỗ trợ các tính năng như Compiler, Debugger. 
-
-Text Editor là một trình soạn thảo (Ví dụ: Notepad++, VScode,...) không tích hợp sẵn trình biên dịch, muốn chạy được code phải dùng riêng Compiler bên ngoài với C/C++ thường là GCC/G++. 
-
 Compiler (trình biên dịch) là chương trình có nhiệm vụ xử lý chương trình ngôn ngữ bậc cao (C/C++, Python,...) thành ngôn ngữ bậc thấp hơn để máy tính thực thi (thường là ngôn ngữ máy).
 
 Quá trình biên dịch gồm các giai đoạn như sau:
@@ -40,9 +34,6 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   gcc test1.o test2.o main.o -o main
   ./main
   ```
-</p>
-</details>
-
 ## Macro
 <details><summary>Chi tiết</summary>
 <p>
