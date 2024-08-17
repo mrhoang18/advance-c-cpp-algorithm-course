@@ -35,7 +35,7 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   ./main
   ```
 ## Macro
-### 1. Các chỉ thị tiền xử lý
+### Các chỉ thị tiền xử lý
 <details><summary></summary>
 <p>
 Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền xử lý để xử lý những thông tin trước khi bắt đầu quá trình biên dịch. Các chỉ thị tiền xử lý bắt đầu với #:
@@ -108,7 +108,7 @@ Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền x
 </p>
 </details>
 
-### 2. Macro function
+### Macro function
 <details><summary></summary>
 <p>
 Macro function là khi đoạn chương trình #define là một hàm có tham số truyền vào. Nếu macro function có nhiều dòng thì cuối các dòng kết thúc bằng kí tự \ và dòng cuối cùng không cần.
@@ -130,7 +130,7 @@ Macro function là khi đoạn chương trình #define là một hàm có tham s
 </p>
 </details>
 
-### 3. Toán tử trong macro
+### Toán tử trong macro
 <details><summary></summary>
 <p>
 Toán tử #: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
@@ -165,7 +165,7 @@ int int_test;
 </p>
 </details>
 
-### 4. Variadic macro
+### Variadic macro
 <details><summary></summary>
 <p>
 Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
@@ -191,6 +191,8 @@ int main() {
 </details>
 
 # STDARG-ASSERT
+<details><summary>Chi tiết</summary>
+<p>
 ## 1. Thư viện STDARG
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - va_list va: va_list là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là va. (Bản chất nó giống như con trỏ lưu kiểu dữ liệu: typedef char* va_list;).
@@ -277,9 +279,10 @@ Báo lỗi như sau:
 </p>
 </details>
 
-# Bài 3: POINTER
+# POINTER
 <details><summary>Chi tiết</summary>
 <p>
+  
 ## 1. Pointer
 Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
 
