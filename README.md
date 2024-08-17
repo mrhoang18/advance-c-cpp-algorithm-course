@@ -296,13 +296,13 @@ Báo lỗi như sau:
   
 Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
 
-**Cách khai báo con trỏ:**
+**Cú pháp:**
    ```bash
-  int   *ptr;        // con trỏ đến kiểu int
-  char  *ptr_char;   // con trỏ đến kiểu char
-  float *ptr_float;  // con trỏ đến kiểu float
+  int   *ptr;        // con trỏ kiểu int
+  char  *ptr_char;   // con trỏ kiểu char
+  float *ptr_float;  // con trỏ kiểu float
   ```
-**Các sử dụng con trỏ:**
+**Ví dụ:**
    ```bash
   #include <stdio.h>
   
@@ -313,15 +313,37 @@ Con trỏ (pointer) là một biến chứa địa chỉ của một đối tư�
   int main(int argc, char const*argv[]){
       printf("Dia chi a: %p\n", &a);
       printf("Gia tri ptr: %p\n", ptr); 
-      printf("Gia tri ptr: %p\n", ptr1); 
+      printf("Gia tri ptr1: %p\n", ptr1); 
       return 0;
   }
   ```
-**Output từ Terminal:**
+**Kết quả:**
   ```bash
   > Dia chi a: 00007FF7960F3000  
   > Gia tri ptr: 00007FF7960F3000
-  > Gia tri ptr: 0000000001101010
+  > Gia tri ptr1: 0000000001101010
+  ```
+**Kích thước của con trỏ phụ thuộc vào kiến trúc vi xử lý.**
+
+Hệ thống 32 – bit, kích thước của con trỏ là 4 byte.
+
+Hệ thống 64 – bit, kích thước của con trỏ là 8 byte.
+
+  ```bash
+  #include <stdio.h>
+  #include <stdbool.h>
+  
+  int main(int argc, char const *argv[]){
+      printf("%d bytes\n", sizeof(int *));              // 8bytes
+      printf("%d bytes\n", sizeof(char *));             // 8bytes
+      printf("%d bytes\n", sizeof(float *));            // 8bytes
+      printf("%d bytes\n", sizeof(double *));           // 8bytes
+      printf("%d bytes\n", sizeof(long *));             // 8bytes
+      printf("%d bytes\n", sizeof(short *));            // 8bytes
+      printf("%d bytes\n", sizeof(long long *));        // 8bytes
+      printf("%d bytes\n", sizeof(bool *));             // 8bytes
+      return 0;
+  }
   ```
 </p>
 </details>
@@ -331,16 +353,16 @@ Con trỏ (pointer) là một biến chứa địa chỉ của một đối tư�
 <details><summary>Chi tiết</summary>
 <p>
   
-Pointer to function là một biến mà giữ địa chỉ của một hàm.
+Con trỏ hàm là một biến giữ địa chỉ của hàm.
 
-  **Cách khai báo con trỏ hàm:**
+**Cú pháp:**
   ```bash
   void (*ptr)(int, double);  
   ```
-  - Con trỏ ptr trỏ đến hàm kiểu trả về là `void`(ngoài ra còn có thể là `int`,...) , tham số truyền vào là kiểu `int` và `double`.
-  - Tất cả các hàm nào có cùng cú pháp như thế này, con trỏ đều trỏ đến được.
+  - Con trỏ ptr trỏ đến hàm kiểu trả về là `void` (ngoài ra còn có thể là `int`,...), tham số truyền vào là kiểu `int` và `double`.
+  - Các hàm nào có cùng cú pháp trong cùng một chương trình, con trỏ đều trỏ đến được.
     
-**Cách sử dụng con trỏ hàm:**
+**Ví dụ:**
   ```bash
   #include <stdio.h>
   #include <assert.h>
@@ -349,20 +371,19 @@ Pointer to function là một biến mà giữ địa chỉ của một hàm.
       printf("Hello!\n");
   }
   
-  void thuong(int a, int b) {
+  void chia(int a, int b) {
       assert(b != 0);
-      printf("Thuong %d va %d: %d\n", a, b, (double)a / b);
+      printf("Thuong %d va %d: %f\n", a, b, (double)a / (double)b);
   }
   
-  int main(int argc, char const *argv[])
-  {
+  int main(int argc, char const *argv[]){
       // Khai báo con trỏ hàm
       void (*ptr0)();
       void (*ptr1)(int, int);
   
       // Gán địa chỉ của hàm cho con trỏ hàm
       ptr0 = chao;
-      ptr1 = &thuong;
+      ptr1 = &chia;
   
       // Gọi hàm ra
       ptr0();
@@ -375,14 +396,14 @@ Pointer to function là một biến mà giữ địa chỉ của một hàm.
       return 0;
   }
   ```
-**Output từ Terminal:**
+**Kết quả:**
   ```bash
   > Hello!
-  > Thuong 8 va 2: 0
+  > Thuong 8 va 2: 4.000000
   > Hello!
-  > Thuong 8 va 2: 0
+  > Thuong 8 va 2: 4.000000
   ```
-**Cách sử dụng mảng lưu địa chỉ nhiều con trỏ hàm:**
+**Ví dụ sử dụng mảng lưu địa chỉ nhiều con trỏ hàm:**
   ```bash
   #include <stdio.h>
   #include <assert.h>
@@ -404,8 +425,7 @@ Pointer to function là một biến mà giữ địa chỉ của một hàm.
       printf("Thuong %d va %d: %d\n", a, b, a / b);
   }
   
-  int main(int argc, char const *argv[])
-  {
+  int main(int argc, char const *argv[]){
       // Khai báo con trỏ hàm
       void (*array[])(int, int)={&tong,&hieu,&tich,&thuong};
       //void (*array[4])(int, int)={&tong,&hieu,&tich,&thuong};
@@ -416,7 +436,7 @@ Pointer to function là một biến mà giữ địa chỉ của một hàm.
       return 0;
   }
   ```
-**Output từ Terminal:**
+**Kết quả:**
   ```bash
   > Tong 1 va 1: 2
   > Hieu 1 va 1: 0
@@ -435,8 +455,7 @@ Pointer to function là một biến mà giữ địa chỉ của một hàm.
       ptr(a, b);
   }
   
-  int main(int argc, char const *argv[])
-  {
+  int main(int argc, char const *argv[]){
       // Gọi hàm
       tinhToan(&tong, 5, 3);
       return 0;
@@ -451,9 +470,14 @@ Pointer to function là một biến mà giữ địa chỉ của một hàm.
 
 Void pointer là một con trỏ có thể trỏ đến bất kỳ kiểu dữ liệu nào. 
 
+**Cú pháp:**
+  ```bash
+  void *ptr; 
+  ```
+
 Khi in ra giá trị được void point trỏ đến, do nó không biết kiểu dữ liệu của giá trị được trỏ đến nên phải ép kiểu con trỏ void thành con trỏ kiểu đó trước rồi mới giải tham chiếu (Vd: `*(int*)ptr`).
   
-**Cách sử dụng con trỏ void:**
+**Ví dụ:**
   ```bash
   #include <stdio.h>
   
@@ -461,7 +485,7 @@ Khi in ra giá trị được void point trỏ đến, do nó không biết ki�
       printf("Tong cua %d va %d la: %d\n", a, b, a + b);
   }
   
-  int main() {
+  int main(int argc, char const *argv[]) {
       int a = 10;
       double b = 20.5;
       char c = 'X';
@@ -487,7 +511,7 @@ Khi in ra giá trị được void point trỏ đến, do nó không biết ki�
       return 0;
   }
   ```
-**Output từ Terminal:**
+**Kết quả:**
   ```bash
   > Gia tri cua a = 10
   > Gia tri cua b = 20.50
@@ -502,7 +526,7 @@ Khi in ra giá trị được void point trỏ đến, do nó không biết ki�
 <p>
 
 NULL Pointer là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
-**Cách khai báo con trỏ NULL:**
+**Cú pháp:**
   ```bash
   int *ptr = NULL;
    ```
@@ -515,7 +539,7 @@ NULL Pointer là một con trỏ không trỏ đến đối tượng nào hết.
 
 Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa chỉ ra nhưng không được phép dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
 
-**Cách khai báo:**
+**Cú pháp:**
   ```bash
   int const *ptr_const; 
   const int *ptr_const;
@@ -528,7 +552,7 @@ Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa ch�
 <p>
 
 Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chiếu `*` truy cập tới địa chỉ của nó để thay đổi giá trị.
-**Cách khai báo:**
+**Cú pháp:**
   ```bash
   int *const const_ptr = &value;
   ```
@@ -538,6 +562,9 @@ Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chi�
 ### Pointer to pointer (Con trỏ trỏ đến con trỏ)
 <details><summary>Chi tiết</summary>
 <p>
+
+**Cú pháp:**
+
 </p>
 </details>
 
