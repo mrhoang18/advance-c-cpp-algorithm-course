@@ -193,7 +193,8 @@ int main() {
 # STDARG-ASSERT
 <details><summary>Chi tiết</summary>
 <p>
-## 1. Thư viện STDARG
+  
+## Thư viện STDARG
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - va_list va: va_list là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là va. (Bản chất nó giống như con trỏ lưu kiểu dữ liệu: typedef char* va_list;).
 
@@ -235,7 +236,7 @@ Output:
   Value at 3: 10
   Value at 4: 13
   ```
-## 2. Thư viện ASSERT
+## Thư viện ASSERT
 Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
 - Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
@@ -283,7 +284,7 @@ Báo lỗi như sau:
 <details><summary>Chi tiết</summary>
 <p>
   
-## 1. Pointer
+## Pointer
 Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
 
 **Cách khai báo con trỏ:**
@@ -313,7 +314,7 @@ Con trỏ (pointer) là một biến chứa địa chỉ của một đối tư�
   > Gia tri ptr: 00007FF7960F3000
   > Gia tri ptr: 0000000001101010
   ```
-## 2. Function pointer
+## Function pointer
 Pointer to function (con trỏ hàm) là một biến mà giữ địa chỉ của một hàm.
 
   **Cách khai báo con trỏ hàm:**
@@ -425,7 +426,7 @@ Pointer to function (con trỏ hàm) là một biến mà giữ địa chỉ c�
       return 0;
   }
   ```
-## 2. Void pointer
+## Void pointer
 Void pointer (con trỏ void) là một con trỏ có thể trỏ đến bất kỳ kiểu dữ liệu nào. 
 
 Khi in ra giá trị được void point trỏ đến, do nó không biết kiểu dữ liệu của giá trị được trỏ đến nên phải ép kiểu con trỏ void thành con trỏ kiểu đó trước rồi mới giải tham chiếu (Vd: `*(int*)ptr`).
@@ -471,13 +472,13 @@ Khi in ra giá trị được void point trỏ đến, do nó không biết ki�
   > Gia tri cua c = X
   > Tong cua 9 va 3 la: 12
   ```
-## 3. NULL pointer
+## NULL pointer
 Null Pointer là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
 **Cách khai báo con trỏ NULL:**
   ```bash
   int *ptr = NULL;
    ```
-## 4. Pointer to Constant
+## Pointer to Constant
 Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa chỉ ra nhưng không được phép dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
 
 **Cách khai báo:**
@@ -485,13 +486,13 @@ Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa ch�
   int const *ptr_const; 
   const int *ptr_const;
   ```
-## 5. Constant Pointer
+## Constant Pointer
 Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chiếu `*` truy cập tới địa chỉ của nó để thay đổi giá trị.
 **Cách khai báo:**
   ```bash
   int *const const_ptr = &value;
   ```
-## 5. Pointer to Pointer
+## Pointer to Pointer
 
 </p>
 </details>
