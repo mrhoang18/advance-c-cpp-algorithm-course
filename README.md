@@ -526,6 +526,7 @@ Khi in ra giá trị được void point trỏ đến, do nó không biết ki�
 <p>
 
 NULL Pointer là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
+
 **Cú pháp:**
   ```bash
   int *ptr = NULL;
@@ -552,6 +553,7 @@ Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa ch�
 <p>
 
 Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chiếu `*` truy cập tới địa chỉ của nó để thay đổi giá trị.
+
 **Cú pháp:**
   ```bash
   int *const const_ptr = &value;
