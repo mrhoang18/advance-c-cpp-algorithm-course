@@ -62,6 +62,22 @@ Cụ thể:
   - `sizeof(danhSachSV)`: Kích thước toàn bộ mảng `danhSachSV` tính bằng byte.
   - `sizeof(danhSachSV[0]`): Kích thước của một phần tử trong mảng `danhSachSV` (ở đây là một `SinhVien`).
 # Hàm sắp xếp chung
+  ```bash
+  void sort(SinhVien array[], size_t size, int (*compareFunc)(const void *, const void *)) {
+     int i, j;
+     SinhVien temp;
+     for (i = 0; i < size-1; i++)    
+         for (j = i+1; j < size; j++)
+             if (compareFunc(array+i, array+j)>0) {
+                 temp = array[i];
+                 array[i] = array[j];
+                 array[j] = temp;
+             }
+  }
+  ```
+Hàm này sử dụng thuật toán Bubble Sort:
+  - Liên tục so sánh 2 phần tử kề nhau, nếu chúng sắp xếp không đúng chổ thì hoán đổi vị trí của chúng.
+  - Lặp lại quá trình này nhiều lần, cho đến khi không còn hai phần tử cạnh nhau mà vị trí sắp xếp không đúng thì dừng.
 # Hàm so sánh theo tên
 # Hàm so sánh theo điểm trung bình
 # Hàm so sánh theo ID
