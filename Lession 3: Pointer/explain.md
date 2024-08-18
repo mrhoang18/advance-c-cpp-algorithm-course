@@ -100,8 +100,26 @@ Tùy vào kết quả so sánh trả về của hàm tác vụ sẽ quyết đ�
   }
   ```
 Hàm `compareByName` nhận hai tham số truyền vào là địa chỉ của phần tử thứ i và thứ j trong mảng `array[]`.
-Tại vì thông tin của các phần tử chỉ có thể đọc giá trị tại địa chỉ mà nó trỏ đến, không thể thay đổi được giá trị đó nên sử dụng kiểu `con trỏ hằng`.
-    
+
+Vì thông tin của các phần tử chỉ có thể đọc giá trị tại địa chỉ mà nó trỏ đến, không được thay đổi giá trị đó nên sử dụng kiểu `con trỏ hằng`.
+
+Phải ép kiểu biến `a` và `b` từ kiểu `void` thành kiểu `SinhVien` trước khi gán cho biến con trỏ `sv1` và `sv2` kiểu `SinhVien`.
+
+Hàm trả về kết quả so sánh từ hàm `stringCompare`, hàm này nhận hai tham số là địa chỉ biến thành viên `sv1->ten`, `sv2->ten`.
+
+Vì `ten` có kiểu `char` và chỉ được đọc giá trị nên khai báo tham số là kiểu `const char *`:
+  ```bash
+  int stringCompare(const char *str1, const char *str2) {
+     while (*str1 && (*str1 == *str2)) {
+         str1++;
+         str2++;
+     }
+     return *(const unsigned char*)str1 - *(const unsigned char*)str2;
+  }
+  ```
+Vòng lặp `while(*str1 && (*str1 == *str2))` so sánh hai kí tự đầu tiên có giống nhau không:
+  - Nếu giống nhau thì dịch vị sang kí tự tiếp theo để kiểm tra.
+  - Nếu khác nhau thì lấy hiệu giá trị theo bảng mã ASCII để kiểm tra thứ tự alphabet. Phải ép kiểu về const unsigned char* bởi vì tên có thể có dấu sẽ gây sai sót.
 
 # Hàm so sánh theo điểm trung bình
   ```bash
@@ -114,7 +132,7 @@ Tại vì thông tin của các phần tử chỉ có thể đọc giá trị t�
      return 0;
   }
   ```
-
+Hàm `compareByDiemTrungBinh` sắp xếp theo thứ tự điểm tăng dần, cách hoạt động cũng giống như hàm `compareByDiemTrungBinh`.
 # Hàm so sánh theo ID
   ```bash
   int compareByID(const void *a, const void *b) {
@@ -123,4 +141,49 @@ Tại vì thông tin của các phần tử chỉ có thể đọc giá trị t�
      return sv1->id - sv2->id;
   }
   ```
+Hàm `compareByID` cũng tương tự.
+# Hàm so sánh theo ID
+  ```bash
+  void display(SinhVien *array, size_t size) {
+     for (size_t i = 0; i < size; i++) {
+         printf("ID: %d, Ten: %s, Diem Trung Binh: %.2f\n", array[i].id, array[i].ten, array[i].diemTrungBinh);
+     }
+     printf("\n");
+  }
+  ```
+Hàm `display` đơn giản chỉ là in ra các phần tử trong mảng sau khi sắp xếp.
+
+# Những chỗ bất ổn
+  ```bash
+   typedef struct {
+     char ten[50];
+     float diemTrungBinh;
+     int id;                  // sửa
+  } SinhVien;
+  ```
+Vì `id` là số nguyên không âm nên sửa lại kiểu dữ liệu thành `unsigned int` để không lãng phí tài nguyên.
+
+  ```bash
+  int compareByDiemTrungBinh(const void *a, const void *b) {
+     SinhVien *sv1 = (SinhVien *)a;
+     SinhVien *sv2 = (SinhVien *)b;
+     if (sv1->diemTrungBinh > sv2->diemTrungBinh){      // sửa
+         return 1;                                      // sửa
+     }                                                  // sửa
+     return 0;                                          // sửa
+  }
+  ```
+Hàm `compareByDiemTrungBinh` chưa được tối ưu, chỉ vô tình đúng khi sắp xếp điểm tăng dần. 
+
+Sửa lại thành:
+  ```bash
+  // Hàm so sánh theo điểm trung bình
+  int compareByDiemTrungBinh(const void *a, const void *b) {
+     SinhVien *sv1 = (SinhVien *)a;
+     SinhVien *sv2 = (SinhVien *)b;
+    return sv1->diemTrungBinh - sv2->diemTrungBinh;
+  }
+  ```
+
+
 
