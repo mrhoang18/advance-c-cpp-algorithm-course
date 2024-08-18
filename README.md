@@ -525,12 +525,17 @@ Khi in ra giá trị được void point trỏ đến, do nó không biết ki�
 <details><summary>Chi tiết</summary>
 <p>
 
-NULL Pointer là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
+Con trỏ NULL  là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
+
+Khi khai báo con trỏ mà chưa sử dụng ngay hoặc sử dụng xong thì phải gán NULL.
 
 **Cú pháp:**
   ```bash
-  int *ptr = NULL;
-   ```
+  int *ptr_null = NULL;
+  //  ptr_null = 0x00: địa chỉ khởi tạo
+  // *ptr_null = 0   : giá trị tại địa chỉ khởi tạo
+  ```
+
 </p>
 </details>
 
@@ -538,26 +543,66 @@ NULL Pointer là một con trỏ không trỏ đến đối tượng nào hết.
 <details><summary>Chi tiết</summary>
 <p>
 
-Con trỏ hằng là con trỏ chỉ được đọc giá trị tại địa chỉ ra nhưng không được phép dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
+Con trỏ hằng là con trỏ **chỉ có thể đọc giá trị tại địa chỉ mà nó trỏ đến**, nghĩa là không được phép dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
 
 **Cú pháp:**
   ```bash
-  int const *ptr_const; 
-  const int *ptr_const;
+  <data_type> const *ptr_const; 
+  const <data_type> *ptr_const;
   ```
+**Ví dụ**
+  ```bash
+  #include <stdio.h>
+  
+  int value = 10;
+  const int *ptr_const = &value;
+  
+  int main(int argc, char const *argv[]){
+      printf("%p\n", ptr_const);
+      printf("%d\n", *ptr_const);
+
+      // Lỗi: Không được phép thay đổi giá trị của con trỏ hằng!
+      *ptr_const = 20;
+      printf("%d\n", *ptr_const);
+      return 0;
+  }
+  ```
+Kết quả sau khi chạy sẽ gặp lỗi: ```assignment of read-only location '*ptr_const'```
+
 </p>
 </details>
 
 ### Constant pointer (Hằng con trỏ)
 <details><summary>Chi tiết</summary>
 <p>
+  
+Hằng con trỏ là một con trỏ mà **trỏ đến 1 địa chỉ cố định**, nghĩa là khi con trỏ này được khởi tạo thì nó sẽ không thể trỏ tới địa chỉ khác.
 
-Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chiếu `*` truy cập tới địa chỉ của nó để thay đổi giá trị.
+Hằng con trỏ cho phép dùng toán tử giải tham chiếu `*` để thay đổi giá trị.
 
 **Cú pháp:**
   ```bash
-  int *const const_ptr = &value;
+  <data_type> *const const_ptr = &value;
   ```
+**Ví dụ**
+  ```cpp
+  #include <stdio.h>
+  
+  int value1 = 10;
+  int value2 = 20;
+  int *const const_ptr = &value1;
+  
+  int main(int argc, char const *argv[]){
+      printf("%p\n", const_ptr);
+      printf("%d\n", *const_ptr);
+  
+      const_ptr = &value2;
+      printf("%p\n", const_ptr);
+      return 0;
+  }
+  ```
+Kết quả sau khi chạy sẽ gặp lỗi: ```assignment of read-only variable 'const_ptr'```
+
 </p>
 </details>
 
@@ -565,7 +610,54 @@ Hằng con trỏ là con trỏ chỉ cho phép dùng toán tử giải tham chi�
 <details><summary>Chi tiết</summary>
 <p>
 
+Con trỏ đến con trỏ là một kiểu dữ liệu trong ngôn ngữ lập trình cho phép bạn lưu trữ địa chỉ của một con trỏ.
+
+Con trỏ đến con trỏ cung cấp một cấp bậc trỏ mới, cho phép bạn thay đổi giá trị của con trỏ gốc.
+
+Cấp bậc này có thể hữu ích trong nhiều tình huống, đặc biệt là khi bạn làm việc với các hàm cần thay đổi giá trị của con trỏ.
+
 **Cú pháp:**
+  ```bash
+  int **ptp = &p;
+  ```
+**Ví dụ:**
+  ```bash
+  #include <stdio.h>
+  
+  int main() {
+      int value = 42;
+      int *ptr1 = &value;  // Con trỏ thường trỏ đến một biến
+  
+      int **ptr2 = &ptr1;  // Con trỏ đến con trỏ
+  
+      /*
+          **ptr2 = &ptr1
+          ptr2 = &ptr1;
+          *ptr2 = ptr1 = &value;
+          **ptr2 = *ptr1 = value
+      */
+  
+      printf("address of value: %p\n", &value);
+      printf("value of ptr1: %p\n", ptr1);
+  
+      printf("address of ptr1: %p\n", &ptr1);
+      printf("value of ptr2: %p\n", ptr2);
+  
+      printf("dereference ptr2 first time: %p\n", *ptr2);
+      printf("dereference ptr2 second time: %d\n", **ptr2);
+  
+      return 0;
+  }
+  ```
+**Kết quả:**
+  ```bash
+  address of value: 000000E6425FF904
+  value of ptr1: 000000E6425FF904
+  address of ptr1: 000000E6425FF8F8
+  value of ptr2: 000000E6425FF8F8
+  dereference ptr2 first time: 000000E6425FF904
+  dereference ptr2 second time: 42
+  ```
 
 </p>
 </details>
