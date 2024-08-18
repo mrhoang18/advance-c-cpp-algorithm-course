@@ -1,4 +1,4 @@
-### Định nghĩa kiểu dữ liệu có cấu trúc (struct) và đặt tên tắt cho kiểu dữ liệu đó:
+# Định nghĩa kiểu dữ liệu `SinhVien`:
   ```bash
    typedef struct {
      char ten[50];
@@ -6,7 +6,7 @@
      int id;
   } SinhVien;
   ```
-`struct` này là một kiểu dữ liệu tự đinh nghĩa bởi người dùng. Cho phép nhóm các biến có kiểu dữ liệu khác nhau lại với nhau dưới một tên chung.
+`struct` là một kiểu dữ liệu tự đinh nghĩa bởi người dùng. Cho phép nhóm các biến có kiểu dữ liệu khác nhau lại với nhau dưới một tên chung.
 
 Cụ thể, cấu trúc SinhVien đã định nghĩa có ba thành phần:
 
@@ -17,7 +17,7 @@ Cụ thể, cấu trúc SinhVien đã định nghĩa có ba thành phần:
 `typedef` là từ khóa cho phép người dùng thêm tên mới cho kiểu có sẵn. Trong trường hợp này tên mới là `SinhVien` với kiểu `struct`. 
 Nhờ `typedef`, không cần phải viết từ khóa `struct` mỗi khi khai báo. 
 
-### Khởi tạo mảng cấu trúc:
+# Khởi tạo mảng cấu trúc:
   ```bash
   SinhVien danhSachSV[] = {
           {  
@@ -53,7 +53,7 @@ Gán các giá trị cho các thành viên của phần tử trong mảng, ví d
     .id = 100
   }
   ```
-### Tính toán số lượng phần tử trong mảng `danhSachSV`:
+# Tính số lượng phần tử trong mảng `danhSachSV`:
   ```bash
   size_t size = sizeof(danhSachSV) / sizeof(danhSachSV[0]);
   ```
