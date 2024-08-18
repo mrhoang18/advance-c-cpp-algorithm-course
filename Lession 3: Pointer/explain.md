@@ -17,7 +17,7 @@ Cụ thể, cấu trúc SinhVien đã định nghĩa có ba thành phần:
 `typedef` là từ khóa cho phép người dùng thêm tên mới cho kiểu có sẵn. Trong trường hợp này tên mới là `SinhVien` với kiểu `struct`. 
 Nhờ `typedef`, không cần phải viết từ khóa `struct` mỗi khi khai báo. 
 
-# Khởi tạo mảng cấu trúc:
+# Khởi tạo mảng cấu trúc
   ```bash
   SinhVien danhSachSV[] = {
           {  
