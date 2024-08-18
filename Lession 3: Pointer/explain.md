@@ -101,12 +101,14 @@ Hàm này được khởi tạo khi tham số thứ ba truyền vào hàm `sort`
   ```
 Khi đó biến `int (*compareFunc)(const void *, const void *)` giữ địa chỉ của hàm `int compareByName(const void *a, const void *b)`.
 
+Khi  `compareByName` nhận hai tham số truyền vào:
+  - `const void*a`, `const void*b` là **con trỏ hằng** kiểu `void`.
+    
 Và nó được gọi ra trong hàm `sort` ở:
   ```bash
   compareFunc(array+i, array+j);
   ```
-Khi  `compareByName` nhận hai tham số truyền vào:
-  - `const void*a`, `const void*b` là **con trỏ hằng** kiểu `void` (là kiểu trỏ tới bất kỳ địa chỉ nào với bất kỳ kiểu dữ liệu của   giá trị tại địa chỉ đó).
+Với `array+i` và `array+j` là địa chỉ phần tử thứ i và thứ j trong mảng `array[]`
 # Hàm so sánh theo điểm trung bình
 # Hàm so sánh theo ID
 
