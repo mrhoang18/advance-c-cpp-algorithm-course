@@ -33,7 +33,8 @@ Nhờ `typedef`, không cần phải viết từ khóa `struct` mỗi khi khai b
           {
               .ten = "Vy",
               .diemTrungBinh = 6.8,
-              .id = 102},
+              .id = 102
+          },
           {  
               .ten = "Ngan",
               .diemTrungBinh = 5.6,
