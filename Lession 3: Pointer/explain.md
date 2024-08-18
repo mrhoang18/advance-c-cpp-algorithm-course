@@ -61,4 +61,10 @@ Gán các giá trị cho các thành viên của phần tử trong mảng, ví d
 Cụ thể:
   - `sizeof(danhSachSV)`: Kích thước toàn bộ mảng `danhSachSV` tính bằng byte.
   - `sizeof(danhSachSV[0]`): Kích thước của một phần tử trong mảng `danhSachSV` (ở đây là một `SinhVien`).
+# Hàm sắp xếp chung:
+# Hàm so sánh theo tên:
+# Hàm so sánh theo điểm trung bình:
+# Hàm so sánh theo ID:
+
+
 
