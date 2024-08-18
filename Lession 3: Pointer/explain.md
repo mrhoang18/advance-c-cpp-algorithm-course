@@ -90,6 +90,7 @@ Cụ thể, `compareFunc(array+i, array+j)>0` sẽ gọi hàm tác vụ tùy và
   ```
 Với `array+i` và `array+j` là địa chỉ phần tử thứ i và thứ j trong mảng `array[]`.
 
+Tùy vào kết quả so sánh trả về của hàm tác vụ sẽ quyết định có đổi chỗ hai phần tử hay không.
 # Hàm so sánh theo tên
   ```bash
   int compareByName(const void *a, const void *b) {               
@@ -98,11 +99,28 @@ Với `array+i` và `array+j` là địa chỉ phần tử thứ i và thứ j t
      return stringCompare(sv1->ten, sv2->ten);
   }
   ```
-Hàm `compareByName` nhận hai tham số truyền vào: `const void*a`, `const void*b` là **con trỏ hằng** kiểu `void`.
+Hàm `compareByName` nhận hai tham số truyền vào là địa chỉ của phần tử thứ i và thứ j trong mảng `array[]`.
+Tại vì thông tin của các phần tử chỉ có thể đọc giá trị tại địa chỉ mà nó trỏ đến, không thể thay đổi được giá trị đó nên sử dụng kiểu `con trỏ hằng`.
     
 
 # Hàm so sánh theo điểm trung bình
+  ```bash
+  int compareByDiemTrungBinh(const void *a, const void *b) {
+     SinhVien *sv1 = (SinhVien *)a;
+     SinhVien *sv2 = (SinhVien *)b;
+     if (sv1->diemTrungBinh > sv2->diemTrungBinh){
+         return 1;
+     }
+     return 0;
+  }
+  ```
+
 # Hàm so sánh theo ID
-
-
+  ```bash
+  int compareByID(const void *a, const void *b) {
+     SinhVien *sv1 = (SinhVien *)a;                   
+     SinhVien *sv2 = (SinhVien *)b;
+     return sv1->id - sv2->id;
+  }
+  ```
 
