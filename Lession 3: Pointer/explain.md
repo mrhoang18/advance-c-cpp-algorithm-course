@@ -78,6 +78,14 @@ Cụ thể:
 Hàm này sử dụng thuật toán Bubble Sort:
   - Liên tục so sánh 2 phần tử kề nhau, nếu chúng sắp xếp không đúng chổ thì hoán đổi vị trí của chúng.
   - Lặp lại quá trình này nhiều lần, cho đến khi không còn hai phần tử cạnh nhau mà vị trí sắp xếp không đúng thì dừng.
+
+Hàm `sort` nhận ba tham số truyền vào:
+  - `SinhVien array[]`: mảng cần sắp xếp chứa các phần tử có kiểu dữ liệu `SinhVien`.
+  - `size_t size`: số lượng phần tử trong mảng (`size_t` là kiểu không âm và thường được sử dụng để biểu diễn số lượng phần tử trong mảng).
+  - `int (*compareFunc)(const void *, const void *)`: Đây là một **con trỏ hàm** trỏ đến một hàm có kiểu trả về là `int` và nhận vào hai tham số kiểu `const void*`. Hàm này được sử dụng để so sánh hai phần tử trong mảng `array`. Dựa trên kết quả so sánh, hàm `sort` sẽ quyết định xem có cần hoán đổi hai phần tử hay không.
+
+
+
 # Hàm so sánh theo tên
 # Hàm so sánh theo điểm trung bình
 # Hàm so sánh theo ID
