@@ -1,4 +1,4 @@
-# Định nghĩa kiểu dữ liệu `SinhVien`:
+# Định nghĩa kiểu dữ liệu `SinhVien`
   ```bash
    typedef struct {
      char ten[50];
@@ -54,17 +54,17 @@ Gán các giá trị cho các thành viên của phần tử trong mảng, ví d
     .id = 100
   }
   ```
-# Tính số lượng phần tử trong mảng `danhSachSV`:
+# Tính số lượng phần tử trong mảng `danhSachSV`
   ```bash
   size_t size = sizeof(danhSachSV) / sizeof(danhSachSV[0]);
   ```
 Cụ thể:
   - `sizeof(danhSachSV)`: Kích thước toàn bộ mảng `danhSachSV` tính bằng byte.
   - `sizeof(danhSachSV[0]`): Kích thước của một phần tử trong mảng `danhSachSV` (ở đây là một `SinhVien`).
-# Hàm sắp xếp chung:
-# Hàm so sánh theo tên:
-# Hàm so sánh theo điểm trung bình:
-# Hàm so sánh theo ID:
+# Hàm sắp xếp chung
+# Hàm so sánh theo tên
+# Hàm so sánh theo điểm trung bình
+# Hàm so sánh theo ID
 
 
 
