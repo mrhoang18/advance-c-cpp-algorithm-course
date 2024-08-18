@@ -84,7 +84,7 @@ Hàm này sử dụng thuật toán Bubble Sort:
   - Liên tục so sánh 2 phần tử kề nhau, nếu chúng sắp xếp không đúng chổ thì hoán đổi vị trí của chúng.
   - Lặp lại quá trình này nhiều lần, cho đến khi không còn hai phần tử cạnh nhau mà vị trí sắp xếp không đúng thì dừng.
 
-Cụ thể, `compareFunc(array+i, array+j)>0` sẽ gọi hàm tác vụ tùy vào tham số `int (*compareFunc)(const void *, const void *)` giữ địa chỉ của hàm nào khi khởi tạo hàm `sort`: 
+Cụ thể, `compareFunc(array+i, array+j)` sẽ gọi hàm tác vụ tùy vào tham số `int (*compareFunc)(const void *, const void *)` giữ địa chỉ của hàm nào khi khởi tạo hàm `sort`: 
   ```bash
    sort(danhSachSV, size, compareByName);  // Ví dụ, trỏ đến compareByName
   ```
