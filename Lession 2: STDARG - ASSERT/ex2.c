@@ -1,4 +1,4 @@
-// Thêm 2 tính năng, giải thích code
+// Bài tập: Thêm 2 tính năng, giải thích code
 #include <stdio.h>
 #include <stdarg.h>
 
