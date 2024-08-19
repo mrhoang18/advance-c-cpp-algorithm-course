@@ -1,63 +1,82 @@
-// Bài tập: Thêm 2 tính năng, giải thích code
 #include <stdio.h>
 #include <stdarg.h>
 
 typedef enum {
-    TURN_ON,
-    TURN_OFF,
-    SET_LEVEL,
-    SEND_MESSAGE,
-    GET_STATUS,      // Lệnh mới: Lấy trạng thái thiết bị
-    RESTART_DEVICE   // Lệnh mới: Khởi động lại thiết bị
-} CommandType;
+    TEMPERATURE_SENSOR,
+    PRESSURE_SENSOR,
+    // More sensor
+    FUEL_SENSOR,
+    SPEED_SENSOR
 
-void sendCommand(CommandType command, ...) {
+} SensorType;
+
+void processSensorData(SensorType type, ...) {
     va_list args;
-    va_start(args, command);
+    va_start(args, type);
 
-    switch (command) {
-        case TURN_ON:
-        case TURN_OFF: {
-            int deviceID = va_arg(args, int);
-            printf("Command: %s Device ID: %d\n", command == TURN_ON ? "Turn On" : "Turn Off", deviceID);
+    switch (type) {
+        case TEMPERATURE_SENSOR: {
+            int numArgs = va_arg(args, int);
+            int sensorId = va_arg(args, int);
+            float temperature = va_arg(args, double); // float được promote thành double
+            printf("Temperature Sensor ID: %d, Reading: %.2f degrees\n", sensorId, temperature);
+            if (numArgs > 2) {
+                // Xử lý thêm tham số nếu có
+                char* additionalInfo = va_arg(args, char*);
+                printf("Additional Info: %s\n", additionalInfo);
+            }
             break;
         }
-        case SET_LEVEL: {
-            int deviceID = va_arg(args, int);
-            int level = va_arg(args, int);
-            printf("Set Level of Device ID %d to %d\n", deviceID, level);
+        case PRESSURE_SENSOR: {
+            int numArgs = va_arg(args, int);
+            int sensorId = va_arg(args, int);
+            int pressure = va_arg(args, int);
+            printf("Pressure Sensor ID: %d, Reading: %d Pa\n", sensorId, pressure);
+            if (numArgs > 2) {
+                // Xử lý thêm tham số nếu có
+                char* additionalInfo = va_arg(args, char*);
+                printf("Additional Info: %s\n", additionalInfo);
+            }
             break;
         }
-        case SEND_MESSAGE: {
-            char* message = va_arg(args, char*);
-            printf("Send Message: %s\n", message);
+        case FUEL_SENSOR: {
+            int numArgs = va_arg(args, int);
+            int sensorId = va_arg(args, int);
+            float fuelLevel = va_arg(args, double);
+            printf("Fuel sensor ID: %d, Reading: %.2f litter\n", sensorId, fuelLevel);
+
+            if (numArgs > 2) {
+                // Xử lý thêm tham số nếu có
+                char* additionalInfo = va_arg(args, char*);
+                printf("Additional Info: %s\n", additionalInfo);
+
+            }
             break;
         }
-        case GET_STATUS: {  // Xử lý lệnh GET_STATUS
-            int deviceID = va_arg(args, int);
-            // Giả sử hàm này sẽ lấy trạng thái và in ra
-            printf("Get Status of Device ID %d\n", deviceID);
-            // Ở đây bạn có thể thêm mã để thực sự lấy trạng thái từ thiết bị
-            break;
-        }
-        case RESTART_DEVICE: {  // Xử lý lệnh RESTART_DEVICE
-            int deviceID = va_arg(args, int);
-            printf("Restarting Device ID %d\n", deviceID);
-            // Ở đây bạn có thể thêm mã để thực sự khởi động lại thiết bị
-            break;
+        case SPEED_SENSOR: {
+            int numArgs = va_arg(args, int);
+            int sensorId = va_arg(args, int);
+            float speed = va_arg(args, double);
+            printf("Speed Sensor ID: %d, Reading: %.2f km/h\n", sensorId, speed);
+                
+            for (int i = 2; i < numArgs; i++) {
+                char* additionalInfo = va_arg(args, char*);
+                printf("Additional Info: %s\n", additionalInfo);
+            }
+            break;                        
         }
     }
-
     va_end(args);
 }
 
 int main() {
-    sendCommand(TURN_ON, 1);
-    sendCommand(TURN_OFF, 2);
-    sendCommand(SET_LEVEL, 3, 75);
-    sendCommand(SEND_MESSAGE, "Hello World");
-    sendCommand(GET_STATUS, 4);        // Gọi lệnh GET_STATUS
-    sendCommand(RESTART_DEVICE, 5);    // Gọi lệnh RESTART_DEVICE
+    //func(_SENSOR, Number of parameters, ID, Param1, Param2,...)
+    processSensorData(TEMPERATURE_SENSOR, 3, 1, 36.5, "Room Temperature.");
+    processSensorData(PRESSURE_SENSOR, 2, 2, 101325);
+    processSensorData(FUEL_SENSOR, 3, 3, 50.0, "Fuel tank half full.");
+
+    processSensorData(SPEED_SENSOR, 5, 4, 120.0, "High Speed!", "Call 911!", "Bye!");
     return 0;
 }
+
 
