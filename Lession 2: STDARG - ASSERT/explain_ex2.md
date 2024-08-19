@@ -17,6 +17,7 @@ Mỗi phần tử trong enum mặc định sẽ được gán một giá trị n
 Từ khóa `typedef` để định nghĩa một tên kiểu dữ liệu mới ở đây là `CommandType` từ các kiểu dữ liệu đã có sẵn. 
 
 Câu hỏi đặt ra: **Vì sao không đem đại các số 0, 1, 2 vô làm điều kiện cho các cấu trúc rẽ nhánh luôn?**
+
 Vì: Khi định nghĩa bằng các label có nghĩa thì người khác có thể hiểu được đoạn code hoạt động như thế nào.
 
 # Hàm xử lý chính 
