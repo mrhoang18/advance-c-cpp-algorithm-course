@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdarg.h>
+#define inProcessSensorData(...) processSensorData(__VA_ARGS__,0)
 
 typedef enum {
     TEMPERATURE_SENSOR,
     PRESSURE_SENSOR,
-    //add
+    // More sensor
     FUEL_SENSOR,
     SPEED_SENSOR
+
+
 } SensorType;
 
 void processSensorData(SensorType type, ...) {
@@ -33,8 +36,8 @@ void processSensorData(SensorType type, ...) {
             printf("Pressure Sensor ID: %d, Reading: %d Pa\n", sensorId, pressure);
             if (numArgs > 2) {
                 // Xử lý thêm tham số nếu có
-                char* unit = va_arg(args, char*);
-                printf("Unit: %s\n", unit);
+                char* additionalInfo = va_arg(args, char*);
+                printf("Additional Info: %s\n", additionalInfo);
             }
             break;
         }
@@ -43,36 +46,41 @@ void processSensorData(SensorType type, ...) {
             int sensorId = va_arg(args, int);
             float fuelLevel = va_arg(args, double);
             printf("Fuel sensor ID: %d, Reading: %.2f litter\n", sensorId, fuelLevel);
+
             if (numArgs > 2) {
                 // Xử lý thêm tham số nếu có
-                char* unit = va_arg(args, char*);
-                printf("Additional Info: %s\n", unit);
+                char* additionalInfo = va_arg(args, char*);
+                printf("Additional Info: %s\n", additionalInfo);
+
             }
             break;
         }
         case SPEED_SENSOR: {
-            int numArgs = va_arg(args, int);
+            //int numArgs = va_arg(args, int);
             int sensorId = va_arg(args, int);
             float speed = va_arg(args, double);
             printf("Speed Sensor ID: %d, Reading: %.2f km/h\n", sensorId, speed);
-            if (numArgs > 2) {
+                
+            char* additionalInfo;
+            while ((additionalInfo = va_arg(args, char*))!=0){
                 // Xử lý thêm tham số nếu có
-                char* unit = va_arg(args, char*);
-                printf("Unit: %s\n", unit);
+                printf("Additional Info: %s\n", additionalInfo);
             }
             break;                        
         }
     }
-
     va_end(args);
 }
+
 int main() {
-    processSensorData(TEMPERATURE_SENSOR, 3, 1, 36.5, "Room Temperature");
-    processSensorData(PRESSURE_SENSOR, 2, 2, 101325);
-    processSensorData(FUEL_SENSOR, 3, 3, 50.0, "Fuel tank half full");
-    processSensorData(SPEED_SENSOR, 2, 4, 120.0);
+    //func(_SENSOR, Number of parameters, ID, Param1, Param2,...)
+    inProcessSensorData(TEMPERATURE_SENSOR, 3, 1, 36.5, "Room Temperature.");
+    inProcessSensorData(PRESSURE_SENSOR, 2, 2, 101325);
+    inProcessSensorData(FUEL_SENSOR, 3, 3, 50.0, "Fuel tank half full.");
+
+    //func(_SENSOR, ID, Param1, Param2,...)
+    inProcessSensorData(SPEED_SENSOR, 4, 120.0, "High Speed!", "Call 911!", "Bye!");
     return 0;
 }
-
 
 
