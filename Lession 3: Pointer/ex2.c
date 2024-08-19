@@ -28,14 +28,21 @@ void changeSpeedMotor(PIN pin, int speed) {
 
 int main() {
    // Sử dụng macro để khởi tạo
-   // INIT_MOTOR(*motorA, 1);
-   // INIT_MOTOR(*motorB, 2);
+   INIT_MOTOR(motorA, 1);
+   INIT_MOTOR(motorB, 2);
 
-   // Sử dụng macro để khởi tạo
+   // Sau tiền xử lí, kết quả trong file .i
    // PIN PIN_motorA = 1; 
    // MotorController motorA = {startMotor, stopMotor, changeSpeedMotor};
    // PIN PIN_motorB = 2; 
    // MotorController motorB = {startMotor, stopMotor, changeSpeedMotor};
+
+   // Khởi tạo biến PIN cho motorC
+   PIN PIN_motorC = 3;
+   // Khởi tạo một đối tượng MotorController
+   MotorController motorC_instance = {&startMotor, &stopMotor, &changeSpeedMotor};
+   // Gán địa chỉ của đối tượng đó cho con trỏ motorC
+   MotorController *motorC = &motorC_instance;
 
    // Sử dụng motorA
    motorA.start(PIN_motorA);
@@ -47,6 +54,10 @@ int main() {
    motorB.changeSpeed(PIN_motorB, 75);
    motorB.stop(PIN_motorB);
 
+   // Sử dụng motorC
+   motorC->start(PIN_motorC);
+   motorC->changeSpeed(PIN_motorC, 100);
+   motorC->stop(PIN_motorC);
+
    return 0;
 }
-
