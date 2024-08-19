@@ -1,7 +1,5 @@
-// Bài tập: Thêm 2 cảm biến, giải thích code, cải tiến code.
 #include <stdio.h>
 #include <stdarg.h>
-#define inProcessSensorData(...) processSensorData(__VA_ARGS__,0)
 
 typedef enum {
     TEMPERATURE_SENSOR,
@@ -9,7 +7,8 @@ typedef enum {
     // More sensor
     FUEL_SENSOR,
     SPEED_SENSOR
-    } SensorType;
+
+} SensorType;
 
 void processSensorData(SensorType type, ...) {
     va_list args;
@@ -55,14 +54,13 @@ void processSensorData(SensorType type, ...) {
             break;
         }
         case SPEED_SENSOR: {
-            //int numArgs = va_arg(args, int);
+            int numArgs = va_arg(args, int);
             int sensorId = va_arg(args, int);
             float speed = va_arg(args, double);
             printf("Speed Sensor ID: %d, Reading: %.2f km/h\n", sensorId, speed);
                 
-            char* additionalInfo;
-            while ((additionalInfo = va_arg(args, char*))!=0){
-                // Xử lý thêm tham số nếu có
+            for (int i = 2; i < numArgs; i++) {
+                char* additionalInfo = va_arg(args, char*);
                 printf("Additional Info: %s\n", additionalInfo);
             }
             break;                        
@@ -73,12 +71,11 @@ void processSensorData(SensorType type, ...) {
 
 int main() {
     //func(_SENSOR, Number of parameters, ID, Param1, Param2,...)
-    inProcessSensorData(TEMPERATURE_SENSOR, 3, 1, 36.5, "Room Temperature.");
-    inProcessSensorData(PRESSURE_SENSOR, 2, 2, 101325);
-    inProcessSensorData(FUEL_SENSOR, 3, 3, 50.0, "Fuel tank half full.");
+    processSensorData(TEMPERATURE_SENSOR, 3, 1, 36.5, "Room Temperature.");
+    processSensorData(PRESSURE_SENSOR, 2, 2, 101325);
+    processSensorData(FUEL_SENSOR, 3, 3, 50.0, "Fuel tank half full.");
 
-    //func(_SENSOR, ID, Param1, Param2,...)
-    inProcessSensorData(SPEED_SENSOR, 4, 120.0, "High Speed!", "Call 911!", "Bye!");
+    processSensorData(SPEED_SENSOR, 5, 4, 120.0, "High Speed!", "Call 911!", "Bye!");
     return 0;
 }
 
