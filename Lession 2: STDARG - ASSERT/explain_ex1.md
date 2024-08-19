@@ -8,9 +8,12 @@ typedef enum {
     SPEED_SENSOR   
 } SensorType;
 ```
-Định nghĩa một kiểu liệt kê (enumeration) chứa các cảm biến. Mỗi phần tử trong enum sẽ được gán một giá trị nguyên bắt đầu từ 0, trừ khi chỉ định giá trị khác.
+Định nghĩa một kiểu liệt kê (enumeration) chứa các cảm biến. 
+
+Mỗi phần tử trong enum sẽ được gán một giá trị nguyên bắt đầu từ 0, trừ khi chỉ định giá trị khác.
 
 Từ khóa `typedef` để định nghĩa một tên kiểu dữ liệu mới ở đây là `SensorType` từ các kiểu dữ liệu đã có sẵn.
+
 # Nhận vào nhiều tham số sử dụng variadic macro
 ```bash
 #define inProcessSensorData(...) processSensorData(__VA_ARGS__,0)
@@ -87,3 +90,24 @@ Cuối cùng, macro sẽ gọi hàm `processSensorData`.
       va_end(args);
   }
   ```
+Hàm  `void processSensorData(SensorType type, ...)` xử lý các cảm biến khác nhau dựa trên giá trị của tham số truyền vào đầu tiên `type` (kiểu SensorType).
+
+`va_list` là một kiểu dữ liệu đặc biệt được sử dụng để xử lý danh sách số lượng các tham số không xác định. Biến args sẽ được sử dụng để lưu trữ thông tin về các tham số này.
+
+`va_start` là một macro có sẵn của `stdarg.h` sử dụng để khởi tạo danh sách. Macro này cần truyền vào hai tham số: biến kiểu `va_list` (ở đây là `args`) và tham số cuối cùng trước `...` (ở đây là `command`).
+
+Vì cách hoạt động nó tương tự nhau, nên sẽ lấy `case SPEED_SENSOR` làm đại diện để giải thích:
+```bash
+case SPEED_SENSOR: {
+    int sensorId = va_arg(args, int);
+    float speed = va_arg(args, double);
+    printf("Speed Sensor ID: %d, Reading: %.2f km/h\n", sensorId, speed);
+      
+    char* additionalInfo;
+    while ((additionalInfo = va_arg(args, char*))!=0){
+      // Xử lý thêm tham số nếu có
+      printf("Additional Info: %s\n", additionalInfo);
+    }
+    break;
+}
+```
