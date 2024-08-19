@@ -1,3 +1,4 @@
+// Bài tập: Thêm 2 cảm biến, giải thích code, cải tiến code.
 #include <stdio.h>
 #include <stdarg.h>
 #define inProcessSensorData(...) processSensorData(__VA_ARGS__,0)
