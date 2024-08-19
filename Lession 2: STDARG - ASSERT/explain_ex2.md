@@ -10,9 +10,14 @@
   } CommandType;
   ```
 
-Định nghĩa một kiểu liệt kê (enumeration) chứa các lệnh Mỗi phần tử trong enum sẽ được gán một giá trị nguyên bắt đầu từ 0, trừ khi chỉ định giá trị khác.
+Định nghĩa một kiểu liệt kê (enumeration) chứa các lệnh của một hệ thống nào đó. 
 
-Từ khóa `typedef` để định nghĩa một tên kiểu dữ liệu mới ở đây là `CommandType` từ các kiểu dữ liệu đã có sẵn.
+Mỗi phần tử trong enum mặc định sẽ được gán một giá trị nguyên bắt đầu từ 0, trừ khi chỉ định giá trị cụ thể khác.
+
+Từ khóa `typedef` để định nghĩa một tên kiểu dữ liệu mới ở đây là `CommandType` từ các kiểu dữ liệu đã có sẵn. 
+
+Câu hỏi đặt ra: **Vì sao không đem đại các số 0, 1, 2 vô làm điều kiện cho các cấu trúc rẽ nhánh luôn?**
+Vì: Khi định nghĩa bằng các label có nghĩa thì người khác có thể hiểu được đoạn code hoạt động như thế nào.
 
 # Hàm xử lý chính 
   ```bash
@@ -56,15 +61,23 @@ Từ khóa `typedef` để định nghĩa một tên kiểu dữ liệu mới �
       va_end(args);
   }
   ```
-Hàm  `void sendCommand(CommandType command, ...)` xử lý các lệnh khác nhau dựa trên giá trị của `command` (kiểu CommandType).
-
-command là tham số đầu tiên, có kiểu dữ liệu CommandType, xác định loại lệnh mà hàm sẽ xử lý.
+Hàm  `void sendCommand(CommandType command, ...)` xử lý các lệnh khác nhau dựa trên giá trị của tham số truyền vào đầu tiên `command` (kiểu CommandType).
 
 `va_list` là một kiểu dữ liệu đặc biệt được sử dụng để xử lý danh sách số lượng các tham số không xác định. Biến args sẽ được sử dụng để lưu trữ thông tin về các tham số này.
 
 `va_start` là một macro có sẵn của `stdarg.h` sử dụng để khởi tạo danh sách. Macro này cần truyền vào hai tham số: biến kiểu `va_list` (ở đây là `args`) và tham số cuối cùng trước `...` (ở đây là `command`).
 
-`va_start`, sử dụng va_arg để lấy từng tham số tiếp theo trong danh sách `...` sau mỗi lần gọi.
+Vì cách hoạt động nó tương tự nhau, nên sẽ lấy `case SET_LEVEL` làm đại diện để giải thích:
+
+  ```bash
+  case SET_LEVEL: {
+      int deviceID = va_arg(args, int);            // Hàm va_arg(args, int) gọi lần 1
+      int level = va_arg(args, int);               // Hàm va_arg(args, int) gọi lần 2
+      printf("Set Level of Device ID %d to %d\n", deviceID, level);
+      break;
+  }
+  ```
+Hàm `va_arg(args, type)`: Được sử dụng để lấy từng tham số tiếp theo trong danh sách `...` sau mỗi lần gọi, với type là kiểu dữ liệu của tham số.
 
 # Gửi lệnh đi
   ```bash
