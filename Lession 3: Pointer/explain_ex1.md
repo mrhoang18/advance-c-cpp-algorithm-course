@@ -156,7 +156,7 @@ Hàm `display` đơn giản chỉ là in ra các phần tử trong mảng sau kh
 # Những chỗ bất ổn
   ```bash
    typedef struct {
-     char ten[50];
+     char ten[50];            // sửa
      float diemTrungBinh;
      int id;                  // sửa
   } SinhVien;
@@ -179,9 +179,15 @@ Sửa lại thành:
   ```bash
   // Hàm so sánh theo điểm trung bình
   int compareByDiemTrungBinh(const void *a, const void *b) {
-     SinhVien *sv1 = (SinhVien *)a;
-     SinhVien *sv2 = (SinhVien *)b;
-    return sv1->diemTrungBinh - sv2->diemTrungBinh;
+      SinhVien *sv1 = (SinhVien *)a;
+      SinhVien *sv2 = (SinhVien *)b;
+      if (sv1->diemTrungBinh > sv2->diemTrungBinh) {
+          return 1;
+      } else if (sv1->diemTrungBinh < sv2->diemTrungBinh) {
+          return -1;
+      } else {
+          return 0;
+      }
   }
   ```
 
