@@ -38,9 +38,9 @@ Cụ thể, cấu trúc `MotorController` đã định nghĩa có ba thành ph�
      PIN PIN_##motorName = pinNumber;                                            \
      MotorController motorName = {startMotor, stopMotor, changeSpeedMotor};
 
-   // Gọi macro function để khởi tạo
-   // INIT_MOTOR(motorA, 1);
-   // INIT_MOTOR(motorB, 2);
+  // Gọi macro function để khởi tạo
+  // INIT_MOTOR(motorA, 1);
+  // INIT_MOTOR(motorB, 2);
   ```
 # Sử dụng motor
   ```bash
