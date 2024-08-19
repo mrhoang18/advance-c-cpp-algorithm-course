@@ -82,6 +82,7 @@ Hàm  `void processSensorData(SensorType type, ...)` xử lý các cảm biến 
 `va_start` là một macro có sẵn của `stdarg.h` sử dụng để khởi tạo danh sách. Macro này cần truyền vào hai tham số: biến kiểu `va_list` (ở đây là `args`) và tham số cuối cùng trước `...` (ở đây là `type`).
 
 Vì cách hoạt động nó tương tự nhau, nên sẽ lấy `case SPEED_SENSOR` làm đại diện để giải thích:
+
     ```bash
     case SPEED_SENSOR: {
         int numArgs = va_arg(args, int);
