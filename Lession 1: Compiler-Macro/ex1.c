@@ -1,3 +1,4 @@
+// Bài tập: tính tổng dãy số có số lượng số nhập vào bất kì
 #include <stdio.h>
 #include <stdarg.h>
 
