@@ -72,7 +72,7 @@ Sau quá trình tiền xử lý, ta được:
   motorB.changeSpeed(PIN_motorB, 75);
   motorB.stop(PIN_motorB);
   ```
-Các biến `motorA` sử dụng toán tử `.` (Member access operator) để truy cấp tới các biến thành viên.
+Các biến `motorA` sử dụng toán tử `.` (Member access operator) để truy cập tới các biến thành viên.
 
 Hàm `startMotor` được gọi thông qua con trỏ hàm `start` đã được gán địa chỉ của hàm `startMotor` ở trên.
 
