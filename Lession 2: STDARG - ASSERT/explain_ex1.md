@@ -97,6 +97,7 @@ Vì cách hoạt động nó tương tự nhau, nên sẽ lấy `case SPEED_SENS
         break;                        
     }
     ```
+Hàm `va_arg(args, type)`: Được sử dụng để lấy từng tham số tiếp theo trong danh sách `...` sau mỗi lần gọi, với type là kiểu dữ liệu của tham số.
 # Gửi lệnh đi
     ```bash
     //func(_SENSOR, Number of parameters, ID, Param1, Param2,...)
