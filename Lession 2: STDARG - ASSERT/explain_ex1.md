@@ -97,17 +97,28 @@ Hàm  `void processSensorData(SensorType type, ...)` xử lý các cảm biến 
 `va_start` là một macro có sẵn của `stdarg.h` sử dụng để khởi tạo danh sách. Macro này cần truyền vào hai tham số: biến kiểu `va_list` (ở đây là `args`) và tham số cuối cùng trước `...` (ở đây là `command`).
 
 Vì cách hoạt động nó tương tự nhau, nên sẽ lấy `case SPEED_SENSOR` làm đại diện để giải thích:
-```bash
-case SPEED_SENSOR: {
-    int sensorId = va_arg(args, int);
-    float speed = va_arg(args, double);
-    printf("Speed Sensor ID: %d, Reading: %.2f km/h\n", sensorId, speed);
-      
-    char* additionalInfo;
-    while ((additionalInfo = va_arg(args, char*))!=0){
-      // Xử lý thêm tham số nếu có
-      printf("Additional Info: %s\n", additionalInfo);
+    ```bash
+    case SPEED_SENSOR: {
+        int sensorId = va_arg(args, int);
+        float speed = va_arg(args, double);
+        printf("Speed Sensor ID: %d, Reading: %.2f km/h\n", sensorId, speed);
+          
+        char* additionalInfo;
+        while ((additionalInfo = va_arg(args, char*))!=0){
+          // Xử lý thêm tham số nếu có
+          printf("Additional Info: %s\n", additionalInfo);
+        }
+        break;
     }
-    break;
-}
-```
+    ```
+# Gửi lệnh đi
+    ```bash
+    //func(_SENSOR, Number of parameters, ID, Param1, Param2,...)
+    inProcessSensorData(TEMPERATURE_SENSOR, 3, 1, 36.5, "Room Temperature.");
+    inProcessSensorData(PRESSURE_SENSOR, 2, 2, 101325);
+    inProcessSensorData(FUEL_SENSOR, 3, 3, 50.0, "Fuel tank half full.");
+    
+    //func(_SENSOR, ID, Param1, Param2,...)
+    inProcessSensorData(SPEED_SENSOR, 4, 120.0, "High Speed!", "Call 911!", "Bye!",1);
+    ```  
+Gọi hàm `inProcessSensorData` với các tham số truyền vào là loại cảm biến và các thông số của cảm biến.
