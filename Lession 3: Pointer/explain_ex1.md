@@ -118,7 +118,7 @@ Vì `ten` có kiểu `char` và chỉ được đọc giá trị nên khai báo 
   }
   ```
 Vòng lặp `while(*str1 && (*str1 == *str2))` so sánh hai kí tự đầu tiên có giống nhau không:
-  - Nếu giống nhau thì dịch vị sang kí tự tiếp theo để kiểm tra.
+  - Nếu giống nhau thì dịch vị trí sang kí tự tiếp theo để kiểm tra.
   - Nếu khác nhau thì lấy hiệu giá trị theo bảng mã ASCII để kiểm tra thứ tự alphabet. Phải ép kiểu về const unsigned char* bởi vì tên có thể có dấu sẽ gây sai sót.
 
 # Hàm so sánh theo điểm trung bình
@@ -142,7 +142,7 @@ Hàm `compareByDiemTrungBinh` sắp xếp theo thứ tự điểm tăng dần, c
   }
   ```
 Hàm `compareByID` cũng tương tự.
-# Hàm so sánh theo ID
+# Hàm hiển thị
   ```bash
   void display(SinhVien *array, size_t size) {
      for (size_t i = 0; i < size; i++) {
