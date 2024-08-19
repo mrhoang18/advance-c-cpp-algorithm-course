@@ -8,9 +8,7 @@ typedef enum {
     // More sensor
     FUEL_SENSOR,
     SPEED_SENSOR
-
-
-} SensorType;
+    } SensorType;
 
 void processSensorData(SensorType type, ...) {
     va_list args;
