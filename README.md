@@ -679,7 +679,7 @@ Từ khóa `extern` được sử dụng để khai báo rằng một **biến h
 
 Từ khóa `extern` không tạo ra một biến mới mà chỉ thông báo cho trình biên dịch rằng **biến hoặc một hàm** này đã được định nghĩa ở nơi khác và có thể được sử dụng trong tệp hiện tại.
 
-Ví dụ file main.c:
+**Ví dụ file main.c:**
   ```bash
   #include <stdio.h>
   
@@ -691,7 +691,7 @@ Ví dụ file main.c:
   	display();
   }
   ```
-Ở file other.c:
+**Ở file other.c:**
   ```bash
   #include <stdio.h>
   
@@ -705,14 +705,77 @@ Ví dụ file main.c:
 </details>
 
 ## 2. Static
-### Static local 
+### Static local variables
+Biến cục bộ tĩnh (Static local variables) là các biến được khai báo với từ khóa `static` ở **trong phạm vi của một hàm**. Nó có những tính chất đặc biệt như sau:
+
+  - **Tồn tại trong suốt vòng đời của chương trình**: Biến cục bộ tĩnh được khai báo bên trong một hàm và chỉ có thể truy cập được từ trong hàm đó, sau khi hàm kết thúc nó không bị phóng bộ nhớ. Thay vào đó, nó vẫn tồn tại trong suốt thời gian chạy của chương trình và giữ lại giá trị của nó giữa các lần gọi hàm.
+    
+  - **Chỉ khởi tạo một lần**: Biến cục bộ tĩnh chỉ được khởi tạo một lần duy nhất, vào lần đầu tiên hàm được gọi. Sau đó, biến này sẽ giữ nguyên giá trị của nó từ lần cuối cùng hàm được gọi và không được khởi tạo lại trong các lần gọi tiếp theo.
+
+**Ví dụ biến cục bộ tĩnh:**
+  ```bash
+  #include <stdio.h>
+  
+  void exampleFunction() {
+      static int count = 0;  // Biến static giữ giá trị qua các lần gọi hàm
+      count++;
+      printf("Count: %d\n", count);
+  }
+  
+  int main() {
+      exampleFunction();  // In ra lần 1
+      exampleFunction();  // In ra lần 2
+      exampleFunction();  // In ra lần 3
+      return 0;
+  }
+  ```
+**Kết quả:**
+  ```bash
+  > Count: 1
+  > Count: 2
+  > Count: 3
+  ```
 ### Static global
-## 3. Volatile
+Biến toàn cục tĩnh (Static global variables) là các biến được khai báo với từ khóa `static` ở **ngoài tất cả các hàm** (tức là trong phạm vi toàn cục của file). Nó có những tính chất đặc biệt như sau:
+  - **Phạm vi truy cập chỉ giới hạn trong file**: Biến toàn cục tĩnh chỉ có thể truy cập được trong file nơi nó được khai báo. Có nghĩa là các biến này không thể được sử dụng bởi các file khác, ngay cả khi chúng được khai báo là `extern`. Khác với biến toàn cục không có từ khóa `static`, có thể được truy cập từ các file khác nếu được khai báo `extern`.
+  - **Thời gian tồn tại**: Biến toàn cục tĩnh có thời gian tồn tại từ khi chương trình bắt đầu cho đến khi chương trình kết thúc, tương tự như các biến toàn cục thông thường. Giá trị của chúng được duy trì trong suốt thời gian chạy của chương trình. Chỉ khởi tạo một lần duy nhất trước khi chương trình bắt đầu thực thi.
+
+**Ví dụ file main.c:**
+  ```bash
+  #include <stdio.h>
+  
+  extern void display();
+  //extern int s_g_value;      // Không được phép, vì s_g_value là biến toàn cục tĩnh của file other.c!!
+  extern int g_value;
+  
+  int main()
+  {
+  	printf("hello\n");
+  	g_value = 40;
+  	
+  	display();
+  
+  	return 0;
+  }
+  ```
+**Ở file other.c:**
+```bash
+#include <stdio.h>
+
+int g_value = 30;
+static int s_g_value = 20;
+
+void display()
+{
+	printf("static global value: %d\n", s_g_value);
+	printf("global value: %d\n", g_value);
+}
+```
+## 3. Volatile 
 <details><summary>Chi tiết</summary>
 <p>
-Từ khóa `volatile` được sử dụng để thông báo cho trình biên dịch rằng giá trị của một biến có thể thay đổi bất kỳ lúc nào, mà không cần đến sự can thiệp của chương trình. 
-
-Điều này có nghĩa là trình biên dịch sẽ tối ưu hóa việc đọc hoặc ghi giá trị của biến đó, vì nó có thể không thấy những thay đổi diễn ra từ bên ngoài chương trình.
+  
+Từ khóa `volatile` được sử dụng để thông báo cho trình biên dịch rằng giá trị của một biến có thể thay đổi bất kỳ lúc nào, trình biên dịch không được tối ưu hóa hoặc xóa bỏ các thao tác trên biến đó, giữ cho các thao tác trên biến được thực hiện như đã được định nghĩa.
 
 
 </p>
