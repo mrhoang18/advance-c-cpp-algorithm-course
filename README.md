@@ -203,6 +203,9 @@ int main() {
 <p>
   
 ## 1. Thư viện STDARG
+<details><summary>Chi tiết</summary>
+<p>
+	
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - va_list va: va_list là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là va. (Bản chất nó giống như con trỏ lưu kiểu dữ liệu: typedef char* va_list;).
 
@@ -244,7 +247,13 @@ Output:
   Value at 3: 10
   Value at 4: 13
   ```
+</p>
+</details>
+
 ## 2. Thư viện ASSERT
+<details><summary>Chi tiết</summary>
+<p>
+	
 Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
 - Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
@@ -285,6 +294,10 @@ Báo lỗi như sau:
       return 0;
   }
   ```
+  
+</p>
+</details>
+
 </p>
 </details>
 
@@ -706,6 +719,9 @@ Từ khóa `extern` không tạo ra một biến mới mà chỉ thông báo cho
 
 ## 2. Static
 ### Static local variables
+<details><summary>Chi tiết</summary>
+<p>
+	
 Biến cục bộ tĩnh (Static local variables) là các biến được khai báo với từ khóa `static` ở **trong phạm vi của một hàm**. Nó có những tính chất đặc biệt như sau:
 
   - **Tồn tại trong suốt vòng đời của chương trình**: Biến cục bộ tĩnh được khai báo bên trong một hàm và chỉ có thể truy cập được từ trong hàm đó, sau khi hàm kết thúc nó không bị phóng bộ nhớ. Thay vào đó, nó vẫn tồn tại trong suốt thời gian chạy của chương trình và giữ lại giá trị của nó giữa các lần gọi hàm.
@@ -735,7 +751,14 @@ Biến cục bộ tĩnh (Static local variables) là các biến được khai b
   > Count: 2
   > Count: 3
   ```
+
+</p>
+</details>
+
 ### Static global
+<details><summary>Chi tiết</summary>
+<p>
+	
 Biến toàn cục tĩnh (Static global variables) là các biến được khai báo với từ khóa `static` ở **ngoài tất cả các hàm** (tức là trong phạm vi toàn cục của file). Nó có những tính chất đặc biệt như sau:
   - **Phạm vi truy cập chỉ giới hạn trong file**: Biến toàn cục tĩnh chỉ có thể truy cập được trong file nơi nó được khai báo. Có nghĩa là các biến này không thể được sử dụng bởi các file khác, ngay cả khi chúng được khai báo là `extern`. Khác với biến toàn cục không có từ khóa `static`, có thể được truy cập từ các file khác nếu được khai báo `extern`.
   - **Thời gian tồn tại**: Biến toàn cục tĩnh có thời gian tồn tại từ khi chương trình bắt đầu cho đến khi chương trình kết thúc, tương tự như các biến toàn cục thông thường. Giá trị của chúng được duy trì trong suốt thời gian chạy của chương trình. Chỉ khởi tạo một lần duy nhất trước khi chương trình bắt đầu thực thi.
@@ -771,6 +794,10 @@ void display()
 	printf("global value: %d\n", g_value);
 }
 ```
+
+</p>
+</details>
+
 ## 3. Volatile 
 <details><summary>Chi tiết</summary>
 <p>
