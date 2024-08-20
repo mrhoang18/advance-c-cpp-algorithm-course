@@ -662,3 +662,49 @@ Cấp bậc này có thể hữu ích trong nhiều tình huống, đặc biệt
 </p>
 </details>
 
+</p>
+</details>
+
+# BÀI 4: EXTERN - STATIC - VOLATILE - REGISTER
+<details><summary>Chi tiết</summary>
+<p>
+
+## 1. Extern
+<details><summary>Chi tiết</summary>
+<p>
+Trong ngôn ngữ lập trình C, từ khóa extern được sử dụng để khai báo rằng một **biến hoặc một hàm** được định nghĩa ở một nơi khác (thường là trong một tệp khác). 
+
+Từ khóa extern không tạo ra một biến mới mà chỉ thông báo cho trình biên dịch rằng **biến hoặc một hàm** này đã được định nghĩa ở nơi khác và có thể được sử dụng trong tệp hiện tại.
+
+Ví dụ file main.c:
+  ```bash
+  #include <stdio.h>
+  
+  int value = 90;
+  extern void display();
+  
+  int main(){
+  	printf("hello\n");
+  	display();
+  }
+  ```
+Ở file other.c:
+  ```bash
+  #include <stdio.h>
+  
+  extern int value;
+  void display()
+  {
+  	printf("value: %d\n", value);
+  }
+  ```
+</p>
+</details>
+
+## 2. Static
+### Static local 
+### Static global
+## 3. Volatile
+## 4. Register
+</p>
+</details>
