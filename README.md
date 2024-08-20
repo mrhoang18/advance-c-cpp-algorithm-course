@@ -755,7 +755,7 @@ Biến cục bộ tĩnh (Static local variables) là các biến được khai b
 </p>
 </details>
 
-### Static global
+### Static global variables
 <details><summary>Chi tiết</summary>
 <p>
 	
