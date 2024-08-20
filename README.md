@@ -680,7 +680,7 @@ Cấp bậc này có thể hữu ích trong nhiều tình huống, đặc biệt
 </p>
 </details>
 
-# BÀI 4: EXTERN - STATIC - VOLATILE - REGISTER
+# BÀI 4: EXTERN-STATIC-VOLATILE-REGISTER
 <details><summary>Chi tiết</summary>
 <p>
 
