@@ -672,9 +672,10 @@ Cấp bậc này có thể hữu ích trong nhiều tình huống, đặc biệt
 ## 1. Extern
 <details><summary>Chi tiết</summary>
 <p>
-Trong ngôn ngữ lập trình C, từ khóa extern được sử dụng để khai báo rằng một **biến hoặc một hàm** được định nghĩa ở một nơi khác (thường là trong một tệp khác). 
+  
+Từ khóa `extern` được sử dụng để khai báo rằng một **biến hoặc một hàm** được định nghĩa ở một nơi khác (thường là trong một tệp khác). 
 
-Từ khóa extern không tạo ra một biến mới mà chỉ thông báo cho trình biên dịch rằng **biến hoặc một hàm** này đã được định nghĩa ở nơi khác và có thể được sử dụng trong tệp hiện tại.
+Từ khóa `extern` không tạo ra một biến mới mà chỉ thông báo cho trình biên dịch rằng **biến hoặc một hàm** này đã được định nghĩa ở nơi khác và có thể được sử dụng trong tệp hiện tại.
 
 Ví dụ file main.c:
   ```bash
@@ -706,5 +707,48 @@ Ví dụ file main.c:
 ### Static global
 ## 3. Volatile
 ## 4. Register
+ Từ khóa `register` được sử dụng để yêu cầu trình biên dịch lưu trữ một biến trong các thanh ghi của bộ xử lý thay vì trong bộ nhớ RAM. 
+  
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6fad29a3-47b2-41f3-98dd-cb39a7b65f8f" alt="Image description">
+</p>
+
+Cơ chế tính toán của máy tính:
+
+  - ALU (Arithmetic Logic Unit) nhận dữ liệu từ các thanh ghi (register) hoặc từ bộ nhớ (RAM).
+  - ALU thực hiện phép toán.
+  - Kết quả của phép toán được gửi và lưu lại về thanh ghi hoặc RAM.
+    
+Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập vào các thanh ghi nhanh hơn nhiều so với truy cập vào bộ nhớ RAM.
+
+**Kiểm tra tốc độ chương trình khi lưu biến trong thanh ghi và trong RAM:**
+  ```bash
+  #include <stdio.h>
+  #include <time.h>
+  
+  int main(int argc, char const *argv[])
+  {
+      unsigned long i;                // Lưu trong RAM
+      //register unsigned long i;     // Lưu trong thanh ghi
+  
+      clock_t start, end;
+  
+      start = clock();
+  
+      for ( i = 0; i < 99999999; i++);
+  
+      end = clock();
+  
+      printf("Time: %f\n", (double)(end - start)/1000);
+      
+      return 0;
+  }
+  ```
+**Kết quả:**
+  ```bash
+  > Time: 0.144000    // Lưu trong RAM
+  > Time: 0.054000    // Lưu trong thanh ghi
+  ```
+
 </p>
 </details>
