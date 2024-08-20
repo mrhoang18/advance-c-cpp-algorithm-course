@@ -804,7 +804,7 @@ void display()
   
 Từ khóa `volatile` được sử dụng để thông báo cho trình biên dịch rằng giá trị của một biến có thể thay đổi bất kỳ lúc nào, trình biên dịch không được tối ưu hóa hoặc xóa bỏ các thao tác trên biến đó.
 
-Sau đây là một số trường hợp trong nhúng mà việc khai báo biến `volatile` rất cần thiết để tránh những lỗi sai khó phát hiện do tính năng optimization của compiler:
+Sau đây là một trường hợp đơn giản trong nhúng mà việc khai báo biến `volatile` rất cần thiết để tránh những lỗi sai khó phát hiện do tính năng optimization của compiler:
 
 **Thanh ghi ngoại vi có ánh xạ đến ô nhớ**
 
@@ -812,19 +812,20 @@ Các thiết bị ngoại vi (GPIO, UART, ...) chứa các thanh ghi mà giá tr
 
 Ví dụ: đợi một nút bấm, với địa chỉ thanh ghi GPIO tương ứng nút bấm được định nghĩa như sau:
 
-	```bash
-	/* Input data register address */
-	volatile uint32_t* button = (volatile uint32_t*)0x40020810;
-	...
-	while ((*button & (1 << 13)) == 0);
-	```
+```bash
+/* Input data register address */
+volatile uint32_t* button = (volatile uint32_t*)0x40020810;
+...
+while ((*button & (1 << 13)) == 0);
+```
+
 Ở đây nếu không có `volatile`, con trỏ button sẽ đọc giá trị tại địa chỉ `0x40020810` (và giá trị này mắc định đang là 0).
 
 Khi đó compiler sẽ tối ưu - optimize điều kiện trong câu lệnh sau trở thành `while ((0 & (1 << 13)) == 0);`
 
 Tức là `while (1);`
 
-Vòng lặp này đương nhiên không bao giờ dừng lại => Fail.
+Vòng lặp này đương nhiên không bao giờ dừng lại => Bug!
 
 </p>
 </details>
