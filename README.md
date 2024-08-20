@@ -708,7 +708,20 @@ Ví dụ file main.c:
 ### Static local 
 ### Static global
 ## 3. Volatile
+<details><summary>Chi tiết</summary>
+<p>
+Từ khóa `volatile` được sử dụng để thông báo cho trình biên dịch rằng giá trị của một biến có thể thay đổi bất kỳ lúc nào, mà không cần đến sự can thiệp của chương trình. 
+
+Điều này có nghĩa là trình biên dịch sẽ tối ưu hóa việc đọc hoặc ghi giá trị của biến đó, vì nó có thể không thấy những thay đổi diễn ra từ bên ngoài chương trình.
+
+
+</p>
+</details>
+
 ## 4. Register
+<details><summary>Chi tiết</summary>
+<p>
+  
  Từ khóa `register` được sử dụng để yêu cầu trình biên dịch lưu trữ một biến trong các thanh ghi của bộ xử lý thay vì trong bộ nhớ RAM. 
   
 <p align="center">
@@ -751,6 +764,8 @@ Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập v
   > Time: 0.144000    // Lưu trong RAM
   > Time: 0.054000    // Lưu trong thanh ghi
   ```
+</p>
+</details>
 
 </p>
 </details>
