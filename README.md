@@ -881,3 +881,38 @@ Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập v
 
 </p>
 </details>
+
+# BÀI 5: GOTO-SETJMP.H
+<details><summary>Chi tiết</summary>
+<p>
+  
+## Goto
+<details><summary>Chi tiết</summary>
+<p>
+  
+Từ khóa `goto` được sử dụng để nhảy đến một vị trí khác trong mã nguồn, cụ thể là một nhãn (label) đã được định nghĩa trước đó. 
+
+**Ví dụ:**
+	```bash
+	#include <stdio.h>
+	
+	int main() {
+	    int num = 0;
+	    while (num < 10) {
+	        if (num == 5)
+	            goto end; 				// Nhảy đến nhãn 'end' khi num bằng 5
+	        printf("Number: %d\n", num);
+	        num++;
+	    }
+	
+	end:						// Đặt label đích đến
+	    printf("This is the end.\n");
+	
+	    return 0;
+	}
+	```
+</p>
+</details>
+
+</p>
+</details>
