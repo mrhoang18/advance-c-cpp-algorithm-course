@@ -943,16 +943,26 @@ end_loops:						       // Nhãn 'end_loops'
 
 Thư viện `setjmp.h` là cung cấp cơ chế nhảy đến một vị trí xác định trong chương trình. **Khác với `go to` phạm vi nhảy có thể nhảy đến vị trí ở một hàm khác**. 
 
-Thư viện này cung cấp hai hàm chính là `setjmp` và `longjmp`.
+Thư viện này cung cấp hai hàm chính là `setjmp` và `longjmp`, cú pháp sử dụng như sau:
 
-- Hàm `setjmp`
-
+ - Trước tiên, cần khai báo một biến:
+```bash 
+jmp_buf buffer;  // Tên biến là `buffer` kiểu dữ liệu là `jmp_buf` (kiểu này được định nghĩa sẵn bởi thư viện)
+```
+- Sử dụng `setjmp` để lưu trữ trạng thái của môi trường tại điểm mà nó được gọi, `setjmp` sẽ trả về 0 nếu nó được gọi lần đầu tiên.
+```bash 
+int val = setjmp(buffer);	// val = 0
+```
+- Sử dung `longjmp`, chương trình sẽ quay trở lại điểm mà `setjmp` đã được gọi, và `setjmp` sẽ trả về giá trị là một số nguyên (không bao giờ là 0, vì giá trị 0 đặc biệt để nhận diện việc gọi setjmp lần đầu tiên).
+```bash 
+longjmp(buffer, 1); // Nhảy trở lại điểm trước đó với giá trị trả về val = 1
+```
 **Ví dụ:**
 ```bash
 #include <stdio.h>
 #include <setjmp.h>
 
-jmp_buf buffer;
+jmp_buf buffer;						// Khai báo tên biến là `buffer`
 
 void jump_function() {
     printf("In jump_function.\n");
