@@ -890,27 +890,136 @@ Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập v
 <details><summary>Chi tiết</summary>
 <p>
 	
-Từ khóa `goto` được sử dụng để nhảy đến vị trí bất kì tùy vào label chỉ **trong cùng một hàm**.
+Từ khóa `goto` được sử dụng để nhảy đến vị trí bất kì tùy vào label có phạm vi **trong cùng một hàm**.
 
 **Ví dụ:**
-	```bash
-	#include <stdio.h>
-	
-	int main() {
-	    int num = 0;
-	    while (num < 10) {
-	        if (num == 5)
-	            goto end; 				// Nhảy đến label 'end' khi num bằng 5
-	        printf("Number: %d\n", num);
-	        num++;
-	    }
-	
-	end:						// Label 'end'
-	    printf("This is the end.\n");
-	
-	    return 0;
-	}
-	```
+```bash
+#include <stdio.h>
+
+int main() {
+    int num = 0;
+
+    while (num < 10) {
+        if (num == 5)
+            goto end; 				// Nhảy đến nhãn 'end' khi num bằng 5
+        printf("Number: %d\n", num);
+        num++;
+    }
+end:					       // Nhãn 'end'
+    printf("This is the end.\n");
+
+    return 0;
+}
+```
+Từ khóa `goto` có thể được thay thế nhiều `break` hoặc các phương pháp khác khi cần thoát ra khỏi một số lượng lớn các vòng lặp lồng nhau. Điều này làm đoạn code trở nên đơn giản hơn. 
+```bash
+#include <stdio.h>
+
+int main() {
+    int i = 0, j;
+
+    while (i < 10) {
+        for (j = 0; j < 10; j++) {
+            if (i == 5 && j == 5) {
+                goto end_loops;  				// Nhảy đến nhãn 'end_loops' để thoát khỏi cả hai vòng lặp
+            }
+            printf("i = %d, j = %d\n", i, j);
+        }
+        i++;
+    }
+end_loops:						       // Nhãn 'end_loops'
+    printf("Exited loops at i = %d, j = %d\n", i, j);
+
+    return 0;
+}
+```
+
+</p>
+</details>
+
+## Setjmp.h
+<details><summary>Chi tiết</summary>
+<p>
+
+Thư viện `setjmp.h` là cung cấp cơ chế nhảy đến một vị trí xác định trong chương trình. **Khác với `go to` phạm vi nhảy có thể nhảy đến vị trí ở một hàm khác**. 
+
+Thư viện này cung cấp hai hàm chính là `setjmp` và `longjmp`.
+
+- Hàm `setjmp`
+
+**Ví dụ:**
+```bash
+#include <stdio.h>
+#include <setjmp.h>
+
+jmp_buf buffer;
+
+void jump_function() {
+    printf("In jump_function.\n");
+    longjmp(buffer, 5); 				// Nhảy trở lại setjmp và trả về giá trị 5
+}
+
+int main() {
+    int val = setjmp(buffer); 			       // Đây là nơi chương trình sẽ quay lại sau khi longjmp được gọi
+    printf("I'm here! \n");
+    if (val == 0) {
+        // Thực thi lần đầu khi setjmp trả về 0
+        printf("Val = %d\n", val);
+        jump_function(); 			       // Gọi hàm sẽ thực hiện longjmp
+    } else {
+        // Thực thi sau khi longjmp được gọi và setjmp trả về 5
+        printf("Val = %d\n", val);
+    }
+
+    return 0;
+}
+```
+**Kết quả:**
+```bash
+> I'm here! 
+> Val = 0
+> In jump_function.
+> I'm here! 
+> Val = 5
+```
+
+Ứng dụng của hai hàm `setjmp`/`longjmp` thường được sử dụng để thực hiện xử lý ngoại lệ. Nhưng, đó chưa phải là cách thông dụng nhất trong việc xử lý ngoại lệ.
+
+**Ví dụ xử lý ngoại lệ khi chia cho 0:**
+```bash
+#include <stdio.h>
+#include <setjmp.h>
+
+jmp_buf buf;
+int exception_code;
+
+#define TRY if ((exception_code = setjmp(buf)) == 0) 
+#define CATCH(x) else if (exception_code == (x)) 
+#define THROW(x) longjmp(buf, (x))
+
+double divide(int a, int b) {
+    if (b == 0) {
+        THROW(1); 						// Mã lỗi 1 cho lỗi chia cho 0
+    }
+    return (double)a / b;
+}
+
+int main() {
+    int a = 10;
+    int b = 0;
+    double result = 0.0;
+
+    TRY {
+        result = divide(a, b);
+        printf("Result: %f\n", result);
+    } CATCH(1) {
+        printf("Error: Divide by 0!\n");
+    }
+
+    return 0;
+}
+```
+
 </p>
 </details>
 
