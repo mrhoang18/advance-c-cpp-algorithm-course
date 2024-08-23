@@ -889,8 +889,8 @@ Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập v
 ## Goto
 <details><summary>Chi tiết</summary>
 <p>
-  
-Từ khóa `goto` được sử dụng để nhảy đến một vị trí khác trong mã nguồn, cụ thể là một nhãn (label) đã được định nghĩa trước đó. 
+	
+Từ khóa `goto` được sử dụng để nhảy đến vị trí bất kì tùy vào label chỉ **trong cùng một hàm**.
 
 **Ví dụ:**
 	```bash
@@ -900,12 +900,12 @@ Từ khóa `goto` được sử dụng để nhảy đến một vị trí khác
 	    int num = 0;
 	    while (num < 10) {
 	        if (num == 5)
-	            goto end; 				// Nhảy đến nhãn 'end' khi num bằng 5
+	            goto end; 				// Nhảy đến label 'end' khi num bằng 5
 	        printf("Number: %d\n", num);
 	        num++;
 	    }
 	
-	end:						// Đặt label đích đến
+	end:						// Label 'end'
 	    printf("This is the end.\n");
 	
 	    return 0;
