@@ -1035,3 +1035,181 @@ int main() {
 
 </p>
 </details>
+
+# BÀI 6: BITMASK
+<details><summary>Chi tiết</summary>
+<p>
+	
+Bitmask là một kỹ thuật thực hiện các thao tác trên các bit của word. 
+
+Thay vì sử dụng một biến riêng cho mỗi cờ (flag), bạn có thể sử dụng bitmask để lưu trữ nhiều giá trị nhị phân (on/off, true/false).
+
+Ví dụ:
+```bash
+uint8_t bitmask = 0b10101010;
+```
+Giả sử ta có một dãy bitmask 8 bit (1 byte) để lưu trữ trạng thái của 8 thiết bị khác nhau. Mỗi thiết bị có thể ở trạng thái bật (1) hoặc tắt (0).
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/99e3cdfc-9764-47e2-8530-b5633bfe1730" alt="Compiler Macro" width="900">
+</p>
+
+## NOT bitwise
+<details><summary>Chi tiết</summary>
+<p>
+	
+NOT bitwise (phép đảo bit) là phép toán làm cho tất cả các bit của giá trị đó sẽ bị đảo ngược: bit 0 sẽ trở thành 1, và bit 1 sẽ trở thành 0.
+
+Toán tử NOT: `~`
+
+**Ví dụ:**
+```bash
+uint8_t value = 0b00001101;  
+uint8_t not_value = ~value;  // Sử dụng phép NOT bitwise
+```
+**Kết quả:**
+```bash
+> 0b11110010
+```
+</p>
+</details>
+
+## AND bitwise
+<details><summary>Chi tiết</summary>
+<p>
+	
+Phép AND bitwise thực hiện so sánh từng cặp bit tương ứng giữa hai số:
+
+ - Nếu cả hai bit đều là 1, kết quả là 1.
+ - Nếu một trong hai bit hoặc cả hai bit là 0, kết quả là 0.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1ac4f822-3e5a-44cc-ad0e-c26da59398c8" alt="Compiler Macro" width="300">
+</p>
+
+Toán tử AND: `&`
+
+**Ví dụ:**
+```bash
+uint8_t a = 0b11001010; // Số thứ nhất
+uint8_t b = 0b10110110; // Số thứ hai
+uint8_t result = a & b;  // Áp dụng AND bitwise
+```
+**Kết quả:**
+```bash
+  11001010
+& 10110110
+  --------
+> 10000010
+```
+</p>
+</details>
+
+## OR bitwise
+<details><summary>Chi tiết</summary>
+<p>
+	
+Phép OR bitwise thực hiện so sánh từng cặp bit tương ứng giữa hai số:
+
+ - Nếu ít nhất một trong hai bit là 1, kết quả là 1.
+ - Nếu cả hai bit đều là 0, kết quả là 0.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a451c9c2-487c-49c0-b8cd-fa60ccde1449" alt="Compiler Macro" width="300">	
+</p>
+
+Toán tử OR: `|`
+
+**Ví dụ:**
+```bash
+uint8_t a = 0b11001010; // Số thứ nhất
+uint8_t b = 0b10110110; // Số thứ hai
+uint8_t result = a | b;  // Áp dụng OR bitwise
+```
+**Kết quả:**
+```bash
+  11001010
+| 10110110
+  --------
+> 11111110
+```
+</p>
+</details>
+
+## XOR bitwise
+<details><summary>Chi tiết</summary>
+<p>
+	
+Phép XOR bitwise (Exclusive OR) thực hiện so sánh từng cặp bit tương ứng giữa hai số:
+
+ - Nếu hai bit khác nhau (một là 0 và một là 1), kết quả là 1.
+ - Nếu hai bit giống nhau (cả hai cùng là 0 hoặc cùng là 1), kết quả là 0.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/846b58ca-af90-4a42-8301-dd80fb913d92" width="300">	
+</p>
+
+Toán tử XOR: `^`
+
+**Ví dụ:**
+```bash
+uint8_t a = 0b11001010; // Số thứ nhất
+uint8_t b = 0b10110110; // Số thứ hai
+uint8_t result = a ^ b;  // Áp dụng XOR bitwise
+```
+**Kết quả:**
+```bash
+  11001010
+^ 10110110
+  --------
+> 01111100
+```
+</p>
+</details>
+
+## Shift left bitwise
+<details><summary>Chi tiết</summary>
+<p>
+	
+Phép Shift left bitwise dịch chuyển tất cả các bit trong một giá trị nhị phân sang trái một số vị trí cụ thể. Các bit bên phải được lấp đầy bằng các số 0.
+
+Toán tử Shift left: `<<`
+
+**Ví dụ:**
+```bash
+uint8_t value = 0b00001101;  // Giá trị ban đầu: 13 (00001101)
+uint8_t shifted_value = value << 2;  // Dịch trái 2 bit
+```
+**Kết quả:**
+```bash
+  00001101 << 2
+  -----------
+> 00110100
+```
+</p>
+</details>
+
+## Shift right bitwise
+<details><summary>Chi tiết</summary>
+<p>
+	
+Phép Shift right dịch chuyển tất cả các bit trong một giá trị nhị phân sang phải một số vị trí cụ thể. Các bit bên trái được lấp đầy bằng các số 0.
+
+Toán tử Shift right: `>>`
+
+**Ví dụ:**
+```bash
+uint8_t value = 0b00101100;  // Giá trị ban đầu: 44 (00101100)
+uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
+```
+**Kết quả:**
+```bash
+  00101100 >> 2
+  -----------
+> 00001011
+```
+</p>
+</details>
+
+
+</p>
+</details>
