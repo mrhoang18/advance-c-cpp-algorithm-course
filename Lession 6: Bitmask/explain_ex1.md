@@ -2,12 +2,12 @@
 # Các macro
 ```c
 // Màu sắc
-#define COLOR_RED 0	
-#define COLOR_BLUE 1
-#define COLOR_BLACK 2
-#define COLOR_WHITE 3
+#define COLOR_RED 0	        //00
+#define COLOR_BLUE 1        //01
+#define COLOR_BLACK 2       //10
+#define COLOR_WHITE 3       //11
 
-// Mã lực
+// Công suất động cơ
 #define POWER_100HP 0
 #define POWER_150HP 1
 #define POWER_200HP 2
@@ -21,12 +21,24 @@
 #define PREMIUM_AUDIO_MASK 1 << 1 // 0010
 #define SPORTS_PACKAGE_MASK 1 << 2 // 0100
 ```
+
+Vì `color` được lưu trữ trong 2 bits, các giá trị số nguyên từ 0 đến 3 sẽ được biểu diễn như sau trong hệ nhị phân:
+- COLOR_RED = 0 = 00 (2-bit)
+- COLOR_BLUE = 1 = 01 (2-bit)
+- COLOR_BLACK = 2 = 10 (2-bit)
+- COLOR_WHITE = 3 = 11 (2-bit)
+  
+Tương tự với các thuộc tính khác.
+  
 # Định nghĩa các kiểu dữ liệu 
 ```c
 typedef uint8_t CarColor;
 typedef uint8_t CarPower;
 typedef uint8_t CarEngine;
+```
+Sử dụng typedef định nghĩa lại, mỗi thuộc tính là 8 bits.
 
+```c
 typedef struct {
     uint8_t additionalOptions : 3; // 3 bits cho các tùy chọn bổ sung
     CarColor color : 2;
@@ -34,6 +46,15 @@ typedef struct {
     CarEngine engine : 1;
 } CarOptions;
 ```
+`CarOptions` là một cấu trúc (struct) được định nghĩa để lưu trữ các thông tin liên quan đến cấu hình của một chiếc xe, bao gồm màu sắc, công suất, động cơ, và các tùy chọn bổ sung.
+
+`CarOptions` có dạng `0bxxxx xxxx` từ phải qua trái:
+
+- `additionalOptions` sử dụng 3 bits để lưu trữ các tùy chọn thêm.
+- `color` sử dụng 2 bits để lưu trữ màu sắc của xe.
+- `power` sử dụng 2 bits để lưu trữ công suất của động cơ.
+- `engine` sử dụng 1 bit để lưu trữ dung tích động cơ.
+
 # Hàm `configureCar`
 ```c
 void configureCar(CarOptions *car, CarColor color, CarPower power, CarEngine engine, uint8_t options) {
@@ -43,6 +64,15 @@ void configureCar(CarOptions *car, CarColor color, CarPower power, CarEngine eng
     car->additionalOptions = options;
 }
 ```
+Hàm này có bốn tham số chính và một tham số cho các tùy chọn bổ sung:
+
+- `CarOptions *car`: Đây là con trỏ trỏ tới một đối tượng `CarOptions`. Thông qua con trỏ này, hàm có thể truy cập và thay đổi các thuộc tính của đối tượng `CarOptions` mà nó trỏ tới.
+- `CarColor color`: Đây là giá trị màu sắc của xe. Kiểu `CarColor` là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (COLOR_RED, COLOR_BLUE, v.v.).
+- `CarPower power`: Đây là giá trị công suất của động cơ xe. Kiểu CarPower cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (POWER_100HP, POWER_150HP, v.v).
+- `CarEngine engine`: Đây là giá trị dung tích động cơ của xe. Kiểu CarEngine cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (ENGINE_1_5L, ENGINE_2_0L).
+- uint8_t options: Đây là giá trị chứa các tùy chọn bổ sung cho xe. Mỗi bit trong giá trị này đại diện cho một tùy chọn khác nhau (ví dụ: cửa sổ trời, âm thanh cao cấp, gói thể thao, v.v.).
+
+
 # Hàm `setOption` và `unsetOption`
 ```c
 void setOption(CarOptions *car, uint8_t optionMask) {
