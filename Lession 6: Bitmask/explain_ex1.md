@@ -67,11 +67,16 @@ void configureCar(CarOptions *car, CarColor color, CarPower power, CarEngine eng
 Hàm này có bốn tham số chính và một tham số cho các tùy chọn bổ sung:
 
 - `CarOptions *car`: Đây là con trỏ trỏ tới một đối tượng `CarOptions`. Thông qua con trỏ này, hàm có thể truy cập và thay đổi các thuộc tính của đối tượng `CarOptions` mà nó trỏ tới.
-- `CarColor color`: Đây là giá trị màu sắc của xe. Kiểu `CarColor` là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (COLOR_RED, COLOR_BLUE, v.v.).
-- `CarPower power`: Đây là giá trị công suất của động cơ xe. Kiểu CarPower cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (POWER_100HP, POWER_150HP, v.v).
-- `CarEngine engine`: Đây là giá trị dung tích động cơ của xe. Kiểu CarEngine cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (ENGINE_1_5L, ENGINE_2_0L).
-- uint8_t options: Đây là giá trị chứa các tùy chọn bổ sung cho xe. Mỗi bit trong giá trị này đại diện cho một tùy chọn khác nhau (ví dụ: cửa sổ trời, âm thanh cao cấp, gói thể thao, v.v.).
+- `CarColor color`: Đây là giá trị màu sắc của xe. Kiểu `CarColor` là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (COLOR_RED, COLOR_BLUE).
+- `CarPower power`: Đây là giá trị công suất của động cơ xe. Kiểu `CarPower` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (POWER_100HP, POWER_150HP).
+- `CarEngine engine`: Đây là giá trị dung tích động cơ của xe. Kiểu `CarEngine` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (ENGINE_1_5L, ENGINE_2_0L).
+- uint8_t options: Đây là giá trị chứa các tùy chọn bổ sung cho xe. Mỗi bit trong giá trị này đại diện cho một tùy chọn thêm như (SUNROOF_MASK, PREMIUM_AUDIO_MASK, SPORTS_PACKAGE_MASK).
 
+Hàm này sẽ gán giá trị cho thuộc tính, ví dụ với `color`:
+```c
+car->color = color;
+```
+Giá trị `color` được truyền vào hàm sẽ được gán cho thuộc tính `color` trong đối tượng `CarOptions` mà `car` trỏ tới.
 
 # Hàm `setOption` và `unsetOption`
 ```c
