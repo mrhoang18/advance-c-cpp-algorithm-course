@@ -50,10 +50,10 @@ typedef struct {
 
 `CarOptions` có dạng `0bxxxx xxxx` từ phải qua trái:
 
-- `additionalOptions` sử dụng 3 bits để lưu trữ các tùy chọn thêm.
-- `color` sử dụng 2 bits để lưu trữ màu sắc của xe.
-- `power` sử dụng 2 bits để lưu trữ công suất của động cơ.
-- `engine` sử dụng 1 bit để lưu trữ dung tích động cơ.
+  - `additionalOptions` sử dụng 3 bits để lưu trữ các tùy chọn thêm.
+  - `color` sử dụng 2 bits để lưu trữ màu sắc của xe.
+  - `power` sử dụng 2 bits để lưu trữ công suất của động cơ.
+  - `engine` sử dụng 1 bit để lưu trữ dung tích động cơ.
 
 # Hàm `configureCar`
 ```c
@@ -68,11 +68,11 @@ Hàm `configureCar` sử dụng để cấu hình một đối tượng CarOptio
 
 Hàm này nhận vào năm tham số:
 
-- `CarOptions *car`: Đây là con trỏ trỏ tới một đối tượng `CarOptions`. Thông qua con trỏ này, hàm có thể truy cập và thay đổi các thuộc tính của đối tượng mà nó trỏ tới.
-- `CarColor color`: Đây là giá trị màu sắc của xe. Kiểu `CarColor` là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (COLOR_RED, COLOR_BLUE).
-- `CarPower power`: Đây là giá trị công suất của động cơ xe. Kiểu `CarPower` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (POWER_100HP, POWER_150HP).
-- `CarEngine engine`: Đây là giá trị dung tích động cơ của xe. Kiểu `CarEngine` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (ENGINE_1_5L, ENGINE_2_0L).
-- uint8_t options: Đây là giá trị chứa các tùy chọn bổ sung cho xe. Mỗi bit trong giá trị này đại diện cho một tùy chọn thêm như (SUNROOF_MASK, PREMIUM_AUDIO_MASK, SPORTS_PACKAGE_MASK).
+  - `CarOptions *car`: Đây là con trỏ trỏ tới một đối tượng `CarOptions`. Thông qua con trỏ này, hàm có thể truy cập và thay đổi các thuộc tính của đối tượng mà nó trỏ tới.
+  - `CarColor color`: Đây là giá trị màu sắc của xe. Kiểu `CarColor` là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (COLOR_RED, COLOR_BLUE).
+  - `CarPower power`: Đây là giá trị công suất của động cơ xe. Kiểu `CarPower` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (POWER_100HP, POWER_150HP).
+  - `CarEngine engine`: Đây là giá trị dung tích động cơ của xe. Kiểu `CarEngine` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (ENGINE_1_5L, ENGINE_2_0L).
+  - uint8_t options: Đây là giá trị chứa các tùy chọn bổ sung cho xe. Mỗi bit trong giá trị này đại diện cho một tùy chọn thêm như (SUNROOF_MASK, PREMIUM_AUDIO_MASK, SPORTS_PACKAGE_MASK).
 
 Hàm này sẽ gán giá trị cho thuộc tính, ví dụ với `color`:
 ```c
@@ -96,8 +96,8 @@ Hai hàm `setOption` và `unsetOption` sử dụng để thao tác các tùy ch�
 
 Hàm này nhận vào hai tham số:
 
-- `CarOptions *car`: Đây là con trỏ trỏ tới đối tượng CarOptions mà bạn muốn cấu hình.
-- `uint8_t optionMask`: Đây là một bitmask đại diện cho một hoặc nhiều tùy chọn như (SUNROOF_MASK, PREMIUM_AUDIO_MASK, SPORTS_PACKAGE_MASK) mà người dùng muốn bật hoặc tắt.
+  - `CarOptions *car`: Đây là con trỏ trỏ tới đối tượng CarOptions mà bạn muốn cấu hình.
+  - `uint8_t optionMask`: Đây là một bitmask đại diện cho một hoặc nhiều tùy chọn như (SUNROOF_MASK, PREMIUM_AUDIO_MASK, SPORTS_PACKAGE_MASK) mà người dùng muốn bật hoặc tắt.
 
 Bật tùy chọn bổ sung bằng cách sử dụng toán tử OR (|=) và tắt thì sử dụng toán tử AND với phủ định (&= ~).
 
@@ -117,4 +117,28 @@ void displayCarOptions(const CarOptions car) {
     printf("Sports Package: %s\n", (car.additionalOptions & SPORTS_PACKAGE_MASK) ? "Yes" : "No");
 }
 ```
+Hàm `displayCarOptions` được sử dụng để hiển thị cấu hình thuộc tính của chiếc xe.
+Hàm nhận vào một tham số:
+   - `const CarOptions car`: Đây là đối tượng CarOptions chứa thông tin cấu hình của xe. Thuộc tính const đảm bảo rằng đối tượng car không bị thay đổi bên trong hàm. Hàm sử dụng đối tượng này để truy xuất thông tin .
 
+Hàm khai báo các mảng hằng số `const char *colors[]`, `const char *powers[]`,` const char *engines[]`. Lấy `const char *colors[]` làm đại diện giải thích:
+
+  - Đây là một mảng chứa các chuỗi ký tự đại diện cho các màu sắc của xe, tương ứng với các giá trị trong thuộc tính `color` của CarOptions.
+
+  - Mảng này có thứ tự tương ứng với các giá trị số nguyên được định nghĩa trước đó như COLOR_RED, COLOR_BLUE, COLOR_BLACK, COLOR_WHITE.
+
+Mục đích khai báo các mảng hằng số:
+  - Các thuộc tính như `color`, `power`, và `engine` trong cấu trúc `CarOptions` được lưu trữ dưới dạng số nguyên (uint8_t). Mỗi giá trị số nguyên này đại diện cho một thuộc tính cụ thể (ví dụ: 0 là COLOR_RED, 1 là COLOR_BLUE,...).
+  - Tuy nhiên, khi hiển thị thông tin cho người dùng, chúng ta không muốn hiển thị các giá trị số nguyên mà thay vào đó là các chuỗi ký tự có ý nghĩa như "Red", "Blue", "100HP", "1.5L",...
+  - Mảng hằng số cho phép ánh xạ giá trị số nguyên của mỗi thuộc tính thành một chuỗi ký tự tương ứng, ví dụ khi in ra thuộc tính `color` trong `CarOptions` với giá trị 2, tương ứng với `COLOR_BLACK`. Chỉ cần truy xuất mảng colors tại vị trí 2 là "Black":
+    ```c
+    printf("Color: %s\n", colors[car.color]);
+    ```
+  - Sử dụng thuộc tính `const`: ý là báo với trình biên dịch rằng các giá trị trong mảng này không được phép thay đổi sau khi chúng được khởi tạo.
+
+Cuối cùng là hiển thị các tùy chọn thêm:
+  ```c
+  printf("Sunroof: %s\n", (car.additionalOptions & SUNROOF_MASK) ? "Yes" : "No");
+  ```
+  - Sử dụng toán tử AND `&` để kiểm tra xem bit tương ứng với SUNROOF_MASK trong additionalOptions có được bật hay không.
+  - Nếu bit đó là 1, in "Yes"; nếu không, in "No".
