@@ -121,7 +121,7 @@ Hàm `displayCarOptions` được sử dụng để hiển thị cấu hình thu
 Hàm nhận vào một tham số:
    - `const CarOptions car`: Đây là đối tượng CarOptions chứa thông tin cấu hình của xe. Thuộc tính const đảm bảo rằng đối tượng car không bị thay đổi bên trong hàm. Hàm sử dụng đối tượng này để truy xuất thông tin .
 
-Hàm khai báo các mảng hằng số `const char *colors[]`, `const char *powers[]`,` const char *engines[]`. Lấy `const char *colors[]` làm đại diện giải thích:
+Hàm khai báo các mảng các con trỏ tới ký tự hằng `const char *colors[]`, `const char *powers[]`,` const char *engines[]`. Lấy `const char *colors[]` làm đại diện giải thích:
 
   - Đây là một mảng chứa các chuỗi ký tự đại diện cho các màu sắc của xe, tương ứng với các giá trị trong thuộc tính `color` của CarOptions.
 
