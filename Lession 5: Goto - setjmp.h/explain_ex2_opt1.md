@@ -27,7 +27,7 @@ Dùng `typedef` để định nghĩa lại `ErrorList` là một cấu trúc dù
   #define THROW(x, msg){                                              \
       error.error_code = x;                                           \
       int i = 0;                                                      \
-      while (msg[i] != '\0' && i < sizeof(error.error_message) - 1) { \
+      while (msg[i] != '\0') { \
           error.error_message[i] = msg[i];                            \
           i++;                                                        \
       }                                                               \
