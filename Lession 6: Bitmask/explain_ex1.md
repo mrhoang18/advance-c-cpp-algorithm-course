@@ -64,9 +64,11 @@ void configureCar(CarOptions *car, CarColor color, CarPower power, CarEngine eng
     car->additionalOptions = options;
 }
 ```
-Hàm này có bốn tham số chính và một tham số cho các tùy chọn bổ sung:
+Hàm `configureCar` sử dụng để cấu hình một đối tượng CarOptions, bao gồm việc thiết lập màu sắc, công suất động cơ, dung tích động cơ, và các tùy chọn bổ sung cho một chiếc xe.
 
-- `CarOptions *car`: Đây là con trỏ trỏ tới một đối tượng `CarOptions`. Thông qua con trỏ này, hàm có thể truy cập và thay đổi các thuộc tính của đối tượng `CarOptions` mà nó trỏ tới.
+Hàm này nhận vào năm tham số:
+
+- `CarOptions *car`: Đây là con trỏ trỏ tới một đối tượng `CarOptions`. Thông qua con trỏ này, hàm có thể truy cập và thay đổi các thuộc tính của đối tượng mà nó trỏ tới.
 - `CarColor color`: Đây là giá trị màu sắc của xe. Kiểu `CarColor` là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (COLOR_RED, COLOR_BLUE).
 - `CarPower power`: Đây là giá trị công suất của động cơ xe. Kiểu `CarPower` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (POWER_100HP, POWER_150HP).
 - `CarEngine engine`: Đây là giá trị dung tích động cơ của xe. Kiểu `CarEngine` cũng là một `typedef` của `uint8_t`, và giá trị này được lấy từ các hằng số như (ENGINE_1_5L, ENGINE_2_0L).
@@ -90,6 +92,15 @@ void unsetOption(CarOptions *car, uint8_t optionMask) {
     car->additionalOptions &= ~optionMask;
 }
 ```
+Hai hàm `setOption` và `unsetOption` sử dụng để thao tác các tùy chọn bổ sung `additionalOptions` của đối tượng `CarOptions`. 
+
+Hàm này nhận vào hai tham số:
+
+- `CarOptions *car`: Đây là con trỏ trỏ tới đối tượng CarOptions mà bạn muốn cấu hình.
+- `uint8_t optionMask`: Đây là một bitmask đại diện cho một hoặc nhiều tùy chọn như (SUNROOF_MASK, PREMIUM_AUDIO_MASK, SPORTS_PACKAGE_MASK) mà người dùng muốn bật hoặc tắt.
+
+Bật tùy chọn bổ sung bằng cách sử dụng toán tử OR (|=) và tắt thì sử dụng toán tử AND với phủ định (&= ~).
+
 # Hàm `displayCarOptions`
 ```c
 void displayCarOptions(const CarOptions car) {
