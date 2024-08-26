@@ -14,7 +14,7 @@
 Dùng `typedef` để định nghĩa lại `ErrorList` là một cấu trúc dùng để lưu trữ thông tin về lỗi. Nó bao gồm:
 
   - `int error_code`: Là một số nguyên, đại diện cho mã lỗi.
-  - `char[] error_message[52]`: Dùng để lưu trữ thông báo lỗi dưới dạng chuỗi ký tự.
+  - `char error_message[52]`: Dùng để lưu trữ thông báo lỗi dưới dạng chuỗi ký tự.
     
 `ErrorList error`: Khởi tạo một biến `error` có kiểu dữ liệu `ErrorList`. Biến này được sử dụng để lưu trữ thông tin lỗi hiện tại, bao gồm mã lỗi và thông điệp lỗi.
 
