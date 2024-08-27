@@ -1213,3 +1213,26 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 
 </p>
 </details>
+
+# BÀI 7: STRUCT-UNION
+<details><summary>Chi tiết</summary>
+<p>
+
+## STRUCT
+<details><summary>Chi tiết</summary>
+<p>
+
+
+</p>
+</details>
+
+## UNION
+<details><summary>Chi tiết</summary>
+<p>
+
+
+</p>
+</details>
+
+</p>
+</details>
