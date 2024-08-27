@@ -1218,7 +1218,7 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 <details><summary>Chi tiết</summary>
 <p>
 
-## STRUCT
+## Struct
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -1226,7 +1226,7 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 </p>
 </details>
 
-## UNION
+## Union
 <details><summary>Chi tiết</summary>
 <p>
 
