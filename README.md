@@ -1320,16 +1320,20 @@ union UnionName {
 };
 
 // Ví dụ
-union Data {
-    int i;
-    float f;
-    char str[20];
+ union examp3{
+    uint8_t arr1[12];  
+    uint32_t arr2[3];  
+    uint16_t arr3[4];  
 };
 ```
 Nhưng có một đặc điểm quan trọng là tất cả các thành phần bên trong union đều chia sẻ cùng một vùng nhớ. Điều này có nghĩa là union chỉ có thể lưu trữ một giá trị cho một thành phần tại một thời điểm.
 
 ### Kích thước của union
 Tất cả các thành phần của union chia sẻ cùng một vị trí bộ nhớ, do đó, kích thước của union sẽ bằng kích thước của thành phần có kích thước lớn nhất.
+
+```c
+
+```
 
 
 </p>
