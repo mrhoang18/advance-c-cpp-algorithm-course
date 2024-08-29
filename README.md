@@ -1323,7 +1323,7 @@ union UnionName {
  union examp3{
     uint8_t a[13];  // Kiểu uint8_t = 1 bytes	
     uint32_t b[3];  // Kiểu uint32_t = 4 bytes, kích thước lớn nhất.
-    uint16_t c[4];  // Kiểu uint16_t = 2 byte
+    uint16_t c[6];  // Kiểu uint16_t = 2 byte
 };
 ```
 Nhưng đặc trưng là tất cả các thành phần bên trong `union` đều chia sẻ cùng một vùng nhớ. 
@@ -1352,10 +1352,11 @@ Vì các thành phần của `union` chia sẻ cùng một vị trí bộ nhớ,
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0ec1a261-03f3-4cb9-9b4c-57caa9132c64" width="500">	
 </p>
-- Kích thước của `uint16_t c[4]` là 12 bytes.
+- Kích thước của `uint16_t c[6]` là 12 bytes.
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d4e10aa8-325b-4933-94f6-b8abdeea1ec2" width="500">	
+  <img src="https://github.com/user-attachments/assets/cb074adf-2cc0-4c70-8f7c-0956a62d1649" width="500">	
 </p>
+
 Nên 16 bytes là kích thước của `examp3`
 
 ```c
