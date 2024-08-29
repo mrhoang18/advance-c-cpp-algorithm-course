@@ -1326,13 +1326,24 @@ union UnionName {
     uint16_t arr3[4];  
 };
 ```
-Nhưng có một đặc điểm quan trọng là tất cả các thành phần bên trong union đều chia sẻ cùng một vùng nhớ. Điều này có nghĩa là union chỉ có thể lưu trữ một giá trị cho một thành phần tại một thời điểm.
+Nhưng có một đặc điểm quan trọng là tất cả các thành phần bên trong union đều chia sẻ cùng một vùng nhớ. 
 
+**Địa chỉ các biến thành phần:**
+```c
+Dia chi data: 00000097873FF9E4
+Dia chi data.arr1: 00000097873FF9E4
+Dia chi data.arr2: 00000097873FF9E4
+Dia chi data.arr3: 00000097873FF9E4
+```
+Điều này có nghĩa là union chỉ có thể lưu trữ một giá trị cho một thành phần tại một thời điểm.
 ### Kích thước của union
-Tất cả các thành phần của union chia sẻ cùng một vị trí bộ nhớ, do đó, kích thước của union sẽ bằng kích thước của thành phần có kích thước lớn nhất.
+Vì các thành phần của union chia sẻ cùng một vị trí bộ nhớ, do đó, kích thước của union sẽ bằng kích thước của thành phần có kích thước lớn nhất.
 
 ```c
-
+Dia chi data: 00000097873FF9E4
+Dia chi data.arr1: 00000097873FF9E4
+Dia chi data.arr2: 00000097873FF9E4
+Dia chi data.arr3: 00000097873FF9E4
 ```
 
 
