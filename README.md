@@ -1321,23 +1321,42 @@ union UnionName {
 
 // Ví dụ
  union examp3{
-    uint8_t arr1[12];  
-    uint32_t arr2[3];  
-    uint16_t arr3[4];  
+    uint8_t a[13];  // Kiểu uint8_t = 1 bytes	
+    uint32_t b[3];  // Kiểu uint32_t = 4 bytes, kích thước lớn nhất.
+    uint16_t c[4];  // Kiểu uint16_t = 2 byte
 };
 ```
-Nhưng có một đặc điểm quan trọng là tất cả các thành phần bên trong union đều chia sẻ cùng một vùng nhớ. 
+Nhưng đặc trưng là tất cả các thành phần bên trong `union` đều chia sẻ cùng một vùng nhớ. 
 
 **Địa chỉ các biến thành phần:**
 ```c
-Dia chi data: 00000097873FF9E4
-Dia chi data.arr1: 00000097873FF9E4
-Dia chi data.arr2: 00000097873FF9E4
-Dia chi data.arr3: 00000097873FF9E4
+Dia chi data:	00000097873FF9E4
+Dia chi data.a: 00000097873FF9E4
+Dia chi data.b: 00000097873FF9E4
+Dia chi data.c: 00000097873FF9E4
 ```
 Điều này có nghĩa là union chỉ có thể lưu trữ một giá trị cho một thành phần tại một thời điểm.
 ### Kích thước của union
-Vì các thành phần của union chia sẻ cùng một vị trí bộ nhớ, do đó, kích thước của union sẽ bằng kích thước của thành phần có kích thước lớn nhất.
+
+Kích thước của union sẽ bằng kích thước của **thành phần có kích thước lớn nhất**.
+
+Cách tính kích thước cũng gần giống với `struct`, lấy **kích thước kiểu dữ liệu lớn nhất** của thành phần bên trong làm chuẩn, `uint32_t` tương đương 4 bytes, giả sử ta có một bảng ô nhớ mỗi hàng kích thước 4 bytes.
+
+Vì các thành phần của `union` chia sẻ cùng một vị trí bộ nhớ, nên ta lấp các thành phần vào bảng một cách độc lập:
+
+- Kích thước của `uint8_t a[13]` là 16 bytes.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d4e10aa8-325b-4933-94f6-b8abdeea1ec2" width="500">	
+</p>
+- Kích thước của `uint32_t b[3]` là 12 bytes.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0ec1a261-03f3-4cb9-9b4c-57caa9132c64" width="500">	
+</p>
+- Kích thước của `uint16_t c[4]` là 12 bytes.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d4e10aa8-325b-4933-94f6-b8abdeea1ec2" width="500">	
+</p>
+Nên 16 bytes là kích thước của `examp3`
 
 ```c
 Dia chi data: 00000097873FF9E4
