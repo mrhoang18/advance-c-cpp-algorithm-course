@@ -1348,24 +1348,18 @@ Vì các thành phần của `union` chia sẻ cùng một vị trí bộ nhớ,
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d4e10aa8-325b-4933-94f6-b8abdeea1ec2" width="500">	
 </p>
+
 - Kích thước của `uint32_t b[3]` là 12 bytes.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0ec1a261-03f3-4cb9-9b4c-57caa9132c64" width="500">	
 </p>
+
 - Kích thước của `uint16_t c[6]` là 12 bytes.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/cb074adf-2cc0-4c70-8f7c-0956a62d1649" width="500">	
 </p>
 
 Nên 16 bytes là kích thước của `examp3`
-
-```c
-Dia chi data: 00000097873FF9E4
-Dia chi data.arr1: 00000097873FF9E4
-Dia chi data.arr2: 00000097873FF9E4
-Dia chi data.arr3: 00000097873FF9E4
-```
-
 
 </p>
 </details>
