@@ -1241,7 +1241,7 @@ struct SinhVien {
 };
 ```
 
-### Kích thước 
+### Kích thước của struct
 
 Kích thước của một `struct` trong C phụ thuộc vào các **thành phần bên trong** nó và cách chúng được **sắp xếp trong bộ nhớ**.
 
@@ -1307,6 +1307,29 @@ Kích thước sau khi tối ưu đã được giảm đáng kể còn 8 bytes.
 ## Union
 <details><summary>Chi tiết</summary>
 <p>
+
+### Khái niệm
+`union` trong ngôn ngữ lập trình C là một kiểu dữ liệu tự định nghĩa, tương tự như `struct`.
+
+**Cú pháp:**
+```c
+union UnionName {
+    data_type1 variable_name1;
+    data_type2 variable_name2;
+    // Other members of the union
+};
+
+// Ví dụ
+union Data {
+    int i;
+    float f;
+    char str[20];
+};
+```
+Nhưng có một đặc điểm quan trọng là tất cả các thành phần bên trong union đều chia sẻ cùng một vùng nhớ. Điều này có nghĩa là union chỉ có thể lưu trữ một giá trị cho một thành phần tại một thời điểm.
+
+### Kích thước của union
+Tất cả các thành phần của union chia sẻ cùng một vị trí bộ nhớ, do đó, kích thước của union sẽ bằng kích thước của thành phần có kích thước lớn nhất.
 
 
 </p>
