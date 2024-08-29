@@ -1218,7 +1218,7 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 <details><summary>Chi tiết</summary>
 <p>
 
-## Struct
+## 1. Struct
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -1304,7 +1304,7 @@ Kích thước sau khi tối ưu đã được giảm đáng kể còn 8 bytes.
 </p>
 </details>
 
-## Union
+## 2. Union
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -1361,8 +1361,28 @@ Vì các thành phần của `union` chia sẻ cùng một vị trí bộ nhớ,
 
 Nên 16 bytes là kích thước của `examp3`
 
+
 </p>
 </details>
+
+## 3. Ứng dụng kết hợp struct và union
+<details><summary>Chi tiết</summary>
+<p>
+
+
+
+
+</p>
+</details>
+
+</p>
+</details>
+
+# MEMORY LAYOUT
+<details><summary>Chi tiết</summary>
+<p>
+
+
 
 </p>
 </details>
