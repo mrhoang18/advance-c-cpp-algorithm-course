@@ -1222,7 +1222,85 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 <details><summary>Chi tiết</summary>
 <p>
 
+### Khái niệm
+`struct` là một cấu trúc dữ liệu cho phép lập trình viên tự định nghĩa một kiểu dữ liệu mới bằng cách nhóm các biến có các kiểu dữ liệu khác nhau lại với nhau.
 
+**Cú pháp:**
+```c
+struct StructureName {
+    data_type1 variable_name1;
+    data_type2 variable_name2;
+    // Other members of the structure
+};
+
+// Ví dụ
+struct SinhVien {
+    char ten[50];        // Tên sinh viên
+    int tuoi;            // Tuổi sinh viên
+    float diem_trung_binh; // Điểm trung bình
+};
+```
+
+### Kích thước 
+
+Kích thước của một `struct` trong C phụ thuộc vào các **thành phần bên trong** nó và cách chúng được **sắp xếp trong bộ nhớ**.
+
+**Ví dụ 1:**
+```c
+typedef struct {
+    uint16_t c;    // Kiểu uint16_t = 2 byte
+    uint32_t a;    // Kiểu uint32_t = 4 bytes, kích thước lớn nhất.
+    uint8_t  b;    // Kiểu uint8_t = 1 bytes
+} examp1;
+```
+
+Kích thước của `examp1` sẽ được tính như sau:
+
+- Lấy **kích thước kiểu dữ liệu lớn nhất** của thành phần bên trong làm chuẩn, `uint32_t` tương đương 4 bytes, giả sử ta có một bảng ô nhớ mỗi hàng kích thước 4 bytes như hình.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/27d8c23b-269d-4ef4-8b66-2bbfd6dc0a91" width="500">	
+</p>
+
+- Lần lượt sắp xếp các biến thành phần trong `frame` vào từng hàng, bắt đầu với biến c. Biến c chiếm 2 bytes còn thừa 2 bytes.
+- Biến a có kích thước 4 bytes không vừa với 2 bytes thừa đó nên phải xuống hàng mới, và 2 bytes thừa sẽ bị đánh dấu là **padding**.
+- Tiếp tục với biến c, biến c chiếm 1 byte và thừa 3 bytes. Do không còn biến nào nữa nên 3 bytes thừa sẽ bị **padding**.
+  <p align="center">
+  <img src="https://github.com/user-attachments/assets/993c1735-b202-4fa5-b126-f18e83d71a6d" width="500">	
+  </p>
+  
+ - Kích thước của cả `examp1` sẽ bằng số hàng (3 hàng) đã lấp vào nhân với kích thước hàng (4 bytes) là 12 bytes.
+   
+**Ví dụ 2:**
+```c
+typedef struct {
+    uint8_t a[9];	//Kiểu uint8_t = 1 byte
+    uint64_t b[3];	//Kiểu uint64_t = 8 byte, kích thước lớn nhất.
+    uint16_t c[10];	//Kiểu uint16_t = 2 byte
+    uint32_t d[2];	//Kiểu uint32_t = 4 byte
+} exam2;
+```
+Tương tự thao tác như ví dụ 1 ta được kích thước là 72 bytes.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f53b3e71-f7ad-488d-b04a-e5fad17b26c4" width="500">	
+</p>
+ 
+### Tối ưu bộ nhớ bằng cách sắp xếp thứ tự khai báo
+
+Với ví dụ 1, thứ tự khai báo chưa được tối ưu. Bằng cách sắp xếp lại thứ tự khai báo ta có thể giảm kích thước của struct..
+
+**Ví dụ 1 sau khi được tối ưu:**
+```c
+typedef struct {
+    uint32_t a;    // Kiểu uint32_t = 4 bytes, kích thước lớn nhất.
+    uint8_t  b;    // Kiểu uint8_t = 1 bytes
+    uint16_t c;    // Kiểu uint16_t = 2 byte
+} examp1;
+```
+Kích thước sau khi tối ưu đã được giảm đáng kể còn 8 bytes.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4e0a4bbf-e613-459c-a49d-e6029e2fe626" width="500">	
+</p>
 </p>
 </details>
 
