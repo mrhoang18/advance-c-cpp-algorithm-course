@@ -1378,7 +1378,7 @@ Nên 16 bytes là kích thước của `examp3`
 </p>
 </details>
 
-# MEMORY LAYOUT
+# BÀI 8: MEMORY LAYOUT
 <details><summary>Chi tiết</summary>
 <p>
 
