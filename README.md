@@ -886,7 +886,7 @@ Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập v
 <details><summary>Chi tiết</summary>
 <p>
   
-## Goto
+## 1. Goto
 <details><summary>Chi tiết</summary>
 <p>
 	
@@ -937,7 +937,7 @@ end_loops:						       // Nhãn 'end_loops'
 </p>
 </details>
 
-## Setjmp.h
+## 2. Setjmp.h
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -1385,21 +1385,33 @@ Chương trình main.exe (trên window), main.hex (nạp vào vi điều khiển
 
 Chương trình C/C++ được tổ chức lưu trong memory layout (phân vùng nhớ) thành các phần như sau:
 
-## Text segment
+## 1. Text segment
 Phân vùng này chứa:
  - Mã máy (mã máy là tập hợp các lệnh thực thi).
  - Hằng số (const), con trỏ kiểu char
-
-```c
-const int a = 10;
-char *str = "Hello, World!";
-```
 
 **Quyền truy cập thường chỉ có quyền đọc và thực thi, nhưng không có quyền ghi.**
 
 **Tất cả các biến lưu ở phần vùng Text đều không thể thay đổi giá trị mà chỉ được đọc.**
 
-## Data segment
+**Ví dụ:**
+```c
+#include <stdio.h>
+
+const int a = 10;			//Hằng số
+char *arr1 = "Hello";			//Con trỏ kiểu char
+
+int main() {
+    //a=10;             		//Không được phép thay đổi->Bị lỗi
+    //arr1[3] = 'E';
+
+    printf("a: %d\n", a);
+    printf("arr1: %s", arr1);
+
+    return 0;
+}
+```
+## 2. Data segment
 Hay còn gọi là phân vùng Initialized Data Segment (Dữ liệu Đã Khởi Tạo), chứa:
  - Biến toàn cục được khởi tạo với giá trị khác 0.
  - Biến static được khởi tạo với giá trị khác 0.
@@ -1432,7 +1444,7 @@ int main(int argc, char const *argv[]){
     return 0;
 }
 ```
-## Bss segment
+## 3. Bss segment
 Hay còn gọi là phân vùng Uninitialized Data Segment (Dữ liệu Chưa Khởi Tạo):
  - Biến toàn cục khởi tạo với giá trị bằng 0 hoặc không gán giá trị.
  - Biến static với giá trị khởi tạo bằng 0 hoặc không gán giá trị.
@@ -1473,13 +1485,16 @@ int main() {
     return 0;
 }
 ```
-## Stack
+## 4. Stack
 Phân vùng này chứa:
  - Các biến cục bộ, tham số truyền vào.
    
 **Quyền truy cập là đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.**
 
 **Sau khi ra khỏi hàm, sẽ thu hồi vùng nhớ.**
+
+**LIFO(Last In Fist Out).**
+
 
 **Ví dụ:**
 ```c
@@ -1512,10 +1527,12 @@ int main() {
     return 0;
 }
 ```
+## 5. Heap
+Heap được sử dụng để **cấp phát bộ nhớ động** trong quá trình thực thi của chương trình.
 
+Điều này cho phép chương trình tạo ra và giải phóng bộ nhớ theo nhu cầu, thích ứng với sự biến đổi của dữ liệu trong quá trình chạy.
 
-
-## Heap
+Các hàm như `malloc()`, `calloc()`, `realloc()`, và `free()` được sử dụng để cấp phát và giải phóng bộ nhớ trên heap.
 
 
 
