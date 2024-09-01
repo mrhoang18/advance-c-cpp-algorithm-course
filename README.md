@@ -1390,9 +1390,9 @@ Phân vùng này chứa:
  - Mã máy (mã máy là tập hợp các lệnh thực thi).
  - Hằng số (const), con trỏ kiểu char
 
-**Quyền truy cập thường chỉ có quyền đọc và thực thi, nhưng không có quyền ghi.**
+Quyền truy cập thường chỉ có quyền đọc và thực thi, nhưng không có quyền ghi.
 
-**Tất cả các biến lưu ở phần vùng Text đều không thể thay đổi giá trị mà chỉ được đọc.**
+Tất cả các biến lưu ở phần vùng Text đều không thể thay đổi giá trị mà chỉ được đọc.
 
 **Ví dụ:**
 ```c
@@ -1416,9 +1416,9 @@ Hay còn gọi là phân vùng Initialized Data Segment (Dữ liệu Đã Khởi
  - Biến toàn cục được khởi tạo với giá trị khác 0.
  - Biến static được khởi tạo với giá trị khác 0.
    
-**Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến .**
+Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
 
-**Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.**
+Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
 
 **Ví dụ:**
 ```c
@@ -1449,9 +1449,9 @@ Hay còn gọi là phân vùng Uninitialized Data Segment (Dữ liệu Chưa Kh�
  - Biến toàn cục khởi tạo với giá trị bằng 0 hoặc không gán giá trị.
  - Biến static với giá trị khởi tạo bằng 0 hoặc không gán giá trị.
    
-**Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến .**
+Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
 
-**Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.**
+Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
 
 **Ví dụ:**
 ```c
@@ -1489,11 +1489,11 @@ int main() {
 Phân vùng này chứa:
  - Các biến cục bộ, tham số truyền vào.
    
-**Quyền truy cập là đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.**
+Quyền truy cập là đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
 
-**Sau khi ra khỏi hàm, sẽ thu hồi vùng nhớ.**
+Sau khi ra khỏi hàm, sẽ thu hồi vùng nhớ.
 
-**LIFO(Last In Fist Out).**
+LIFO(Last In Fist Out).
 
 
 **Ví dụ:**
@@ -1530,7 +1530,16 @@ int main() {
 ## 5. Heap
 Heap được sử dụng để **cấp phát bộ nhớ động** trong quá trình thực thi của chương trình.
 
-Điều này cho phép chương trình tạo ra và giải phóng bộ nhớ theo nhu cầu, thích ứng với sự biến đổi của dữ liệu trong quá trình chạy.
+Quyền truy cập: có quyền đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
+
+Nếu liên tục cấp phát vùng nhớ mà không giải phóng thì sẽ bị lỗi tràn vùng nhớ Heap (Heap overflow).
+
+Nếu khởi tạo một vùng nhớ quá lớn mà vùng nhớ Heap không thể lưu trữ một lần được sẽ bị lỗi khởi tạo vùng nhớ Heap thất bại.
+
+**Ví dụ:**
+```c
+int *A = (int *)malloc(18446744073709551615);
+```
 
 Các hàm như `malloc()`, `calloc()`, `realloc()`, và `free()` được sử dụng để cấp phát và giải phóng bộ nhớ trên heap.
 
@@ -1538,6 +1547,11 @@ Các hàm như `malloc()`, `calloc()`, `realloc()`, và `free()` được sử d
 Cấp phát một vùng nhớ có kích thước được xác định bằng số byte và trả về một con trỏ đến vùng nhớ này. 
 
 Vùng nhớ được cấp phát nhưng không được khởi tạo (nội dung là ngẫu nhiên).
+
+Tại sao gọi là ngẫu nhiên vì nó có thể chứa các giá trị rác từ trước đó, lập trình viên cần tự khởi tạo giá trị cho vùng nhớ sau khi cấp phát.
+
+**Đây là điểm khác biệt so với calloc!**
+
 **Ví dụ:**
 ```c
 #include <stdio.h>
@@ -1582,17 +1596,48 @@ Giải thích tại sao lại có kết quả như vậy, lấy phần tử `ptr
  - Byte 4: 0b00000000 (0).
 
 ### Hàm `calloc()`
-Cấp phát bộ nhớ cho một mảng gồm nhiều phần tử, khởi tạo tất cả các phần tử của mảng với giá trị 0, và trả về một con trỏ đến vùng nhớ này.
+Cấp phát bộ nhớ cho một mảng gồm nhiều phần tử, **khởi tạo tất cả các phần tử của mảng với giá trị 0**, và trả về một con trỏ đến vùng nhớ này.
 
+**Ví dụ:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+int main() {
+    // Cấp phát bộ nhớ cho 6 phần tử kiểu uint16_t bằng hàm calloc
+    uint16_t *ptr = NULL;
+    ptr = (uint16_t*)calloc(6, sizeof(uint16_t));
+
+    // In địa chỉ và giá trị của từng phần tử trong mảng
+    for (int i = 0; i < 6; i++) {
+        printf("Địa chỉ: %p, giá trị: %d\n", (void*)(ptr + i), ptr[i]);
+    }
+
+    // Giải phóng bộ nhớ đã cấp phát
+    free(ptr);
+
+    return 0;
+}
+```
+**Output từ Terminal:**
+```c
+> Địa chỉ: 00000241654EE9D0, giá trị: 0
+> Địa chỉ: 00000241654EE9D2, giá trị: 0
+> Địa chỉ: 00000241654EE9D4, giá trị: 0
+> Địa chỉ: 00000241654EE9D6, giá trị: 0
+> Địa chỉ: 00000241654EE9D8, giá trị: 0
+> Địa chỉ: 00000241654EE9DA, giá trị: 0
+```
 ### Hàm `realloc()`
 Thay đổi kích thước của vùng nhớ đã được cấp phát trước đó bằng malloc hoặc calloc, và trả về một con trỏ đến vùng nhớ mới (nội dung của vùng nhớ có thể thay đổi).
 
 ```c
 uint16_t *ptr = NULL;
-ptr = (uint16_t*)malloc(sizeof(uint16_t)*4); 	//0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08
+ptr = (uint16_t*)malloc(sizeof(uint16_t)*4); 		//0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08
 
 //Cấp phát thêm 4 byte nữa
-ptr = (uint16_t*)realloc(ptr, sizeof(uint16_t)*6); //0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C
+ptr = (uint16_t*)realloc(ptr, sizeof(uint16_t)*6); 	//0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C
 ```
 
 ### Hàm `free()`
