@@ -1648,3 +1648,59 @@ free(ptr);
 
 </p>
 </details>
+
+# BÀI 9: LINKED LIST
+<details><summary>Chi tiết</summary>
+<p>
+	
+## 1. Khái niệm
+<details><summary>Chi tiết</summary>
+<p>
+	
+Linked List là một cấu trúc dữ liệu bao gồm một chuỗi các node (nút), mỗi nút chứa hai thành phần chính:
+- Dữ liệu (data): Đây là giá trị được lưu trữ trong nút.
+- Con trỏ (pointer): Đây là tham chiếu (địa chỉ) đến nút tiếp theo trong danh sách.
+ <p align="center">
+  <img src="https://github.com/user-attachments/assets/8b38af8e-24fa-41f4-a6e6-01f6c683b6db" width="600">	
+</p>
+
+Trong C, ta thường dùng cấu trúc (struct) để định nghĩa một node. Cấu trúc này bao gồm:
+- Một thành viên lưu dữ liệu.
+- Một thành viên là con trỏ trỏ đến node tiếp theo cùng kiểu dữ liệu.
+```c
+typedef struct Node {
+    int data;           // Giá trị (dữ liệu) của node
+    struct Node* next;  // Con trỏ trỏ đến node tiếp theo
+} Node_t;
+```
+</p>
+</details>
+
+## 2. Thao tác trên Linked list
+<details><summary>Chi tiết</summary>
+<p>
+	
+### Khởi tạo một node mới 
+### Thêm một node vào phía sau
+### Thêm một node vào phía trước
+### Xóa node cuối cùng
+### Xóa node đầu tiên
+### Lấy giá trị của node cuối cùng
+### Lấy giá trị của node đầu tiên
+### Thêm một node vào vị trí bất kì
+### Xóa một node tại vị trí bất kì
+### Lấy kích thước của list
+### Lấy giá trị tại vị trí bất kì
+### Kiểm tra list có rỗng hay không
+
+</p>
+</details>
+
+</p>
+</details>
+
+# BÀI 10: STACK-QUEUE
+<details><summary>Chi tiết</summary>
+<p>
+</p>
+</details>
