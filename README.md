@@ -1676,22 +1676,283 @@ typedef struct Node {
 </p>
 </details>
 
-## 2. Thao tác trên Linked list
+## 2. Thao tác trên danh sách liên kết
 <details><summary>Chi tiết</summary>
 <p>
 	
 ### Khởi tạo một node mới 
-### Thêm một node vào phía sau
-### Thêm một node vào phía trước
-### Xóa node cuối cùng
-### Xóa node đầu tiên
-### Lấy giá trị của node cuối cùng
-### Lấy giá trị của node đầu tiên
+```c
+// Hàm khởi tạo một node mới
+Node* create_node(int value) {
+    // Cấp phát bộ nhớ động cho node mới
+    Node* new_node = (Node*)malloc(sizeof(Node));
+
+    // Gán giá trị cho node và trỏ next đến NULL
+    new_node->data = value;
+    new_node->next = NULL;
+
+    return new_node;
+}
+```
+
+### Thêm một node vào vị trí cuối cùng
+```c
+// Hàm khởi tạo một node mới
+Node* create_node(int value) {...}
+
+// Hàm thêm một node vào cuối danh sách
+void push_back(node** array, int value) {
+    // Tạo một node mới
+    node* new_node = create_node(value);
+
+    // Nếu danh sách trống, node mới sẽ là node đầu tiên
+    if (*array == NULL) {
+        *array = new_node;
+        return;
+    }
+
+    // Duyệt đến node cuối cùng
+    node* temp = *array;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    // Gán node mới vào cuối danh sách
+    temp->next = new_node;
+}
+```
+### Thêm một node vào vị trí đầu tiên
+```c
+// Hàm khởi tạo một node mới
+Node* create_node(int value) {...}
+
+// Hàm thêm một node vào đầu danh sách
+void push_front(node** array, int value) {
+    // Tạo một node mới
+    node* new_node = create_node(value);
+
+    // Node mới trỏ đến node hiện tại đang là đầu danh sách
+    new_node->next = *array;
+
+    // Gán node mới làm đầu danh sách
+    *array = new_node;
+}
+
+```
 ### Thêm một node vào vị trí bất kì
+```c
+// Hàm tạo node mới
+node* create_node(int value) {...}
+
+// Hàm chèn một node mới vào vị trí `pos`
+void insert(node** array, int value, int pos) {
+    node* new_node = create_node(value);
+
+    // Nếu chèn vào vị trí đầu tiên (hoặc danh sách rỗng)
+    if (pos == 0 || *array == NULL) {
+        new_node->next = *array;
+        *array = new_node;
+        return;
+    }
+
+    node* temp = *array;
+
+    // Duyệt đến vị trí trước vị trí cần chèn
+    for (int i = 0; temp != NULL && i < pos - 1; i++) {
+        temp = temp->next;
+    }
+
+    // Nếu vị trí vượt quá kích thước danh sách
+    if (temp == NULL) {
+        printf("Vị trí vượt quá kích thước danh sách.\n");
+        free(new_node); // Giải phóng node mới tạo vì không thể chèn
+        return;
+    }
+
+    // Chèn node mới vào danh sách
+    new_node->next = temp->next;
+    temp->next = new_node;
+}
+```
+
+### Xóa node ở vị trí cuối cùng
+```c
+// Hàm xóa node cuối cùng trong danh sách
+void pop_back(node** array) {
+    // Nếu danh sách rỗng, không làm gì cả
+    if (*array == NULL) {
+        printf("Danh sách rỗng.\n");
+        return;
+    }
+
+    // Nếu danh sách chỉ có một phần tử
+    if ((*array)->next == NULL) {
+        free(*array);  // Giải phóng node cuối cùng
+        *array = NULL; // Đặt lại danh sách thành rỗng
+        return;
+    }
+
+    // Duyệt đến node gần cuối cùng
+    node* temp = *array;
+    while (temp->next->next != NULL) {
+        temp = temp->next;
+    }
+
+    // Giải phóng node cuối cùng
+    free(temp->next);
+    temp->next = NULL; // Đặt node gần cuối thành node cuối
+}
+```
+
+### Xóa node ở vị trí đầu tiên
+```c
+// Hàm xóa node đầu tiên trong danh sách
+void pop_front(node** array) {
+    // Kiểm tra nếu danh sách rỗng
+    if (*array == NULL) {
+        printf("Danh sách rỗng.\n");
+        return;
+    }
+
+    // Lưu lại node đầu tiên
+    node* temp = *array;
+
+    // Di chuyển đầu danh sách sang node tiếp theo
+    *array = (*array)->next;
+
+    // Giải phóng node đầu tiên
+    free(temp);
+}
+```
+
 ### Xóa một node tại vị trí bất kì
-### Lấy kích thước của list
+```c
+// Hàm xóa node tại vị trí `pos` trong danh sách
+void delete_list(node** array, int pos) {
+    // Nếu danh sách rỗng hoặc vị trí không hợp lệ
+    if (*array == NULL || pos < 0) {
+        printf("Danh sách rỗng hoặc vị trí không hợp lệ.\n");
+        return;
+    }
+
+    node* temp = *array;
+
+    // Nếu vị trí cần xóa là node đầu tiên
+    if (pos == 0) {
+        *array = temp->next; // Di chuyển đầu danh sách
+        free(temp);          // Giải phóng node đầu tiên
+        return;
+    }
+
+    // Duyệt đến node trước vị trí cần xóa
+    for (int i = 0; temp != NULL && i < pos - 1; i++) {
+        temp = temp->next;
+    }
+
+    // Nếu vị trí vượt quá kích thước danh sách
+    if (temp == NULL || temp->next == NULL) {
+        printf("Vị trí vượt quá kích thước danh sách.\n");
+        return;
+    }
+
+    // Node cần xóa là `temp->next`
+    node* node_to_delete = temp->next;
+    temp->next = node_to_delete->next; // Liên kết lại danh sách
+
+    free(node_to_delete); // Giải phóng node tại vị trí `pos`
+}
+```
+
+### Lấy giá trị của node cuối cùng
+```c
+// Hàm lấy giá trị của node cuối cùng trong danh sách
+int back(node* array) {
+    // Kiểm tra nếu danh sách rỗng
+    if (array == NULL) {
+        printf("Danh sách rỗng.\n");
+        return -1; // Giá trị đặc biệt để biểu thị danh sách rỗng
+    }
+
+    // Duyệt đến node cuối cùng
+    node* temp = array;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    // Trả về giá trị của node cuối cùng
+    return temp->data;
+}
+```
+
+### Lấy giá trị của node đầu tiên
+```c
+// Hàm lấy giá trị của node đầu tiên trong danh sách
+int front(node* array) {
+    // Kiểm tra nếu danh sách rỗng
+    if (array == NULL) {
+        printf("Danh sách rỗng.\n");
+        return -1; // Giá trị đặc biệt để biểu thị danh sách rỗng
+    }
+
+    // Trả về giá trị của node đầu tiên
+    return array->data;
+}
+```
+
 ### Lấy giá trị tại vị trí bất kì
+```c
+// Hàm lấy giá trị của node tại vị trí `pos`
+int get(node* array, int pos) {
+    // Kiểm tra nếu danh sách rỗng hoặc vị trí không hợp lệ
+    if (array == NULL || pos < 0) {
+        printf("Danh sách rỗng hoặc vị trí không hợp lệ.\n");
+        return -1; // Giá trị đặc biệt để biểu thị lỗi
+    }
+
+    node* temp = array;
+    int current_pos = 0;
+
+    // Duyệt qua danh sách đến vị trí `pos`
+    while (temp != NULL && current_pos < pos) {
+        temp = temp->next;
+        current_pos++;
+    }
+
+    // Nếu vị trí vượt quá số lượng node trong danh sách
+    if (temp == NULL) {
+        printf("Vị trí vượt quá kích thước danh sách.\n");
+        return -1; // Giá trị đặc biệt để biểu thị lỗi
+    }
+
+    // Trả về giá trị của node tại vị trí `pos`
+    return temp->data;
+}
+```
+
+### Lấy kích thước của list
+```c
+// Hàm tính kích thước của danh sách liên kết
+int size(node* array) {
+    int count = 0;
+    node* temp = array;
+
+    // Duyệt qua danh sách và đếm số lượng node
+    while (temp != NULL) {
+        count++;
+        temp = temp->next;
+    }
+
+    return count;
+}
+```
+
 ### Kiểm tra list có rỗng hay không
+```c
+// Hàm kiểm tra xem danh sách có rỗng hay không
+bool empty(node* array) {
+    return (array == NULL);
+}
+```
 
 </p>
 </details>
