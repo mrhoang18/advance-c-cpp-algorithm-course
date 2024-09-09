@@ -1963,5 +1963,33 @@ bool empty(node* array) {
 # BÀI 10: STACK-QUEUE
 <details><summary>Chi tiết</summary>
 <p>
+
+## 1. Stack
+<details><summary>Chi tiết</summary>
+<p>
+
+## Khái niệm
+Stack (ngăn xếp) là một cấu trúc dữ liệu tuyến tính hoạt động theo nguyên tắc LIFO (Last In, First Out), tức là phần tử được thêm vào sau cùng sẽ được lấy ra đầu tiên.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ff1ed8f0-1567-4264-86fc-458bc7c80420" width="200">	
+</p>
+
+## Các thao tác cơ bản
+
+</p>
+</details>
+
+## 2. Queue
+<details><summary>Chi tiết</summary>
+<p>
+
+
+## Khái niệm
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/22122325-0c9c-4fa2-892e-440d462ad60e" width="200">	
+</p>
+</p>
+</details>
+
 </p>
 </details>
