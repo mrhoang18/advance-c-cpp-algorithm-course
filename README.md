@@ -1968,12 +1968,178 @@ bool empty(node* array) {
 <p>
 
 ## Khái niệm
-Stack (ngăn xếp) là một cấu trúc dữ liệu tuyến tính hoạt động theo nguyên tắc LIFO (Last In, First Out), tức là phần tử được thêm vào sau cùng sẽ được lấy ra đầu tiên.
+Stack (ngăn xếp) là một cấu trúc dữ liệu hoạt động theo nguyên tắc LIFO (Last In, First Out), tức là phần tử được thêm vào sau cùng sẽ được lấy ra đầu tiên.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ff1ed8f0-1567-4264-86fc-458bc7c80420" width="200">	
 </p>
 
-## Các thao tác cơ bản
+## Các thao tác trên stack
+### Push
+Push trong stack dùng để thêm một phần tử mới vào đỉnh của stack.
+
+Stack đầy khi chỉ số của phần tử đỉnh top bằng kích thước của stack trừ đi 1 (top == size - 1).
+
+Nếu stack đã đầy mà cố tình thêm một phần tử nữa bằng cách push, thì quá trình này sẽ không thành công và sẽ gặp phải tình trạng "stack overflow"
+
+**Ví dụ 1:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Stack {
+    int* items;
+    int size;
+    int top;
+} Stack;
+
+void initialize( Stack *stack, int size) {
+    stack->items = (int*) malloc(sizeof(int) * size);
+    stack->size = size;
+    stack->top = -1;
+}
+
+int is_full( Stack stack) {
+    return stack.top == stack.size - 1;
+}
+
+void push( Stack *stack, int value) {
+    if (!is_full(*stack)) {
+        stack->items[++stack->top] = value;
+        printf("Pushed %d to stack\n", value);  // Hiển thị giá trị đã được push vào stack
+    } else {
+        printf("Stack overflow\n");
+    }
+}
+
+int main() {
+    Stack stack1;
+    initialize(&stack1, 5);
+
+    push(&stack1, 10);
+    push(&stack1, 20);
+    push(&stack1, 30);
+    push(&stack1, 40);
+    push(&stack1, 50);
+    push(&stack1, 60);  // Thử nghiệm khi stack đầy
+
+    return 0;
+}
+```
+### Pop
+Pop trong stack dùng để xóa một phần tử ở đỉnh của stack. 
+
+Khi stack không có phần tử nào thì không thể dùng pop.
+
+Nếu cố tình pop khi stack rỗng, sẽ gặp phải tình trạng gọi là "stack underflow".
+
+**Ví dụ 2:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Stack {
+    int* items;
+    int size;
+    int top;
+} Stack;
+
+void initialize(Stack *stack, int size) {
+    stack->items = (int*) malloc(sizeof(int) * size);
+    stack->size = size;
+    stack->top = -1;
+}
+
+int is_empty(Stack stack) {
+    return stack.top == -1;
+}
+
+int pop(Stack *stack) {
+    if (!is_empty(*stack)) {
+        printf("Popped %d from stack\n", stack->items[stack->top]);
+        return stack->items[stack->top--];
+    } else {
+        printf("Stack underflow\n");
+        return -1;
+    }
+}
+
+int main() {
+    Stack stack1;
+    initialize(&stack1, 5);
+
+    // Push các phần tử vào stack
+    stack1.items[++stack1.top] = 10;
+    stack1.items[++stack1.top] = 20;
+    stack1.items[++stack1.top] = 30;
+
+    // Pop các phần tử từ stack đến khi stack rỗng
+    pop(&stack1);
+    pop(&stack1);
+    pop(&stack1);
+    pop(&stack1);  // Thử nghiệm khi stack rỗng
+
+    return 0;
+}
+```
+### Top
+Top trong stack dùng để lấy giá trị của phần tử ở đỉnh.
+
+Khi stack không có phần tử nào (tức là stack rỗng), giá trị của top thường sẽ là -1.
+
+Cứ mỗi lần push hoặc pop, giá trị top sẽ cộng lên hoặc trừ xuống 1.
+
+Khi stack đầy, giá trị top là size - 1.
+
+**Ví dụ 3:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Stack {
+    int* items;
+    int size;
+    int top;
+} Stack;
+
+void initialize(Stack *stack, int size) {
+    stack->items = (int*) malloc(sizeof(int) * size);
+    stack->size = size;
+    stack->top = -1;
+}
+
+int is_empty(Stack stack) {
+    return stack.top == -1;
+}
+
+int top(Stack stack) {
+    if (!is_empty(stack)) {
+        printf("Top element: %d\n", stack.items[stack.top]);
+        return stack.items[stack.top];
+    } else {
+        printf("Stack is empty\n");
+        return -1;
+    }
+}
+
+int main() {
+    Stack stack1;
+    initialize(&stack1, 5);
+
+    // Push các phần tử vào stack
+    stack1.items[++stack1.top] = 10;
+    stack1.items[++stack1.top] = 20;
+    stack1.items[++stack1.top] = 30;
+
+    // Lấy giá trị phần tử ở đỉnh stack mà không xóa nó
+    top(stack1);
+
+    // Thử nghiệm khi stack rỗng
+    stack1.top = -1;  // Xóa các phần tử trong stack bằng cách đặt top về -1
+    top(stack1);      // Gọi top khi stack rỗng
+
+    return 0;
+}
+```
 
 </p>
 </details>
@@ -1982,11 +2148,71 @@ Stack (ngăn xếp) là một cấu trúc dữ liệu tuyến tính hoạt độ
 <details><summary>Chi tiết</summary>
 <p>
 
-
 ## Khái niệm
+Queue là một cấu trúc dữ liệu tuân theo nguyên tắc "First In, First Out" (FIFO), nghĩa là phần tử đầu tiên được thêm vào hàng đợi sẽ là phần tử đầu tiên được lấy ra. 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/22122325-0c9c-4fa2-892e-440d462ad60e" width="200">	
 </p>
+
+## Các thao tác trên stack
+### Enqueue
+Enqueue trong hàng đợi queue được sử dụng để thêm một phần tử vào cuối hàng đợi.
+
+**Ví dụ 4:**
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Queue {
+    int* items;
+    int size;
+    int front, rear;
+} Queue;
+
+void initialize(Queue *queue, int size) 
+{
+    queue->items = (int*) malloc(sizeof(int)* size);
+    queue->front = -1;
+    queue->rear = -1;
+    queue->size = size;
+}
+
+int is_full(Queue queue) {
+    return (queue.rear + 1) % queue.size == queue.front;
+}
+
+int is_empty(Queue queue) {
+    return queue.front == -1;
+}
+
+void enqueue(Queue *queue, int value) {
+    if (!is_full(*queue)) {
+        if (is_empty(*queue)) {
+            queue->front = queue->rear = 0;
+        } else {
+            queue->rear = (queue->rear + 1) % queue->size;
+        }
+        queue->items[queue->rear] = value;
+        printf("Enqueued %d\n", value);
+    } else {
+        printf("Queue overflow\n");
+    }
+}
+
+int main() {
+    Queue queue;
+    initialize(&queue, 3);
+
+    enqueue(&queue, 10);
+    enqueue(&queue, 20);
+    enqueue(&queue, 30);
+
+    enqueue(&queue, 40);  // Hàng đợi đầy, sẽ in ra "Queue overflow"
+
+    return 0;
+}
+
+### Dequeue
+### Front
 </p>
 </details>
 
