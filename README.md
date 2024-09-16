@@ -1413,8 +1413,7 @@ int main() {
 ```
 ## 2. Data segment
 Hay còn gọi là phân vùng Initialized Data Segment (Dữ liệu Đã Khởi Tạo), chứa:
- - Biến toàn cục được khởi tạo với giá trị khác 0.
- - Biến static được khởi tạo với giá trị khác 0.
+ - Biến toàn cục và biến static (static global, static local) được khởi tạo với giá trị khác 0.
    
 Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
 
