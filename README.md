@@ -2154,11 +2154,35 @@ Queue là một cấu trúc dữ liệu tuân theo nguyên tắc "First In, Firs
   <img src="https://github.com/user-attachments/assets/22122325-0c9c-4fa2-892e-440d462ad60e" width="200">	
 </p>
 
+Chỉ để cập tới **Circular queue**, ta có hai từ khóa front và rear:
+
+- front đại diện cho vị trí của phần tử đầu tiên trong hàng đợi. Đây là phần tử sẽ được lấy ra đầu tiên khi thực hiện thao tác dequeue (lấy phần tử ra).
+- rear đại diện cho vị trí của phần tử cuối cùng trong hàng đợi. Đây là phần tử cuối cùng được thêm vào khi thực hiện thao tác enqueue (thêm phần tử vào).
+
+Khi queue rỗng, front và rear bằng -1.
+
+Khi queue đầy, (rear + 1) % size == front.
+
+Khi thực hiện dequeue, chỉ số front sẽ được tăng lên để trỏ tới phần tử tiếp theo trong hàng đợi.
+
+Khi thực hiện enqueue, rear sẽ được tăng lên để trỏ tới vị trí mới cho phần tử vừa được thêm vào hàng đợi.
+
+Nếu hàng đợi đầy, rear sẽ quay vòng theo cơ chế vòng tròn (circular queue), điều này có nghĩa là khi rear đạt tới giới hạn của mảng, nó sẽ quay về 0 để sử dụng lại vị trí cũ chỉ khi có phần tử được dequeue.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/affbbd9d-7378-4c0e-8c88-ad040254fd09" width="300">	
+</p>
+
 ## Các thao tác trên stack
 ### Enqueue
-Enqueue trong hàng đợi queue được sử dụng để thêm một phần tử vào cuối hàng đợi.
+Enqueue trong hàng chờ queue được sử dụng để thêm một phần tử vào cuối hàng chờ.
+
+Chỉ có thể thực hiện enqueue khi hàng đợi không đầy.
+
+Khi hàng đợi đã đầy, việc gọi enqueue sẽ không thêm phần tử mới và chương trình sẽ báo lỗi "Queue overflow".
 
 **Ví dụ 4:**
+```c
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -2210,9 +2234,130 @@ int main() {
 
     return 0;
 }
-
+```
 ### Dequeue
+Dequeue trong hàng chờ queue dùng để lấy phần tử từ đầu hàng chờ ra.
+
+Chỉ có thể sử dụng dequeue khi hàng đợi không rỗng.
+
+Khi hàng đợi rỗng, việc gọi dequeue sẽ không có phần tử nào để lấy ra và chương trình sẽ báo lỗi "Queue underflow".
+
+**Ví dụ 5:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Queue {
+    int* items;
+    int size;
+    int front, rear;
+} Queue;
+
+void initialize(Queue *queue, int size) 
+{
+    queue->items = (int*) malloc(sizeof(int)* size);
+    queue->front = -1;
+    queue->rear = -1;
+    queue->size = size;
+}
+
+int is_empty(Queue queue) {
+    return queue.front == -1;
+}
+
+int dequeue(Queue *queue) {
+    if (!is_empty(*queue)) {
+        int dequeued_value = queue->items[queue->front];
+        if (queue->front == queue->rear) {
+            queue->front = queue->rear = -1;
+        } else {
+            queue->front = (queue->front + 1) % queue->size;
+        }
+        printf("Dequeued %d\n", dequeued_value);
+        return dequeued_value;
+    } else {
+        printf("Queue underflow\n");
+        return -1;
+    }
+}
+
+int main() {
+    Queue queue;
+    initialize(&queue, 3);
+
+    // Giả lập việc thêm phần tử vào hàng đợi trước
+    queue.items[++queue.rear] = 10;
+    queue.items[++queue.rear] = 20;
+    queue.items[++queue.rear] = 30;
+    queue.front = 0;
+
+    // Dequeue các phần tử
+    dequeue(&queue);
+    dequeue(&queue);
+    dequeue(&queue);
+
+    // Thử nghiệm dequeue khi hàng đợi rỗng
+    dequeue(&queue);
+
+    return 0;
+}
+```
 ### Front
+Front để lấy giá trị phần tử ở đầu hàng đợi mà không xóa nó.
+
+**Ví dụ 6:**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Queue {
+    int* items;
+    int size;
+    int front, rear;
+} Queue;
+
+void initialize(Queue *queue, int size) 
+{
+    queue->items = (int*) malloc(sizeof(int) * size);
+    queue->front = -1;
+    queue->rear = -1;
+    queue->size = size;
+}
+
+int is_empty(Queue queue) {
+    return queue.front == -1;
+}
+
+int front(Queue queue) {
+    if (!is_empty(queue)) {
+        printf("Front element: %d\n", queue.items[queue.front]);
+        return queue.items[queue.front];
+    } else {
+        printf("Queue is empty\n");
+        return -1;
+    }
+}
+
+int main() {
+    Queue queue;
+    initialize(&queue, 3);
+
+    // Giả lập việc thêm phần tử vào hàng đợi
+    queue.items[++queue.rear] = 10;
+    queue.items[++queue.rear] = 20;
+    queue.items[++queue.rear] = 30;
+    queue.front = 0;
+
+    // Lấy phần tử ở đầu hàng đợi mà không xóa nó
+    front(queue);
+
+    // Giả lập hàng đợi rỗng và kiểm tra lại
+    queue.front = queue.rear = -1;
+    front(queue);  // Hàng đợi rỗng, sẽ in "Queue is empty"
+
+    return 0;
+}
+```
 </p>
 </details>
 
