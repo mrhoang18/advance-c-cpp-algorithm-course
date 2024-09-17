@@ -340,8 +340,8 @@ Con trỏ (pointer) là một biến chứa địa chỉ của một đối tư�
   ```
 **Kết quả:**
   ```bash
-  > Dia chi a: 00007FF7960F3000  
-  > Gia tri ptr: 00007FF7960F3000
+  > Dia chi a: 	  00007FF7960F3000  
+  > Gia tri ptr:  00007FF7960F3000
   > Gia tri ptr1: 0000000001101010
   ```
 **Kích thước của con trỏ phụ thuộc vào kiến trúc vi xử lý.**
@@ -672,11 +672,11 @@ Cấp bậc này có thể hữu ích trong nhiều tình huống, đặc biệt
   ```
 **Kết quả:**
   ```bash
-  address of value: 000000E6425FF904
-  value of ptr1: 000000E6425FF904
-  address of ptr1: 000000E6425FF8F8
-  value of ptr2: 000000E6425FF8F8
-  dereference ptr2 first time: 000000E6425FF904
+  address of value: 		000000E6425FF904
+  value of ptr1: 		000000E6425FF904
+  address of ptr1:		000000E6425FF8F8
+  value of ptr2: 		000000E6425FF8F8
+  dereference ptr2 first time: 	000000E6425FF904
   dereference ptr2 second time: 42
   ```
 
