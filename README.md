@@ -245,14 +245,14 @@ Thư viện stdarg.h hỗ trợ viết function với số lượng tham số kh
       return 0;
   }
   ```
-Output:
-  ```bash
-  Value at 0: 6
-  Value at 1: 8
-  Value at 2: 15
-  Value at 3: 10
-  Value at 4: 13
-  ```
+**Output:**
+```bash
+> Value at 0: 6
+> Value at 1: 8
+> Value at 2: 15
+> Value at 3: 10
+> Value at 4: 13
+```
 </p>
 </details>
 
@@ -264,8 +264,8 @@ Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
 - Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
 
-Code mẫu báo lỗi chia cho 0: 
-  ```bash
+**Ví dụ báo lỗi chia cho 0:**
+```bash
   #include <stdio.h>
   #include <assert.h>
   
@@ -280,11 +280,11 @@ Code mẫu báo lỗi chia cho 0:
       return 0;
   }
   ```
-Báo lỗi như sau:
-  ```bash
-  Assertion failed: b != 0 && "Mẫu bằng 0", file tempCodeRunnerFile.c, line 5
-  ```
-- Thường thấy hơn sẽ sử dụng macro để định nghĩa một lỗi.
+**Báo lỗi như sau:**
+```bash
+> Assertion failed: b != 0 && "Mẫu bằng 0", file tempCodeRunnerFile.c, line 5
+```
+Thường thấy hơn sẽ sử dụng macro để định nghĩa một lỗi.
   ```bash
   #include <stdio.h>
   #include <assert.h>
