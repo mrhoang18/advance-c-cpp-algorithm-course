@@ -1374,10 +1374,45 @@ Nên 16 bytes là kích thước của `examp3`
 ## 3. Ứng dụng kết hợp struct và union
 <details><summary>Chi tiết</summary>
 <p>
+	
+Ứng dụng của `struct` và `union` sẽ thường thấy trong lập trình nhúng, điển hình nhất là trong việc truyền nhận dữ liệu.
+	
+Ví dụ khi truyền một khung dữ liệu, `union` cho phép tiết kiệm bộ nhớ bằng cách chia sẻ cùng một vùng nhớ cho các thành phần khác nhau của `struct`.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2cbe0b9c-da46-49eb-857d-be5fd588cda2" width="500">	
+</p>
 
+**Ví dụ:**
+```c
+#include <stdio.h>
+#include <stdint.h>
+#include <string.h>
 
+typedef union {
+    struct {
+        uint8_t id[2];
+        uint8_t data[4];
+        uint8_t check_sum[2];
+    } data;
 
+    uint8_t frame[8];
+
+} Data_Frame;
+
+int main(int argc, char const *argv[]){
+    Data_Frame transmitter_data, receiver_data;
+
+    // Gửi data đi
+    strcpy(transmitter_data.data.id, "10");
+    strcpy(transmitter_data.data.data, "1234");
+    strcpy(transmitter_data.data.check_sum, "70");
+    // Nhận data về
+    strcpy(receiver_data.frame, transmitter_data.frame);
+
+    return 0;
+}
+```
 </p>
 </details>
 
