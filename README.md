@@ -2401,6 +2401,46 @@ int main() {
 ```
 </p>
 </details>
-
 </p>
 </details>
+
+# BÀI 13: CLASS
+<details><summary>Chi tiết</summary>
+<p>
+	
+## Định nghĩa
+Trong C++, class là một kiểu dữ liệu do người dùng định nghĩa, được sử dụng để tạo ra các đối tượng. Nó là một trong những tính năng cơ bản của lập trình hướng đối tượng.
+### Phạm vi truy cập
+
+Các từ khóa như `private`, `public`, và `protected` được gọi chung là access specifiers hay phạm vi truy cập.
+
+Access specifiers xác định quyền truy cập của các thành phần (thuộc tính, phương thức) trong một class:
+
+- `public`: Cho phép các thành phần trong class có thể truy cập được từ bên ngoài (bất kỳ đâu).
+
+- `private`: _chưa học tới_.
+
+- `protected`: _chưa học tới_.
+### Thành phần trong class
+```c  
+class ClassName {
+public:  // Access specifier
+    // Attributes
+    int attribute1;
+    double attribute2;
+
+    // Methods
+    void method1() {
+        // Code for method1
+    }
+
+    int method2(int param) {
+        // Code for method2
+        return param;
+    }
+};
+```
+ 
+</p>
+</details>
+
