@@ -2416,9 +2416,15 @@ int main() {
 </p>
 </details>
 
-# BÀI 13: THREAD
+# BÀI 13: PTHREAD
 <details><summary>Chi tiết</summary>
 <p>
+
+## 1. Khái niệm liên quan
+Thread (luồng) là đơn vị thực thi nhỏ nhất của một tiến trình. Mỗi tiến trình có thể chứa nhiều thread, và các thread này chạy song song với nhau gọi là đa luồng.
+
+Các thread trong cùng tiến trình chia sẻ tài nguyên với nhau nhưng sẽ có stack và bộ đếm chương trình riêng biệt.
+
 </p>
 </details>
 
