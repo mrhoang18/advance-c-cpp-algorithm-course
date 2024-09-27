@@ -2421,24 +2421,65 @@ Access specifiers xác định quyền truy cập của các thành phần (thu�
 - `private`: _chưa học tới_.
 
 - `protected`: _chưa học tới_.
-### Thành phần trong class
+### Thành phần của class
+Các thành phần đã được học trong bài:
+- Object (đối tượng) được tạo ra từ một class và có đầy đủ các thuộc tính và phương thức mà class đó đã định nghĩa.
+- Property (Thuộc tính): Là các biến thành viên.
 ```c  
-class ClassName {
-public:  // Access specifier
-    // Attributes
-    int attribute1;
-    double attribute2;
+class HinhChuNhat {
+public:
+    // Properties
+    double dai;
+    double rong;
+};
+int main() {
+    // Objects
+    HinhChuNhat hinh1;
+    HinhChuNhat hinh2;
 
-    // Methods
-    void method1() {
-        // Code for method1
-    }
+    // Set properties
+    hinh1.dai = 10.0;
+    hinh1.rong = 5.0;
 
-    int method2(int param) {
-        // Code for method2
-        return param;
+    hinh2.dai = 10.0;
+    hinh2.rong = 5.0;
+}
+```
+- Methods (Phương thức): Là các hàm thành viên.
+```c 
+class HinhChuNhat {
+public:
+    // Properties
+    double dai;
+    double rong;
+
+    // Method
+    double tinhDienTich() {
+        return dai * rong;
     }
 };
+
+int main() {
+    // Create an object of HinhChuNhat
+    HinhChuNhat hinh;
+
+    // Set length and width
+    hinh.dai = 10.0;
+    hinh.rong = 5.0;
+
+    // Calculate and print the area
+    cout << "Area of the rectangle: " << hinh.tinhDienTich() << endl;
+
+    return 0;
+}
+```
+  
+- Constructors (Hàm khởi tạo): Là các phương thức đặc biệt của class, được gọi tự động khi một đối tượng của class được tạo ra, Nó được sử dụng để khởi tạo các thuộc tính (properties) của đối tượng.
+  
+- Destructor (Hàm hủy): Là phương thức đặc biệt của class, được gọi tự động khi đối tượng của class bị hủy.
+- Static Members (Thành viên tĩnh): bao gồm biến tĩnh (static variables) và hàm tĩnh (static methods), tất cả các đối tượng của class được dùng chung địa chỉ và giá trị.
+```c  
+
 ```
  
 </p>
