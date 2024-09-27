@@ -2404,7 +2404,7 @@ int main() {
 </p>
 </details>
 
-# BÀI 13: CLASS
+# BÀI 17: CLASS
 <details><summary>Chi tiết</summary>
 <p>
 	
@@ -2679,8 +2679,23 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 ```
-xxxx
- 
 </p>
 </details>
 
+# BÀI 18: OOP
+<details><summary>Chi tiết</summary>
+<p>
+
+## 1. Tính đóng gói (Encapsulation)
+Tính đóng gói là ẩn đi các property “mật” khỏi người dùng. 
+
+Và để làm được điều này, ta sẽ khai báo các property ở quyền truy cập private (tức là không thể truy cập trực tiếp tới các property này). 
+
+Trong trường hợp ta muốn đọc hoặc ghi các property này, thì ta cung cấp các method ở quyền truy cập public.
+
+## 2. Tính kế thừa (Inheritance)
+## 3. Tính đa hình (Pholymorphism)
+## 4. Tính trừu tượng (Abstraction)
+
+</p>
+</details>
