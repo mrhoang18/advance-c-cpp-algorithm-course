@@ -2404,7 +2404,25 @@ int main() {
 </p>
 </details>
 
-# BÀI 17: CLASS
+# BÀI 11: JSON
+<details><summary>Chi tiết</summary>
+<p>
+</p>
+</details>
+
+# BÀI 12: BINARY SEARCH-FILE OPERATIONS-CODE STANDARDS
+<details><summary>Chi tiết</summary>
+<p>
+</p>
+</details>
+
+# BÀI 13: THREAD
+<details><summary>Chi tiết</summary>
+<p>
+</p>
+</details>
+
+# BÀI 14: CLASS
 <details><summary>Chi tiết</summary>
 <p>
 	
@@ -2682,7 +2700,7 @@ int main(int argc, char const *argv[]) {
 </p>
 </details>
 
-# BÀI 18: OOP
+# BÀI 15: OOP
 <details><summary>Chi tiết</summary>
 <p>
 
