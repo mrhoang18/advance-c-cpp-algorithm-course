@@ -2476,6 +2476,56 @@ int main() {
   
 - Constructors (Hàm khởi tạo): Là các phương thức đặc biệt của class, được gọi tự động khi một đối tượng của class được tạo ra, Nó được sử dụng để khởi tạo các thuộc tính (properties) của đối tượng.
   
+**Constructor không có tham số truyền vào**
+```c  
+class HinhChuNhat {
+public:
+    // Properties ...
+    // Default constructor, chỉ dùng 1 trong 2 cách
+    // Cách 1:
+    HinhChuNhat() {
+        dai = 2.0; 
+        rong = 1.0;
+    }
+    // Cách 2:
+    HinhChuNhat() : dai(2.0), rong(1.0) {
+	// Code...
+    }
+};
+	
+int main() {
+    // Create an object using the default constructor
+    HinhChuNhat hinh;
+
+    // Print properties and area
+    cout << "Length: " << hinh.dai << ", Width: " << hinh.rong << endl;		// 1	2
+    cout << "Area of the rectangle: " << hinh.tinhDienTich() << endl;		// 2
+
+    return 0;
+}
+```
+**Constructor có tham số truyền vào**    
+```c  
+class HinhChuNhat {
+public:
+    // Properties ...
+    // Parameterized constructor (có tham số truyền vào)
+    HinhChuNhat(double d, double r) {
+        dai = d;
+        rong = r;
+    }
+};
+int main() {
+    // Create an object using the parameterized constructor
+    HinhChuNhat hinh2(10.0, 5.0);
+
+    return 0;
+}
+```
+
+
+
+  
 - Destructor (Hàm hủy): Là phương thức đặc biệt của class, được gọi tự động khi đối tượng của class bị hủy.
 - Static Members (Thành viên tĩnh): bao gồm biến tĩnh (static variables) và hàm tĩnh (static methods), tất cả các đối tượng của class được dùng chung địa chỉ và giá trị.
 ```c  
