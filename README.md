@@ -2408,9 +2408,10 @@ int main() {
 <details><summary>Chi tiết</summary>
 <p>
 	
-## Định nghĩa
+## 1. Định nghĩa
 Trong C++, class là một kiểu dữ liệu do người dùng định nghĩa, được sử dụng để tạo ra các đối tượng. Nó là một trong những tính năng cơ bản của lập trình hướng đối tượng.
-### Phạm vi truy cập
+
+## 2. Phạm vi truy cập
 
 Các từ khóa như `private`, `public`, và `protected` được gọi chung là access specifiers hay phạm vi truy cập.
 
@@ -2421,116 +2422,264 @@ Access specifiers xác định quyền truy cập của các thành phần (thu�
 - `private`: _chưa học tới_.
 
 - `protected`: _chưa học tới_.
-### Thành phần của class
-Các thành phần đã được học trong bài:
-- Object (đối tượng) được tạo ra từ một class và có đầy đủ các thuộc tính và phương thức mà class đó đã định nghĩa.
+
+## 3. Thành phần của class
+
+- Object (đối tượng): Được tạo ra từ một class và có đầy đủ các thuộc tính và phương thức mà class đó đã định nghĩa.
+
 - Property (Thuộc tính): Là các biến thành viên.
+
 ```c  
+#include <iostream>
+using namespace std;
+
 class HinhChuNhat {
 public:
     // Properties
-    double dai;
-    double rong;
+    double chieuDai;  
+    double chieuRong; 
 };
+
 int main() {
-    // Objects
-    HinhChuNhat hinh1;
-    HinhChuNhat hinh2;
-
-    // Set properties
-    hinh1.dai = 10.0;
-    hinh1.rong = 5.0;
-
-    hinh2.dai = 10.0;
-    hinh2.rong = 5.0;
+    // Create a object
+    HinhChuNhat hinh;
+    
+    // Assign values to properties
+    hinh.chieuDai = 20;
+    hinh.chieuRong = 10;
 }
 ```
 - Methods (Phương thức): Là các hàm thành viên.
 ```c 
+#include <iostream>
+using namespace std;
+
 class HinhChuNhat {
 public:
     // Properties
-    double dai;
-    double rong;
+    double chieuDai;  
+    double chieuRong; 
 
     // Method
-    double tinhDienTich() {
-        return dai * rong;
+    double DienTich() { 
+        return chieuDai * chieuRong;
     }
+
+    // Method
+    void display();
 };
 
+// Implementation of the display method
+void HinhChuNhat::display() {
+    cout << "Dien tich: " << DienTich() << endl;
+}
+
 int main() {
-    // Create an object of HinhChuNhat
+    // Create a object
     HinhChuNhat hinh;
+    
+    // Assign values to properties
+    hinh.chieuDai = 20;
+    hinh.chieuRong = 10;
 
-    // Set length and width
-    hinh.dai = 10.0;
-    hinh.rong = 5.0;
-
-    // Calculate and print the area
-    cout << "Area of the rectangle: " << hinh.tinhDienTich() << endl;
+    hinh.display();
 
     return 0;
 }
 ```
+- Constructors: Là methods đặc biệt của class, được gọi tự động khi một đối tượng của class được tạo ra, nó được sử dụng để khởi tạo giá trị mặc định cho properties. Tên của nó phải trùng với tên class.
   
-- Constructors (Hàm khởi tạo): Là các phương thức đặc biệt của class, được gọi tự động khi một đối tượng của class được tạo ra, Nó được sử dụng để khởi tạo các thuộc tính (properties) của đối tượng.
-  
-**Constructor không có tham số truyền vào**
-```c  
+    - Constructor không có tham số truyền vào.
+    ```c
+    #include <iostream>
+    using namespace std;
+
+    class HinhChuNhat {
+    public:
+        // Properties
+        double chieuDai;  
+        double chieuRong; 
+
+        // Method
+        double DienTich() { 
+            return chieuDai * chieuRong;
+        }
+
+        // Method
+        void display();
+
+        // Constructor to assign default values to properties
+        HinhChuNhat() {
+            chieuDai = 20;
+            chieuRong = 30;
+        }
+    };
+
+    // Implementation of the display method
+    void HinhChuNhat::display() {
+        cout << "Dien tich: " << DienTich() << endl;
+    }
+
+    int main() {
+        // Create a object
+        HinhChuNhat hinh;
+        
+        hinh.display();
+
+        return 0;
+    }
+
+    ```
+    Ngoài ra, contructor ở trên có kiểu viết khác nhưng nguyên lý hoạt động không đổi như sau:
+    ```c 
+    // Constructor using initializer list
+    HinhChuNhat() : chieuDai(10.5), chieuRong(20) {}
+    ```
+    - Constructor có tham số truyền vào.  
+
+    ```c
+    #include <iostream>
+    using namespace std;
+
+    class HinhChuNhat {
+    public:
+        double chieuDai;  // property
+        double chieuRong; // property
+
+        // Constructor with parameters
+        HinhChuNhat(int a, int b) {
+            chieuDai = a;
+            chieuRong = b;
+        }
+
+        // Method to calculate area
+        double DienTich() { 
+            return chieuDai * chieuRong;
+        }
+
+        // Method to display area
+        void display();
+    };
+
+    // Implementation of the display method
+    void HinhChuNhat::display() {
+        cout << "Dien tich: " << DienTich() << endl;
+    }
+
+    int main() {
+        // Create a object but pass parameters.
+        HinhChuNhat hinh(15, 25);
+
+        // Display the area using the given values
+        hinh.display();
+
+        return 0;
+    }
+    ```
+    Ngoài ra, ta có thể gán giá trị mặc định cho properties như sau:
+    ```c
+    #include <iostream>
+    using namespace std;
+
+    class HinhChuNhat {
+    public:
+        double chieuDai;  // property
+        double chieuRong; // property
+
+        // Constructor with default parameters
+        HinhChuNhat(int a = 3, int b = 5) {
+            chieuDai = a;
+            chieuRong = b;
+        }
+
+        // Method to calculate area
+        double DienTich() { 
+            return chieuDai * chieuRong;
+        }
+
+        // Method to display area
+        void display();
+    };
+
+    // Implementation of the display method
+    void HinhChuNhat::display() {
+        cout << "Dien tich: " << DienTich() << endl;
+    }
+
+    int main() {
+        // Create an instance of HinhChuNhat using default constructor parameters
+        HinhChuNhat hinh1;
+        hinh1.display(); // This will use the default values: chieuDai = 3, chieuRong = 5
+
+        // Create an instance of HinhChuNhat with custom values
+        HinhChuNhat hinh2(10, 20);
+        hinh2.display(); // This will use the provided values: chieuDai = 10, chieuRong = 20
+
+        return 0;
+    }
+    ```
+- Destructor: Là phương thức đặc biệt của class, được gọi tự động khi một đối tượng của lớp đó ra khỏi phạm vi hoạt động hoặc bị xóa. Mục đích chính của destructor là giải phóng tài nguyên. Tên của nó phải trùng với tên class.
+```c
+#include <iostream>
+using namespace std;
+
 class HinhChuNhat {
 public:
-    // Properties ...
-    // Default constructor, chỉ dùng 1 trong 2 cách
-    // Cách 1:
-    HinhChuNhat() {
-        dai = 2.0; 
-        rong = 1.0;
+    string name;      // property to identify object
+
+    // Constructor
+    HinhChuNhat(string n) : name(n) {
+        cout << "Khoi tao object: " << name << endl;
     }
-    // Cách 2:
-    HinhChuNhat() : dai(2.0), rong(1.0) {
-	// Code...
+    // Destructor
+    ~HinhChuNhat() {
+        cout << "Destructor: " << name << endl;
     }
 };
-	
+
+// Function to test object destruction order
+void test() {
+    HinhChuNhat hinh1("Hinh1"); // stack allocation - LIFO
+    HinhChuNhat hinh2("Hinh2"); // stack allocation - LIFO
+}
+
 int main() {
-    // Create an object using the default constructor
-    HinhChuNhat hinh;
-
-    // Print properties and area
-    cout << "Length: " << hinh.dai << ", Width: " << hinh.rong << endl;		// 1	2
-    cout << "Area of the rectangle: " << hinh.tinhDienTich() << endl;		// 2
-
+    test(); // Call test function to see order of destruction
     return 0;
 }
 ```
-**Constructor có tham số truyền vào**    
-```c  
+- Static Members: Bao gồm biến tĩnh (static properties) và hàm tĩnh (static methods), tất cả các đối tượng của class được dùng chung địa chỉ và giá trị.
+
+```c
+#include <iostream>
+using namespace std;
+
 class HinhChuNhat {
 public:
-    // Properties ...
-    // Parameterized constructor (có tham số truyền vào)
-    HinhChuNhat(double d, double r) {
-        dai = d;
-        rong = r;
-    }
+    double chieuDai;   // property
+    double chieuRong;  // property
+    static int var;    // static property
 };
-int main() {
-    // Create an object using the parameterized constructor
-    HinhChuNhat hinh2(10.0, 5.0);
+
+// Static member initialization
+int HinhChuNhat::var;
+
+int main(int argc, char const *argv[]) {
+    // Create instances of HinhChuNhat
+    HinhChuNhat hinh1;
+    HinhChuNhat hinh2;
+
+    // Print addresses of objects and their properties
+    cout << "Dia chi object hinh1: " << &hinh1 << endl;
+    cout << "Dia chi chieu dai hinh1: " << &hinh1.chieuDai << endl;
+    cout << "Dia chi chieu rong hinh1: " << &hinh1.chieuRong << endl;
+    // Access static member directly through class
+    cout << "Dia chi var: " << &HinhChuNhat::var << endl; 
 
     return 0;
 }
 ```
 
-
-
-  
-- Destructor (Hàm hủy): Là phương thức đặc biệt của class, được gọi tự động khi đối tượng của class bị hủy.
-- Static Members (Thành viên tĩnh): bao gồm biến tĩnh (static variables) và hàm tĩnh (static methods), tất cả các đối tượng của class được dùng chung địa chỉ và giá trị.
-```c  
-
-```
  
 </p>
 </details>
