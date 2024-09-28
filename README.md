@@ -2430,7 +2430,7 @@ Các thread trong cùng tiến trình chia sẻ tài nguyên với nhau nhưng s
 Bản chất đa luồng cũng là tuần tự nhưng phân chia thời gian ở các task.
 
 <p align="center">
-  <img src="image.png" alt="alt text" width="700">
+  <img src="image.png" alt="alt text" width="500">
 </p>
 
 ## 2. Thư viện pthread.h
