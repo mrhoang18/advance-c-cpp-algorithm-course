@@ -2427,8 +2427,32 @@ Các thread trong cùng tiến trình chia sẻ tài nguyên với nhau nhưng s
 
 Đa luồng (multithreading) là kỹ thuật trong lập trình mà một tiến trình (process) có thể tạo ra và quản lý nhiều luồng (threads) hoạt động đồng thời.
 
+Bản chất đa luồng cũng là tuần tự nhưng phân chia thời gian ở các task.
 
-![alt text](image.png)
+<p align="center">
+  <img src="image.png" alt="alt text" width="700">
+</p>
+
+## 2. Thư viện pthread.h
+
+Pthread là thư viện tiêu chuẩn hỗ trợ lập trình đa luồng trong C/C++.
+
+Hàm `pthread_create` được sử dụng để tạo một thread mới.
+
+```c 
+int pthread_create(pthread_t *thread, const pthread_attr_t *attr, 
+                   void *(*start_routine)(void *), void *arg);
+```   
+
+`pthread_t *thread`: Một con trỏ tới một biến `pthread_t` để lưu trữ ID của thread mới được tạo. Có thể sử dụng ID này để tham chiếu đến thread sau khi tạo nó (ví dụ như đợi thread kết thúc với pthread_join).
+
+`const pthread_attr_t *attr`: Đây là một con trỏ tới một biến thuộc kiểu `pthread_attr_t`, định nghĩa các thuộc tính của thread mới. Nếu muốn tạo một thread với các thuộc tính mặc định, hãy đặt giá trị này là `NULL`.
+
+`void *(*start_routine)(void *)`: Con trỏ tới hàm mà thread mới sẽ thực thi. Hàm này phải có định dạng `void *function(void *arg)`. Khi thread mới được tạo, nó sẽ bắt đầu chạy từ hàm này.
+
+`void *arg`: Tham số sẽ được truyền vào hàm `start_routine`. Tham số này thường được sử dụng để truyền dữ liệu cho thread. Nếu không cần tham số, có thể truyền `NULL`.   
+
+
 
 
 </p>
