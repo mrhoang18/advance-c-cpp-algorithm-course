@@ -2413,6 +2413,7 @@ int main() {
 # BÀI 12: BINARY SEARCH-FILE OPERATIONS-CODE STANDARDS
 <details><summary>Chi tiết</summary>
 <p>
+
 </p>
 </details>
 
@@ -2749,7 +2750,134 @@ Trong trường hợp ta muốn đọc hoặc ghi các property này, thì ta cu
 
 ## 2. Tính kế thừa (Inheritance)
 ## 3. Tính đa hình (Pholymorphism)
+
+Tính đa hình có nghĩa là "nhiều dạng" và nó xảy ra khi chúng ta có nhiều class có liên quan với nhau thông qua tính kế thừa.
+
+Tính đa hình chủ yếu được chia thành hai loại:
+<p align="center">
+  <img src="image-1.png" alt="alt text" width="450">
+</p>
+
+### Đa hình tại thời điểm chạy (Run-time Polymorphism). 
+
+_chưa học tới_
+
+### Đa hình tại thời điểm biên dịch (Compile-time Polymorphism).
+
+Tính đa hình này được sử dụng bằng cách nạp chồng hàm (Function overloading) hoặc nạp chồng toán tử (Operator overloading).
+
+- Function overloading: cung cấp nhiều định nghĩa cho một function bằng cách thay đổi số lượng input parameter, kiểu dữ liệu của input parameter.
+
+    **Ví dụ function overloading:**
+    ```c++
+    #include <iostream>
+    #include <string>
+
+    using namespace std;
+
+    // 1 method có thể có nhiều input parameter, return type khác nhau
+    class TinhToan{
+        private:
+            int a;
+            int b;
+        public:
+            int tong(int a, int b){
+                return a+b;
+            }
+            double tong(int a, int b, int c, double d){
+                return (double)a+b+c+d;
+            }
+            double tong(int a, double b){
+                return (double)a+b;
+            }
+    };
+
+    int main(int argc, char const *argv[]){
+
+        TinhToan th, th1, th2;
+        cout << th.tong(2, 5) << endl;
+        cout << th1.tong(2, 5, 7, 6.7) << endl;
+        cout << th2.tong(2, 3.5) << endl;
+
+        return 0;
+    }
+    ```
+- Operator overloading: _chưa học tới_
+
 ## 4. Tính trừu tượng (Abstraction)
+
+Tính trừu tượng đề cập đến việc ẩn đi các chi tiết cụ thể của một đối tượng và chỉ hiển thị những gì cần thiết để sử dụng đối tượng đó.
+
+Nó có sự tương đồng với tính đóng gói nhưng tính đóng gói là ẩn đi các property còn tính trừu tượng là ẩn đi các method hay quá trình tính toán.
+
+**Ví dụ tính trừu tượng:**
+```c++
+#include <iostream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class GiaiPhuongTrinh{
+    private:
+        // Tính đóng gói-ẩn các property	
+        double a;
+        double b;
+        double c;
+        double x1;
+        double x2;
+        double delta;
+
+        // Tính trừu tượng-ẩn các method
+        void tinhNghiem(){	
+            delta = b*b - 4*a*c;
+            if (delta < 0){
+                delta = -1;
+            }
+            else if (delta == 0){
+                x1 = x2 = -b/ (2*a);
+            }
+            else if (delta > 0){
+                x1 = (-b + sqrt(delta))/(2*a);
+                x2 = (-b - sqrt(delta))/(2*a);
+            }
+        }
+       
+    public:
+        // Chỉ show ra phần sử dụng đơn giản cho user
+        void enterNumber(double num_a, double num_b, double num_c);
+        void printResult();
+
+};
+
+void GiaiPhuongTrinh::enterNumber(double num_a, double num_b, double num_c){
+    a = num_a;
+    b = num_b;
+    c = num_c;
+}
+
+void GiaiPhuongTrinh::printResult(){
+    tinhNghiem();
+    if (delta == -1){
+        cout << "PT vo nghiem" << endl;
+    }
+    else if (delta == 0){
+        cout << "PT co nghiem chung: " << x1 << endl;
+    }
+    else if (delta > 0){
+        cout << "PT co 2 nghiem: \n";
+        cout << "x1: " << x1 << endl;
+        cout << "x2: " << x2 << endl;
+    }
+}
+int main()
+{
+  GiaiPhuongTrinh phuongtrinh1;
+  phuongtrinh1.enterNumber(1,5,4);
+  phuongtrinh1.printResult();
+  return 0;
+}
+```
 
 </p>
 </details>
