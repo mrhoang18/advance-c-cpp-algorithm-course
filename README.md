@@ -2850,12 +2850,78 @@ Có 3 kiểu kế thừa là public, private và protected. Những property và
 ### Kế thừa public
 - Các member public của class cha vẫn sẽ là public trong class con.
 
-    **Ví dụ kế thừa public:**
 - Các member protected của class cha vẫn sẽ là protected trong class con.
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
+**Ví dụ ta có 2 class như sau:**
+```c++
+// Class cha
+class Animal {
+public:
+    void eat() {
+        cout << "Animal is eating" << endl;
+    }
 
+    void accessBreathe() {
+        breathe();
+    }
+
+protected:
+    void sleep() {
+        cout << "Animal is sleeping" << endl;
+    }
+
+private:
+    void breathe() {
+        cout << "Animal is breathing" << endl;
+    }
+};
+
+// Class con
+class Dog : public Animal {
+public:
+    void useProtectedMethod() {
+        sleep();  
+    }
+
+    void useProtectedMethod() {
+        sleep();  
+    }
+
+    void usePrivateMethod() {
+        accessBreathe();  
+    }
+};
+```
+
+| Thành viên lớp cha (`Animal`) 	| Phạm vi truy cập trong `Animal` 	| Truy cập từ lớp con `Dog` 	| Truy cập từ bên ngoài (`main`) 	|
+|---	|---	|---	|---	|
+| `eat()` 	| `public` 	| Có thể truy cập 	| Có thể truy cập 	|
+| `sleep()` 	| `protected` 	| Có thể truy cập 	| Không thể truy cập 	|
+| `breathe()` 	| `private` 	| Không thể truy cập trực tiếp, chỉ truy cập gián tiếp qua `accessBreathe()` 	| Không thể truy cập 	|
+| `accessBreathe()` 	| `public` 	| Có thể truy cập 	| Có thể truy cập 	|
+
+```c++
+int main() {
+    Dog myDog;
+
+    // Truy cập thành viên `public` từ lớp cha (`Animal`)
+    myDog.eat();           // Output: Animal is eating
+
+    // Truy cập thành viên `public` của `Dog`
+    myDog.bark();          // Output: Dog is barking
+
+    // Truy cập thành viên `protected` thông qua phương thức `public` trong `Dog`
+    myDog.useProtectedMethod(); // Output: Animal is sleeping
+
+    // Truy cập gián tiếp thành viên `private` từ lớp cha qua `public` method `accessBreathe()`
+    myDog.usePrivateMethod(); // Output: Animal is breathing
+
+    // Truy cập trực tiếp đến `accessBreathe()` vì nó là `public`
+    myDog.accessBreathe();    // Output: Animal is breathing
+}
+```
 
 ### Kế thừa private
 - Các member public, protected của class cha sẽ trở thành private trong class con.
