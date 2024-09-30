@@ -2856,14 +2856,16 @@ Có 3 kiểu kế thừa là public, private và protected. Những property và
 
 **Ví dụ ta có 2 class như sau:**
 ```c++
-// Class cha
+#include <iostream>
+using namespace std;
+
 class Animal {
 public:
     void eat() {
         cout << "Animal is eating" << endl;
     }
-
-    void accessBreathe() {
+    
+    void accessPrivate() {
         breathe();
     }
 
@@ -2881,48 +2883,21 @@ private:
 // Class con
 class Dog : public Animal {
 public:
-    void useProtectedMethod() {
+    void accessProtected() {
         sleep();  
-    }
-
-    void useProtectedMethod() {
-        sleep();  
-    }
-
-    void usePrivateMethod() {
-        accessBreathe();  
     }
 };
-```
 
-| Thành viên lớp cha (`Animal`) 	| Phạm vi truy cập trong `Animal` 	| Truy cập từ lớp con `Dog` 	| Truy cập từ bên ngoài (`main`) 	|
-|---	|---	|---	|---	|
-| `eat()` 	| `public` 	| Có thể truy cập 	| Có thể truy cập 	|
-| `sleep()` 	| `protected` 	| Có thể truy cập 	| Không thể truy cập 	|
-| `breathe()` 	| `private` 	| Không thể truy cập trực tiếp, chỉ truy cập gián tiếp qua `accessBreathe()` 	| Không thể truy cập 	|
-| `accessBreathe()` 	| `public` 	| Có thể truy cập 	| Có thể truy cập 	|
-
-```c++
 int main() {
     Dog myDog;
-
-    // Truy cập thành viên `public` từ lớp cha (`Animal`)
-    myDog.eat();           // Output: Animal is eating
-
-    // Truy cập thành viên `public` của `Dog`
-    myDog.bark();          // Output: Dog is barking
-
-    // Truy cập thành viên `protected` thông qua phương thức `public` trong `Dog`
-    myDog.useProtectedMethod(); // Output: Animal is sleeping
-
-    // Truy cập gián tiếp thành viên `private` từ lớp cha qua `public` method `accessBreathe()`
-    myDog.usePrivateMethod(); // Output: Animal is breathing
-
-    // Truy cập trực tiếp đến `accessBreathe()` vì nó là `public`
-    myDog.accessBreathe();    // Output: Animal is breathing
+    // eat() ở class cha là public ở class con là public, eat() truy cập ở đâu cũng được.
+    myDog.eat(); 
+    // sleep() ở class cha là protected ở class con là protected, sleep() truy cập qua phương thức public của class con.
+    myDog.accessProtected();
+    // breathe() ở class cha là private, chỉ truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
+    myDog.accessPrivate();    
 }
 ```
-
 ### Kế thừa private
 - Các member public, protected của class cha sẽ trở thành private trong class con.
 
