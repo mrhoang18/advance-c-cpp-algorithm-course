@@ -2465,9 +2465,7 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 	
 ## 1. Định nghĩa class
 
-Trong C++, class là một kiểu dữ liệu do người dùng định nghĩa, được sử dụng để tạo ra các đối tượng. 
-
-Nó là một trong những tính năng cơ bản của OOP-lập trình hướng đối tượng.
+Trong C++, từ khóa "class" được sử dụng để định nghĩa một lớp, là một cấu trúc dữ liệu tự định nghĩa có thể chứa dữ liệu và các hàm thành viên liên quan.
 
 ## 2. Các từ khóa liên quan
 
@@ -2487,11 +2485,28 @@ Phạm vi truy cập xác định quyền truy cập của các thành viên tro
 
 Được tạo ra từ một class và có đầy đủ các thuộc tính và phương thức mà class đó đã định nghĩa.
 
+**Ví dụ về object:**
+```c++
+#include <iostream>
+using namespace std;
+
+class HinhChuNhat {
+    // Do something ...
+};
+
+int main()
+{
+    // Declar object
+    HinhChuNhat hinh;
+
+    return 0;
+}
+```
 ### Property (Thuộc tính) 
 
 Là các biến thành viên.
 
-**Ví dụ về property và object:**
+**Ví dụ về property:**
 ```c++
 #include <iostream>
 using namespace std;
@@ -2504,7 +2519,6 @@ public:
 };
 
 int main() {
-    // Create a object
     HinhChuNhat hinh;
     
     // Assign values to properties
@@ -2542,7 +2556,6 @@ void HinhChuNhat::display() {
 }
 
 int main() {
-    // Create a object
     HinhChuNhat hinh;
     
     // Assign values to properties
@@ -2646,7 +2659,6 @@ Có nhiều dạng constructor:
         // Create a object but pass parameters.
         HinhChuNhat hinh(15, 25);
 
-        // Display the area using the given values
         hinh.display();
 
         return 0;
@@ -2660,38 +2672,23 @@ Có nhiều dạng constructor:
 
     class HinhChuNhat {
     public:
-        double chieuDai;  // property
-        double chieuRong; // property
+        double chieuDai;  
+        double chieuRong; 
 
         // Constructor with default parameters
         HinhChuNhat(int a = 3, int b = 5) {
             chieuDai = a;
             chieuRong = b;
         }
-
-        // Method to calculate area
-        double DienTich() { 
-            return chieuDai * chieuRong;
-        }
-
-        // Method to display area
-        void display();
+        // Do something ...
     };
 
-    // Implementation of the display method
-    void HinhChuNhat::display() {
-        cout << "Dien tich: " << DienTich() << endl;
-    }
-
     int main() {
-        // Create an instance of HinhChuNhat using default constructor parameters
+        // This will use the default values: chieuDai = 3, chieuRong = 5
         HinhChuNhat hinh1;
-        hinh1.display(); // This will use the default values: chieuDai = 3, chieuRong = 5
 
-        // Create an instance of HinhChuNhat with custom values
+         // This will use the provided values: chieuDai = 10, chieuRong = 20
         HinhChuNhat hinh2(10, 20);
-        hinh2.display(); // This will use the provided values: chieuDai = 10, chieuRong = 20
-
         return 0;
     }
     ```
@@ -2699,11 +2696,11 @@ Có nhiều dạng constructor:
 
 Là method đặc biệt của class. 
 
-Được gọi tự động khi một đối tượng của lớp đó ra khỏi phạm vi hoạt động hoặc bị xóa. 
+Được gọi tự động khi object được giải phóng. 
 
 Mục đích chính của destructor là giải phóng tài nguyên. 
 
-Tên của nó phải trùng với tên class.
+Tên trùng với tên của class và thêm ký tự ~ ở phía trước tên.
 
 **Ví dụ destructor:**
 ```c++
@@ -2712,7 +2709,7 @@ using namespace std;
 
 class HinhChuNhat {
 public:
-    string name;      // property to identify object
+    string name; 
 
     // Constructor
     HinhChuNhat(string n) : name(n) {
@@ -2723,17 +2720,6 @@ public:
         cout << "Destructor: " << name << endl;
     }
 };
-
-// Function to test object destruction order
-void test() {
-    HinhChuNhat hinh1("Hinh1"); // stack allocation - LIFO
-    HinhChuNhat hinh2("Hinh2"); // stack allocation - LIFO
-}
-
-int main() {
-    test(); // Call test function to see order of destruction
-    return 0;
-}
 ```
 ### Static member
 
@@ -2741,14 +2727,14 @@ Bao gồm biến tĩnh (static properties) và hàm tĩnh (static methods).
 
 Tất cả các object của class được dùng chung địa chỉ và giá trị.
 
-```c
+```c++
 #include <iostream>
 using namespace std;
 
 class HinhChuNhat {
 public:
-    double chieuDai;   // property
-    double chieuRong;  // property
+    double chieuDai;   
+    double chieuRong;  
     static int var;    // static property
 };
 
@@ -2760,13 +2746,13 @@ int main(int argc, char const *argv[]) {
     HinhChuNhat hinh1;
     HinhChuNhat hinh2;
 
-    // Print addresses of objects and their properties
-    cout << "Dia chi object hinh1: " << &hinh1 << endl;
-    cout << "Dia chi chieu dai hinh1: " << &hinh1.chieuDai << endl;
-    cout << "Dia chi chieu rong hinh1: " << &hinh1.chieuRong << endl;
     // Access static member directly through class
-    cout << "Dia chi var: " << &HinhChuNhat::var << endl; 
+    cout << "address of var: " << &hinh1.var << '\n'; 
+    cout << "address of var: " << &hinh2.var << '\n'; 
 
+    // Output
+    // address of var: 0x7ff78e1c7030
+    // address of var: 0x7ff78e1c7030
     return 0;
 }
 ```
