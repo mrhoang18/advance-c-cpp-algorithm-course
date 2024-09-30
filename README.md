@@ -2746,9 +2746,105 @@ Tính đóng gói là ẩn đi các property “mật” khỏi người dùng.
 
 Và để làm được điều này, ta sẽ khai báo các property ở quyền truy cập private (tức là không thể truy cập trực tiếp tới các property này). 
 
-Trong trường hợp ta muốn đọc hoặc ghi các property này, thì ta cung cấp các method ở quyền truy cập public.
+**Ví dụ tính đóng gói:**
+```c++
+class SinhVien{
+    private:
+        // Tính đóng gói-ẩn đi các property
+        string name;
+        int id;
+};
+```
+Trong trường hợp muốn đọc hoặc ghi các property này, thì ta truy cập gián tiếp bằng các method ở quyền truy cập public.
 
+Bài trước đã học method đặc biệt để làm việc với property là Contructor và Destructor, bài này có thêm method đặc biệt Setter và Getter.
+
+- Getter: Được sử dụng để lấy giá trị của một thuộc tính property.
+- Setter: Được sử dụng để đặt, thay đổi giá trị và kiểm tra tính hợp lệ của property.
+
+**Ví dụ Setter và Getter method:**
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SinhVien{
+    private:
+        string name;
+        int id;
+   
+    public:
+        // Contructor
+        SinhVien(){
+            static int ID = 1;
+            id = ID;
+            ID++;
+        }
+
+        // Setter-thêm tên mới
+        void setName(string newName){   
+            // Kiểm tra kí tự đặc biệt
+            name = newName;
+        }
+
+        // Getter-lấy tên sv
+        string getName(){   
+            return name;
+        }
+
+        // Getter-lấy id sv
+        int getID(){
+            return id;
+        }
+
+        void display(){
+            cout << "Ten: " << getName() << endl;
+            cout << "ID: " << getID() << endl;
+        }
+};
+
+int main(int argc, char const *argv[])
+{
+    SinhVien sv1, sv2;
+
+    sv1.setName("Trung");
+    sv1.display();
+
+    sv2.setName("Tuan");
+    sv2.display();
+
+    return 0;
+}
+```
 ## 2. Tính kế thừa (Inheritance)
+Tính kế thừa là khả năng sử dụng lại các property và method của một class trong một class khác. 
+
+Trong tính kế thừa, ta chia làm hai loại class: class cha (base class) và class con (subclass hay derived class). 
+
+Để kế thừa từ class khác, ta dùng ký tự ":".
+
+Có 3 kiểu kế thừa là public, private và protected. Những property và method được kế thừa từ class cha sẽ nằm ở quyền truy cập của class con tương ứng với kiểu kế thừa.
+
+### Kế thừa public
+- Các member public của class cha vẫn sẽ là public trong class con.
+
+    **Ví dụ kế thừa public:**
+- Các member protected của class cha vẫn sẽ là protected trong class con.
+
+- Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
+
+
+
+### Kế thừa private
+- Các member public, protected của class cha sẽ trở thành private trong class con.
+
+- Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
+
+### Kế thừa protected
+- Các member public, protected của class cha sẽ là protected trong class con.
+
+- Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
+
 ## 3. Tính đa hình (Pholymorphism)
 
 Tính đa hình có nghĩa là "nhiều dạng" và nó xảy ra khi chúng ta có nhiều class có liên quan với nhau thông qua tính kế thừa.
