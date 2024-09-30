@@ -2884,6 +2884,7 @@ private:
 class Dog : public Animal {
 public:
     void accessProtected() {
+        // sleep() truy cập thoải mái ở trong class con.
         sleep();  
     }
 };
@@ -2903,14 +2904,14 @@ int main() {
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
-**Không cần ví dụ vì logic cũng như ví dụ trên.**
+**Không cần ví dụ thêm vì logic cũng như ví dụ trên.**
 
 ### Kế thừa protected
 - Các member public, protected của class cha sẽ là protected trong class con.
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
-**Không cần ví dụ vì logic cũng như ví dụ trên.**
+**Không cần ví dụ thêm vì logic cũng như ví dụ trên.**
 ### Ghi đè hàm (Function overriding)
 
 Điều này xảy ra khi một class con định nghĩa lại một method đã được định nghĩa trongclass cha.
