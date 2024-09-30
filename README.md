@@ -2854,7 +2854,7 @@ Có 3 kiểu kế thừa là public, private và protected. Những property và
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
-**Ví dụ ta có 2 class như sau:**
+**Ví dụ ta có hai class như sau:**
 ```c++
 #include <iostream>
 using namespace std;
@@ -2903,11 +2903,14 @@ int main() {
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
+**Không cần ví dụ vì logic cũng như ví dụ trên.**
+
 ### Kế thừa protected
 - Các member public, protected của class cha sẽ là protected trong class con.
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
+**Không cần ví dụ vì logic cũng như ví dụ trên.**
 ### Ghi đè hàm (Function overriding)
 
 Điều này xảy ra khi một class con định nghĩa lại một method đã được định nghĩa trongclass cha.
