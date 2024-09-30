@@ -2867,6 +2867,40 @@ Có 3 kiểu kế thừa là public, private và protected. Những property và
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
+### Ghi đè hàm (Function overriding)
+
+Điều này xảy ra khi một class con định nghĩa lại một method đã được định nghĩa trongclass cha.
+
+Method mới trong class con phải có cùng tên, kiểu trả về và danh sách tham số với method của class cha.
+
+Method mới sẽ thay thế method của class cha khi được gọi từ một object của class con.
+
+**Ví dụ về ghi đè hàm:**
+```c++
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    void sound() {
+        cout << "Some generic sound" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    // Function overriding
+    void sound() {
+        cout << "Woof!" << endl;
+    }
+};
+
+int main() {
+    Dog myDog;  
+    myDog.sound(); 
+    // Gọi method sound() của Dog, output: "Woof!"
+}
+```
 ## 3. Tính đa hình (Pholymorphism)
 
 Tính đa hình có nghĩa là "nhiều dạng" và nó xảy ra khi chúng ta có nhiều class có liên quan với nhau thông qua tính kế thừa.
