@@ -2865,7 +2865,7 @@ public:
     void eat() {
         cout << "Animal is eating" << endl;
     }
-    
+    // public method, truy cập private gián tiếp!
     void accessPrivate() {
         breathe();
     }
