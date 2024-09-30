@@ -2463,14 +2463,19 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 <details><summary>Chi tiết</summary>
 <p>
 	
-## 1. Định nghĩa
-Trong C++, class là một kiểu dữ liệu do người dùng định nghĩa, được sử dụng để tạo ra các đối tượng. Nó là một trong những tính năng cơ bản của lập trình hướng đối tượng.
+## 1. Định nghĩa class
 
-## 2. Phạm vi truy cập
+Trong C++, class là một kiểu dữ liệu do người dùng định nghĩa, được sử dụng để tạo ra các đối tượng. 
+
+Nó là một trong những tính năng cơ bản của OOP-lập trình hướng đối tượng.
+
+## 2. Các từ khóa liên quan
+
+### Access specifier (Phạm vi truy cập)
 
 Các từ khóa như `private`, `public`, và `protected` được gọi chung là access specifiers hay phạm vi truy cập.
 
-Access specifiers xác định quyền truy cập của các thành phần (thuộc tính, phương thức) trong một class:
+Phạm vi truy cập xác định quyền truy cập của các thành viên trong một class:
 
 - `public`: Cho phép các thành phần trong class có thể truy cập được từ bên ngoài (bất kỳ đâu).
 
@@ -2478,13 +2483,16 @@ Access specifiers xác định quyền truy cập của các thành phần (thu�
 
 - `protected`: _chưa học tới_.
 
-## 3. Thành phần của class
+### Object (Đối tượng)
 
-- Object (đối tượng): Được tạo ra từ một class và có đầy đủ các thuộc tính và phương thức mà class đó đã định nghĩa.
+Được tạo ra từ một class và có đầy đủ các thuộc tính và phương thức mà class đó đã định nghĩa.
 
-- Property (Thuộc tính): Là các biến thành viên.
+### Property (Thuộc tính) 
 
-```c  
+Là các biến thành viên.
+
+**Ví dụ về property và object:**
+```c++
 #include <iostream>
 using namespace std;
 
@@ -2504,8 +2512,12 @@ int main() {
     hinh.chieuRong = 10;
 }
 ```
-- Methods (Phương thức): Là các hàm thành viên.
-```c 
+### Method (Phương thức)
+
+Là các hàm thành viên.
+
+**Ví dụ về method:**
+```c++
 #include <iostream>
 using namespace std;
 
@@ -2542,10 +2554,20 @@ int main() {
     return 0;
 }
 ```
-- Constructors: Là methods đặc biệt của class, được gọi tự động khi một đối tượng của class được tạo ra, nó được sử dụng để khởi tạo giá trị mặc định cho properties. Tên của nó phải trùng với tên class.
+### Constructor
+
+Là method đặc biệt của class. 
+
+Được gọi tự động khi một object của class được tạo ra nhằm khởi tạo giá trị mặc định cho properties. 
+
+Tên của constructor phải trùng với tên class.
+
+Có nhiều dạng constructor:
   
-    - Constructor không có tham số truyền vào.
-    ```c
+- Constructor không có tham số truyền vào.
+
+    **Ví dụ constructor không có tham số truyền vào:**
+    ```c++
     #include <iostream>
     using namespace std;
 
@@ -2583,16 +2605,15 @@ int main() {
 
         return 0;
     }
-
     ```
-    Ngoài ra, contructor ở trên có kiểu viết khác nhưng nguyên lý hoạt động không đổi như sau:
-    ```c 
+    **Constructor không có tham số truyền vào còn có cách viết khác:**
+    ```c++
     // Constructor using initializer list
     HinhChuNhat() : chieuDai(10.5), chieuRong(20) {}
     ```
-    - Constructor có tham số truyền vào.  
 
-    ```c
+- Constructor có tham số truyền vào.  
+    ```c++
     #include <iostream>
     using namespace std;
 
@@ -2631,8 +2652,9 @@ int main() {
         return 0;
     }
     ```
-    Ngoài ra, ta có thể gán giá trị mặc định cho properties như sau:
-    ```c
+
+    **Constructor có tham số truyền vào còn có cách viết khác:**
+    ```c++
     #include <iostream>
     using namespace std;
 
@@ -2673,8 +2695,18 @@ int main() {
         return 0;
     }
     ```
-- Destructor: Là phương thức đặc biệt của class, được gọi tự động khi một đối tượng của lớp đó ra khỏi phạm vi hoạt động hoặc bị xóa. Mục đích chính của destructor là giải phóng tài nguyên. Tên của nó phải trùng với tên class.
-```c
+### Destructor 
+
+Là method đặc biệt của class. 
+
+Được gọi tự động khi một đối tượng của lớp đó ra khỏi phạm vi hoạt động hoặc bị xóa. 
+
+Mục đích chính của destructor là giải phóng tài nguyên. 
+
+Tên của nó phải trùng với tên class.
+
+**Ví dụ destructor:**
+```c++
 #include <iostream>
 using namespace std;
 
@@ -2703,7 +2735,11 @@ int main() {
     return 0;
 }
 ```
-- Static Members: Bao gồm biến tĩnh (static properties) và hàm tĩnh (static methods), tất cả các đối tượng của class được dùng chung địa chỉ và giá trị.
+### Static member
+
+Bao gồm biến tĩnh (static properties) và hàm tĩnh (static methods).
+
+Tất cả các object của class được dùng chung địa chỉ và giá trị.
 
 ```c
 #include <iostream>
