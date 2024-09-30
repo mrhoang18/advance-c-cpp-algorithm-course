@@ -2859,6 +2859,7 @@ Có 3 kiểu kế thừa là public, private và protected. Những property và
 #include <iostream>
 using namespace std;
 
+// Class cha
 class Animal {
 public:
     void eat() {
@@ -2914,7 +2915,7 @@ int main() {
 **Không cần ví dụ thêm vì logic cũng như ví dụ trên.**
 ### Ghi đè hàm (Function overriding)
 
-Điều này xảy ra khi một class con định nghĩa lại một method đã được định nghĩa trongclass cha.
+Điều này xảy ra khi một class con định nghĩa lại một method đã được định nghĩa trong class cha.
 
 Method mới trong class con phải có cùng tên, kiểu trả về và danh sách tham số với method của class cha.
 
