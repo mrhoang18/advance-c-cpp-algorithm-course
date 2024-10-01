@@ -2414,6 +2414,83 @@ int main() {
 <details><summary>Chi tiết</summary>
 <p>
 
+## 1. Binary search
+
+Tìm kiếm nhị phân là một thuật toán dùng để tìm kiếm vị trí của một phần tử trong một mảng đã được sắp xếp (tăng dần hoặc giảm dần).
+
+**Ví dụ tìm kiếm nhị phân:**
+```c
+// Hàm tìm kiếm nhị phân
+int binarySearch(int arr[], int left, int right, int target)
+{
+    if (right >= left)
+    {
+        int mid = (right + left) / 2;
+
+        if (arr[mid] == target) return mid;
+
+        if (arr[mid] > target) return binarySearch(arr, left, mid - 1, target);
+
+        return binarySearch(arr, mid + 1, right, target);
+    }
+
+    return -1;
+}
+```
+
+Nguyên lý hoạt động của thuật toán:
+
+**1. Xác định điểm giữa (mid) của mảng:**
+- mid = (right + left) / 2, với left là chỉ số bắt đầu và right là chỉ số kết thúc của mảng.
+
+**2. So sánh phần tử tại vị trí giữa với giá trị cần tìm (target):**
+- Nếu arr[mid] == x: Phần tử cần tìm được tìm thấy tại chỉ số mid.
+
+- Nếu arr[mid] > x: Giới hạn phạm vi tìm kiếm chỉ còn nửa bên trái mảng, do x chỉ có thể nằm trong khoảng từ left đến mid - 1.
+
+- Nếu arr[mid] < x: Giới hạn phạm vi tìm kiếm chỉ còn nửa bên phải mảng, do x chỉ có thể nằm trong khoảng từ mid + 1 đến right.
+
+**3. Lặp lại quá trình:**
+- Liên tục lặp lại bước 1 và 2 với phạm vi tìm kiếm mới cho đến khi tìm thấy phần tử hoặc phạm vi tìm kiếm trở nên rỗng (khi left > right) là không tìm thấy phần tử.
+
+## 2. File operations
+
+Ngôn ngữ lập trình C cung cấp một số thư viện và hàm tiêu biểu để thực hiện các thao tác với file (.txt, .csv, v.v).
+
+CSV (Comma-Separated Values) là một định dạng file văn bản đơn giản dùng để lưu trữ dữ liệu bảng.
+
+Dữ liệu trong file CSV được phân tách bằng dấu phẩy (,) hoặc dấu phân tách khác như dấu chấm phẩy (;) hoặc tab.
+
+Dữ liệu trong file CSV được phân tách bằng dấu phẩy (,) hoặc (;) hoặc ký tự tab (\t).
+
+<p align="center">
+  <img src="image-2.png" alt="alt text" width="550">
+</p>
+
+### Mở file
+
+Hàm `fopen()` trả về một con trỏ FILE, và cần được kiểm tra để đảm bảo file đã mở thành công hay chưa.
+```c
+FILE *file = fopen(const char *file_name, const char *access_mode);
+```
+Tham số truyền vào `access_mod` là quyền sử dụng file:
+- **r** : Mở file với chế độ chỉ đọc file. Nếu mở file thành công thì trả về địa chỉ của phần tử đầu tiên trong file, nếu không thì trả về NULL.
+- **rb** : Mở file với chế độ chỉ đọc file theo định dạng binary. Nếu mở file thành công thì trả về địa chỉ của phần tử đầu tiên trong file, nếu không thì trả về NULL.
+- **w** : Mở file với chế độ ghi vào file. Nếu file đã tồn tại, thì sẽ ghi đè vào nội dung bên trong file. Nếu file chưa tồn tại thì sẽ tạo một file mới. Nếu không mở được file thì trả về NULL.
+- **wb** : Mở file với chế độ ghi vào file theo định dạng binary. Nếu file đã tồn tại, thì sẽ ghi đè vào nội dung bên trong file. Nếu file chưa tồn tại thì sẽ tạo một file mới. Nếu không mở được file thì trả về NULL.
+- **a** : Mở file với chế độ nối. Nếu mở file thành công thì trả về địa chỉ của phần tử cuối cùng trong file. Nếu file chưa tồn tại thì sẽ tạo một file mới. Nếu không mở được file thì trả về NULL.
+- **ab** : Mở file với chế độ nối dưới định dạng binary. Nếu mở file thành công thì trả về địa chỉ của phần tử cuối cùng trong file. Nếu file chưa tồn tại thì sẽ tạo một file mới. Nếu không mở được file thì trả về NULL.
+- **r+** : Mở file với chế độ đọc và ghi file. Nếu mở file thành công thì trả về địa chỉ của phần tử đầu tiên trong file, nếu không thì trả về NULL.
+- **rb+** : Mở file với chế độ đọc và ghi file dưới định dạng binary. Nếu mở file thành công thì trả về địa chỉ của phần tử đầu tiên trong file, nếu không thì trả về NULL.
+
+### Đọc file
+
+### Ghi file
+
+
+### Một số hàm khác
+## 3. Code standards
+
 </p>
 </details>
 
