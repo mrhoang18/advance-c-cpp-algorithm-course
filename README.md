@@ -3171,13 +3171,11 @@ int main()
 
 Tính đa hình này thực hiện bằng cách sử dụng hàm ảo (virtual function) ở class cha và ghi đè lên hàm ảo ở class con.  
 
-## 2. Hàm ảo (Virtual function)
+## 2. Hàm ảo (Virtual function) và ghi đè hàm ảo (Override)
 
 Hàm ảo là một hàm thành viên được khai báo trong class cha với từ khóa `virtual`.
 
-Hàm ảo có thể được ghi đè `override` trong class con để cung cấp một phiên bản triển khai riêng của class con.
-
-Khi gọi một hàm ảo thông qua một con trỏ hoặc tham chiếu đến lớp con, hàm sẽ được quyết định dựa trên đối tượng thực tế mà con trỏ hoặc tham chiếu đang trỏ tới chứ không dựa vào kiểu của con trỏ
+Khi gọi một hàm ảo thông qua một con trỏ hoặc tham chiếu đến lớp con, hàm sẽ được quyết định dựa trên đối tượng thực tế mà con trỏ hoặc tham chiếu đang trỏ tới chứ không dựa vào kiểu của con trỏ hay kiểu tham chiếu.
 
 **Ví dụ khai báo một hàm ảo:**
 ```c++
@@ -3190,9 +3188,9 @@ class Base{
 };
 ```
 
-## 3. Ghi đè hàm ảo (Override)
-
 Override là việc ghi đè hàm ảo ở class con bằng cách định nghĩa lại nó. 
+
+Muốn ghi đè thì sử dụng từ khóa `override` trong class con để cung cấp một phiên bản triển khai riêng của class con.
 
 **Ví dụ ghi đè hàm ảo:**
 ```c++
@@ -3214,5 +3212,75 @@ class con : public cha{
 ```
 
 ## 2. Hàm ảo thuần túy (Pure Virtual Function)
+Hàm ảo thuần túy là một hàm ảo không có phần định nghĩa trong class cha, được khai báo với cú pháp = 0 và khiến class cha trở thành class trừu tượng, nghĩa là không thể tạo đối tượng từ class này.
+
+**Ví dụ hàm ảo thuần túy:**
+```c++
+class cha{
+    public:
+        // Hàm ảo thuần túy
+        virtual void display() = 0; 
+};
+
+class con : public cha{
+    public:
+        // Ghi đè hàm ảo thuần túy
+        void display() override{   
+            cout << "display from class con" << endl;
+        }
+};
+```
+
 ## 3. Đa kế thừa
+Đa kế thừa là  một class con kế thừa từ nhiều hơn một class cha. 
+
+Đồng nghĩa với lớp con có thể kế thừa thuộc tính và phương thức từ nhiều class cha khác nhau.
+
+**Ví dụ về đa kế thừa:**
+```c++
+// Class cha A
+class A {
+public:
+    void displayA() {
+        std::cout << "This is class A" << std::endl;
+    }
+};
+
+// Class cha B
+class B {
+public:
+    void displayB() {
+        std::cout << "This is class B" << std::endl;
+    }
+};
+
+// Đa kế thừa
+class C : public A, public B {
+public:
+    void displayC() {
+        std::cout << "This is class C" << std::endl;
+    }
+};
+
+int main() {
+    C obj;
+    obj.displayA(); // Gọi phương thức của lớp A
+    obj.displayB(); // Gọi phương thức của lớp B
+    obj.displayC(); // Gọi phương thức của lớp C
+    return 0;
+}
+```
+### Diamond problem 
+Diamond problem xảy ra khi một lớp con kế thừa từ hai lớp cha, và cả hai lớp cha này đều kế thừa từ một lớp cha chung. 
+
+<p align="center">
+  <img src="image-3.png" alt="alt text" width="350">
+</p>
+
+Điều này dẫn đến tình huống lớp con có thể chứa các thuộc tính hoặc phương thức trùng tên từ lớp cha chung, gây ra xung đột trong việc xác định nên sử dụng thành phần nào.
+
+Kế thừa ảo giúp xử lý diamond problem trong đa kế thừa.
+
 ## 4. Kế thừa ảo
+Chỉ có một bản sao duy nhất của lớp cơ sở chung được kế thừa.
+Kế thừa ảo giúp quản lý các lớp liên quan đến phần cứng và giao tiếp. Điều này giúp tránh trùng lặp tài nguyên và quản lý hiệu quả trong hệ thống nhúng.
