@@ -3175,44 +3175,100 @@ Tính đa hình này thực hiện bằng cách sử dụng hàm ảo (virtual f
 
 Hàm ảo là một hàm thành viên được khai báo trong class cha với từ khóa `virtual`.
 
-Khi gọi một hàm ảo thông qua một con trỏ hoặc tham chiếu đến lớp con, hàm sẽ được quyết định dựa trên đối tượng thực tế mà con trỏ hoặc tham chiếu đang trỏ tới chứ không dựa vào kiểu của con trỏ hay kiểu tham chiếu.
-
 **Ví dụ khai báo một hàm ảo:**
 ```c++
 // Class cha
-class Base{
-    public:
-        virtual void display(){
-            cout << "Display from Base class" << endl;
-        }
+class Animal {
+public:
+    // Hàm ảo
+    virtual void sound() {
+        cout << "Animal makes a sound." << endl;
+    }
 };
 ```
-
 Override là việc ghi đè hàm ảo ở class con bằng cách định nghĩa lại nó. 
 
 Muốn ghi đè thì sử dụng từ khóa `override` trong class con để cung cấp một phiên bản triển khai riêng của class con.
 
 **Ví dụ ghi đè hàm ảo:**
 ```c++
-class cha{
-    public:
-        // Hàm ảo
-        virtual void display() {                            
-            cout << "display from class cha" << endl;
-        }
+// Class cha
+class Animal {
+public:
+    // Hàm ảo
+    virtual void sound() {
+        cout << "Animal makes a sound." << endl;
+    }
 };
 
-class con : public cha{
-    public:
-        // Ghi đè hàm ảo
-        void display() override {                           
-            cout << "display from class con" << endl;
-        }
+// Class con - Dog
+class Dog : public Animal {
+public:
+    // Ghi đè
+    void sound() override {
+        cout << "Dog barks." << endl;
+    }
 };
 ```
+Khi gọi một hàm ảo thông qua một con trỏ hoặc tham chiếu đến class con, phiên bản nào (phiên bản của class cha hay của class con) sẽ được gọi sẽ được quyết định dựa trên đối tượng thực tế mà con trỏ hoặc tham chiếu đang trỏ tới hoặc tham chiếu tới chứ không dựa vào kiểu của con trỏ hay kiểu tham chiếu.
 
+**Ví dụ cho lập luận trên:**
+```c++
+#include <iostream>
+using namespace std;
+
+// Class cha
+class Animal {
+public:
+    // Hàm ảo
+    virtual void sound() {
+        cout << "Animal makes a sound." << endl;
+    }
+};
+
+// Class con - Dog
+class Dog : public Animal {
+public:
+    // Ghi đè
+    void sound() override {
+        cout << "Dog barks." << endl;
+    }
+};
+
+// Class con - Cat
+class Cat : public Animal {
+public:
+    // Ghi đè
+    void sound() override {
+        cout << "Cat meows." << endl;
+    }
+};
+
+int main() {
+    Dog dog;
+    Cat cat;
+
+    // Con trỏ kiểu class cha trỏ tới các đối tượng của class con   
+    Animal* ptr[] = { &dog, &cat };
+
+    // Gọi hàm ảo thông qua con trỏ
+    ptr[0]->sound(); // Kết quả: "Dog barks."
+    ptr[1]->sound(); // Kết quả: "Cat meows."
+    
+    // Tham chiếu kiểu class cha tham chiếu đến các đối tượng của class con
+    Animal& animalRef1 = dog;
+    Animal& animalRef2 = cat;
+
+    // Gọi hàm ảo thông qua tham chiếu
+    animalRef1.sound(); // Kết quả: "Dog barks."
+    animalRef2.sound(); // Kết quả: "Cat meows."
+
+    return 0;
+}
+```
 ## 2. Hàm ảo thuần túy (Pure Virtual Function)
-Hàm ảo thuần túy là một hàm ảo không có phần định nghĩa trong class cha, được khai báo với cú pháp = 0 và khiến class cha trở thành class trừu tượng, nghĩa là không thể tạo đối tượng từ class này.
+
+Hàm ảo thuần túy là một hàm ảo không có phần định nghĩa trong class cha, được khai báo với cú pháp = 0.
 
 **Ví dụ hàm ảo thuần túy:**
 ```c++
@@ -3230,6 +3286,63 @@ class con : public cha{
         }
 };
 ```
+
+Nếu có ít nhất một hàm ảo thuần túy trong class cha thì nó sẽ trở thành class trừu tượng, nghĩa là **không thể tạo đối tượng từ class trừu tượng**.
+
+**Ví dụ cho lỗi ở trên:**
+```c++
+class Animal {
+public:
+    virtual void sound() = 0; // Hàm ảo thuần túy
+};
+
+// Do something ...
+
+int main(){
+    // Lỗi: không thể khởi tạo đối tượng từ lớp trừu tượng
+    Animal animal; 
+}
+```
+**Nhưng có thể tạo một con trỏ hoặc tham chiếu đến class trừu tượng !!!**
+```c++
+#include <iostream>
+using namespace std;
+
+class Animal {
+public:
+    // Hàm ảo thuần túy
+    virtual void sound() = 0; 
+};
+
+// Class con kế thừa từ lớp trừu tượng
+class Dog : public Animal {
+public:
+    void sound() override {
+        cout << "Dog barks." << endl;
+    }
+};
+
+int main() {
+    Dog dog;
+
+    // --- Sử dụng con trỏ từ class trừu tượng ---
+    Animal* animalPtr = &dog;   
+    animalPtr->sound();         // Kết quả: "Dog barks."
+
+    // --- Sử dụng tham chiếu từ class trừu tượng ---
+    Animal& animalRefDog = dog; 
+    animalRefDog.sound();       // Kết quả: "Dog barks."
+
+    return 0;
+}
+```
+
+Giải thích:
+- Trình biên dịch xem một class trừu tượng có chứa hàm ảo thuần túy là chưa được định nghĩa đầy đủ. Do đó, không thể tạo đối tượng trực tiếp từ class trừu tượng.
+
+- Con trỏ có thể trỏ đến nullptr hoặc bất kỳ đối tượng nào. Vì vậy, con trỏ kiểu class trừu tượng có thể khai báo mà không cần trỏ đến một đối tượng cụ thể.
+
+- Tham chiếu phải tham chiếu đến một đối tượng cụ thể ngay khi được khởi tạo và không thể thay đổi đối tượng mà nó tham chiếu sau khi khởi tạo. Do đó, để không xảy ra lỗi, tham chiếu đến class trừu tượng phải tham chiếu ngay đến một đối tượng của class con.
 
 ## 3. Đa kế thừa
 Đa kế thừa là  một class con kế thừa từ nhiều hơn một class cha. 
@@ -3271,16 +3384,36 @@ int main() {
 }
 ```
 ### Diamond problem 
-Diamond problem xảy ra khi một lớp con kế thừa từ hai lớp cha, và cả hai lớp cha này đều kế thừa từ một lớp cha chung. 
+Diamond problem xảy ra khi một lớp con kế thừa từ hai lớp cha, và cả hai lớp cha này đều kế thừa từ một lớp cha chung. Điều này dẫn đến tình huống lớp con có thể chứa các thuộc tính hoặc phương thức trùng tên từ lớp cha chung, gây ra xung đột trong việc xác định nên sử dụng thành phần nào.
 
 <p align="center">
   <img src="image-3.png" alt="alt text" width="350">
 </p>
 
-Điều này dẫn đến tình huống lớp con có thể chứa các thuộc tính hoặc phương thức trùng tên từ lớp cha chung, gây ra xung đột trong việc xác định nên sử dụng thành phần nào.
-
 Kế thừa ảo giúp xử lý diamond problem trong đa kế thừa.
 
 ## 4. Kế thừa ảo
-Chỉ có một bản sao duy nhất của lớp cơ sở chung được kế thừa.
-Kế thừa ảo giúp quản lý các lớp liên quan đến phần cứng và giao tiếp. Điều này giúp tránh trùng lặp tài nguyên và quản lý hiệu quả trong hệ thống nhúng.
+Chỉ có một bản sao duy nhất của lớp cơ sở chung được kế thừa sử dụng từ khóa `virtual`.
+
+**Ví dụ về kế thừa ảo C++:**
+```c++
+class A {
+public:
+    void show() { 
+        cout << "Class A" << endl; 
+    }
+};
+
+// Kế thừa ảo từ A dùng từ khóa "virtual"
+class B : public virtual A { };
+class C : public virtual A { };
+
+// Class D kế thừa cả B và C
+class D : public B, public C { };
+
+int main() {
+    D d;
+    d.show(); // Kết quả: "Class A"
+    return 0;
+}
+```
