@@ -3039,7 +3039,9 @@ _chưa học tới_
 
 ### Đa hình tại thời điểm biên dịch (Compile-time Polymorphism).
 
-Tính đa hình này được sử dụng bằng cách nạp chồng hàm (Function overloading) hoặc nạp chồng toán tử (Operator overloading).
+Đa hình tại thời điểm biên dịch được sử dụng bằng cách nạp chồng hàm (Function overloading) hoặc nạp chồng toán tử (Operator overloading).
+
+Tính đa hình này được xác định trong quá trình biên dịch, nghĩa là compiler quyết định phiên bản hàm nào sẽ được gọi.
 
 - Function overloading: cung cấp nhiều định nghĩa cho một function bằng cách thay đổi số lượng input parameter, kiểu dữ liệu của input parameter.
 
@@ -3156,3 +3158,61 @@ int main()
 
 </p>
 </details>
+
+# BÀI 16: VIRTUAL FUNCTION
+<details><summary>Chi tiết</summary>
+<p>
+
+## 1. Đa hình tại thời điểm chạy (Run-time Polymorphism)
+
+Đa hình tại thời điểm chạy xảy ra khi việc quyết định method nào (phiên bản của class cha hay của class con) sẽ được gọi ra ngay tại thời điểm chạy chương trình. 
+
+Ưu điểm là giúp chương trình linh hoạt hơn, cho phép việc mở rộng chức năng mà không cần sửa đổi mã nguồn hiện tại.
+
+Tính đa hình này thực hiện bằng cách sử dụng hàm ảo (virtual function) ở class cha và ghi đè lên hàm ảo ở class con.  
+
+## 2. Hàm ảo (Virtual function)
+
+Hàm ảo là một hàm thành viên được khai báo trong class cha với từ khóa `virtual`.
+
+Hàm ảo có thể được ghi đè `override` trong class con để cung cấp một phiên bản triển khai riêng của class con.
+
+Khi gọi một hàm ảo thông qua một con trỏ hoặc tham chiếu đến lớp con, hàm sẽ được quyết định dựa trên đối tượng thực tế mà con trỏ hoặc tham chiếu đang trỏ tới chứ không dựa vào kiểu của con trỏ
+
+**Ví dụ khai báo một hàm ảo:**
+```c++
+// Class cha
+class Base{
+    public:
+        virtual void display(){
+            cout << "Display from Base class" << endl;
+        }
+};
+```
+
+## 3. Ghi đè hàm ảo (Override)
+
+Override là việc ghi đè hàm ảo ở class con bằng cách định nghĩa lại nó. 
+
+**Ví dụ ghi đè hàm ảo:**
+```c++
+class cha{
+    public:
+        // Hàm ảo
+        virtual void display() {                            
+            cout << "display from class cha" << endl;
+        }
+};
+
+class con : public cha{
+    public:
+        // Ghi đè hàm ảo
+        void display() override {                           
+            cout << "display from class con" << endl;
+        }
+};
+```
+
+## 2. Hàm ảo thuần túy (Pure Virtual Function)
+## 3. Đa kế thừa
+## 4. Kế thừa ảo
