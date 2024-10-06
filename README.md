@@ -3468,7 +3468,7 @@ cout << "Sum: " << sum(1, 5.6) << endl;  // Kết quả: "Sum: 6"
 ```c++
 template <typename typeA, typename typeB>
 auto sum(typeA a, typeB b) {    // Từ khóa "auto"
-    return (typeA)a + b;      
+    return a + b;      
 }
 
 // Kết quả trả về đã đúng: "Sum: 6.6"
