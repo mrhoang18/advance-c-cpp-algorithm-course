@@ -3417,3 +3417,191 @@ int main() {
     return 0;
 }
 ```
+</p>
+</details>
+
+# BÀI 17: GENERIC PROGRAMMING-TEMPLATE
+<details><summary>Chi tiết</summary>
+<p>
+
+Template trong C++ là một cơ chế lập trình tổng quát (generic programming), cho phép định nghĩa các hàm hoặc lớp mà có thể hoạt động với nhiều kiểu dữ liệu khác nhau mà không cần viết lại mã cho từng kiểu dữ liệu cụ thể.
+
+Có hai loại template chính trong C++: function template và class template.
+
+## 1. Function template
+
+Function template cho phép tạo ra các hàm hoạt động với nhiều kiểu dữ liệu khác nhau mà không cần phải viết lại hàm cho mỗi kiểu dữ liệu.
+
+Trình biên tự suy ra kiểu dữ liệu từ các đối số truyền vào khi gọi hàm.
+
+**Ví dụ về function template:**
+```c++
+#include <iostream>
+using namespace std;
+
+// Định nghĩa template với hai kiểu dữ liệu tổng quát typeA, typeB
+template <typename typeA, typename typeB>
+typeA sum(typeA a, typeB b) {
+    return (typeA)a + b; // Trả về tổng của hai tham số với kiểu trả về là typeA
+}
+
+int main(int argc, char const *argv[]) {
+    // Gọi hàm sum với các kiểu dữ liệu khác nhau
+    cout << "Sum: " << sum(1, 5) << endl;       // Kiểu int
+    cout << "Sum: " << sum(1.5, 5.8) << endl;   // Kiểu double
+    cout << "Sum: " << sum(1, 5.6) << endl;     // Kết hợp int và double
+
+    return 0;
+}
+```
+### Từ khóa `auto`
+
+Từ khóa `auto` được sử dụng để tự động suy luận kiểu dữ liệu của biến hoặc kiểu trả về của hàm dựa trên giá trị mà gán cho nó.
+
+**Đặt vấn đề:** Kiểu trả về của hàm `sum` ở ví dụ trên khá là thụ động vì kiểu trả về phụ thuộc vào `typeA` làm cho kết quả bị sai trong trường hợp này.
+
+```c++
+cout << "Sum: " << sum(1, 5.6) << endl;  // Kết quả: "Sum: 6"
+```
+
+Để giải quyết vấn đề này ta tử dụng từ khóa `auto`:
+```c++
+template <typename typeA, typename typeB>
+auto sum(typeA a, typeB b) {    // Từ khóa "auto"
+    return (typeA)a + b;      
+}
+
+// Kết quả trả về đã đúng: "Sum: 6.6"
+```
+## 2. Class template
+
+Class template tương tự như function template, nhưng nó được áp dụng cho class. 
+
+Class templates cho phép bạn viết một class tổng mà có thể được sử dụng với nhiều kiểu dữ liệu khác nhau.
+
+### Sử dụng cho kiểu dữ liệu đơn giản
+
+Với trường hợp này là sử dụng template cho các kiểu dữ liệu đơn giản như int, float, double, char, ...
+
+**Ví dụ thay thế cho kiểu dữ liệu đơn giản:**
+```c++
+#include <iostream>
+using namespace std;
+
+// Định nghĩa class template với một kiểu dữ liệu tổng quát T
+template <typename T>
+class Box {
+private:
+    T value; // Biến thành viên của kiểu dữ liệu T
+public:
+    // Constructor để khởi tạo giá trị
+    Box(T val) : value(val) {}
+
+    // Phương thức để lấy giá trị
+    T getValue() {
+        return value;
+    }
+
+    // Phương thức để thiết lập giá trị mới
+    void setValue(T val) {
+        value = val;
+    }
+};
+
+int main() {
+    // Tạo đối tượng Box với kiểu dữ liệu int
+    Box<int> intBox(123);
+    cout << "Int value: " << intBox.getValue() << endl;
+
+    // Tạo đối tượng Box với kiểu dữ liệu double
+    Box<double> doubleBox(456.78);
+    cout << "Double value: " << doubleBox.getValue() << endl;
+
+    // Tạo đối tượng Box với kiểu dữ liệu string
+    Box<string> stringBox("Hello");
+    cout << "String value: " << stringBox.getValue() << endl;
+
+    return 0;
+}
+```
+**Output:**
+```
+Int value: 123
+Double value: 456.78
+String value: Hello
+```
+
+### Sử dụng cho kiểu dữ liệu phức tạp
+
+Với trường hợp này là sử dụng template cho các kiểu dữ liệu phức tạp như struct, class, ...
+
+
+**Ví dụ thay thế cho kiểu dữ liệu phức tạp:**
+
+Lưu ý: Từ khóa mới-const, phương thức có từ khóa này không thể thay đổi bất kỳ thành viên dữ liệu nào của đối tượng!
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Lớp cơ sở
+class Shape {
+public:
+    virtual void draw() const = 0; // Phương thức thuần ảo
+};
+
+// Một lớp cụ thể kế thừa từ Shape
+class Circle : public Shape {
+public:
+    void draw() const override {
+        cout << "Drawing a circle" << endl;
+    }
+};
+
+// Một lớp khác kế thừa từ Shape
+class Square : public Shape {
+public:
+    void draw() const override {
+        cout << "Drawing a square" << endl;
+    }
+};
+
+// Khai báo class template với T là một kiểu class kế thừa từ Shape
+template <typename T>
+class ShapeContainer {
+private:
+    T shape;
+public:
+    ShapeContainer(T s) : shape(s) {}
+    
+    void displayShape() const {      // Từ khóa const
+        shape.draw();
+    }
+};
+
+int main() {
+    Circle c;
+
+    // Khởi tạo đối tượng kiểu class template
+    ShapeContainer<Circle> circleContainer(c);
+    circleContainer.displayShape();                  // Kết quả: Drawing a circle
+
+    Square s;
+
+    // Khởi tạo đối tượng kiểu class template
+    ShapeContainer squareContainer(s);              // Không cần truyền vào template argument <Square> cũng được!!
+    squareContainer.displayShape();                 // Kết quả: Drawing a square
+
+    return 0;
+}
+```
+</p>
+</details>
+
+# BÀI 18: NAMESPACE
+<details><summary>Chi tiết</summary>
+<p>
+
+</p>
+</details>
