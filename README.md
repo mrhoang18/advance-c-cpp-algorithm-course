@@ -3596,6 +3596,41 @@ int main() {
     return 0;
 }
 ```
+
+## 3. Operator overloading
+
+Nạp chồng toán tử là định nghĩa lại cách hoạt động của một số toán tử (toán tử có sẵn trong C++) đối với các object của class tự định nghĩa (các object đó không thể tính toán như các biến thông thường).
+
+Các toán tử có thể nạp chồng (Overloadable Operators)
+
+| Nhóm toán tử               | Toán tử                                  |
+|----------------------------|------------------------------------------|
+| Toán tử số học              | +, -, *, /, %                            |
+| Toán tử gán                 | =, +=, -=, *=, /=, %=                    |
+| Toán tử so sánh             | ==, !=, <, >, <=, >=                     |
+| Toán tử logic               | &&, ||, !                               |
+| Toán tử bit                 | &, |, ^, ~, <<, >>                      |
+| Toán tử tăng/giảm           | ++, --                                  |
+| Toán tử truy xuất           | [], ->                                  |
+| Toán tử con trỏ             | *, &                                    |
+| Toán tử gọi hàm             | ()                                      |
+| Toán tử dấu phẩy            | ,                                       |
+| Toán tử cấp phát bộ nhớ     | new, delete                             |
+| Toán tử truy xuất thành viên qua con trỏ | ->*                       |
+
+
+Các toán tử không thể nạp chồng (Non-Overloadable Operators)
+
+| Nhóm toán tử                               | Toán tử                                      |
+|--------------------------------------------|----------------------------------------------|
+| Toán tử phạm vi                            | ::                                           |
+| Toán tử truy xuất thành viên               | .                                            |
+| Toán tử truy xuất thành viên qua con trỏ tới đối tượng | .*                            |
+| Toán tử điều kiện ba ngôi                  | ?:                                           |
+| Toán tử lấy kích thước                     | sizeof                                       |
+| Toán tử kiểm tra kiểu đối tượng            | typeid                                       |
+| Toán tử căn chỉnh                          | alignof                                      |
+
 </p>
 </details>
 
