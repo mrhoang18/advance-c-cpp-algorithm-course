@@ -3632,6 +3632,8 @@ Các toán tử không thể nạp chồng (Non-Overloadable Operators)
 | Toán tử căn chỉnh                          | `alignof`                                    |
 
 Ví dụ nạp chồng toán tử
+
+xxxx
 </p>
 </details>
 
