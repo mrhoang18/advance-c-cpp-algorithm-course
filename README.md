@@ -4008,9 +4008,6 @@ int main() {
     return 0;
 }
 ```
-</p>
-</details>
-
 ## 4. Namespace tiêu chuẩn (std) trong C++
 
 `namespace std` cung câp tất cả các thành phần của thư viện chuẩn C++ (như cout, cin, vector, string).
