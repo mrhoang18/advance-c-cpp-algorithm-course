@@ -4026,8 +4026,10 @@ int main() {
     return 0;
 }
 ```
-
 Một số thành phần nâng cao hơn sẽ được nói ở bài STL.
+
+</p>
+</details>
 
 # BÀI 18: STANDARD TEMPLATE LIBRARY
 <details><summary>Chi tiết</summary>
