@@ -4010,7 +4010,7 @@ int main() {
 ```
 ## 4. Namespace tiêu chuẩn (std) trong C++
 
-`namespace std` cung câp tất cả các thành phần của thư viện chuẩn C++ (như cout, cin, vector, string).
+namespace `std` cung câp tất cả các thành phần của thư viện chuẩn C++ (như cout, cin, vector, string).
 
 **Ví dụ sử dụng cout:**
 ```c++
@@ -4028,9 +4028,62 @@ Một số thành phần nâng cao hơn sẽ được nói ở bài STL.
 </p>
 </details>
 
-# BÀI 18: STANDARD TEMPLATE LIBRARY
+# BÀI 19: STANDARD TEMPLATE LIBRARY
 <details><summary>Chi tiết</summary>
 <p>
+Standard Template Library ( STL) là một thư viện trong ngôn ngữ lập trình C++ cung cấp một tập hợp các template classes và functions để thực hiện nhiều loại cấu trúc dữ liệu và các thuật toán phổ biến.
+
+Một số thành phần chính của STL:
+Container
+Iterator
+Algorithms
+Functor
+
+## 1. Container
+Container là cách gọi chung cho các cấu trúc dữ liệu tổng quát dùng để lưu trữ và quản lý các đối tượng (hoặc dữ liệu) theo một cách thức nhất định.
+
+Các container được học:
+### Vector
+Vector cung cấp một mảng động có thể tự động thay đổi kích thước khi cần thêm hoặc xóa phần tử, không giống như mảng tĩnh có kích thước cố định.
+
+Vì là một mảng nên nó cho phép truy cập nhanh vào các phần tử qua chỉ số (index).
+
+**Ví dụ về khai báo và khởi tạo một vector:**
+Lưu ý: Đối tượng `vec1` (biến vector) khai báo trong main được lưu trên stack, các phần tử thì cấp phát ở heap!
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    // Khai báo một vector lưu trữ số nguyên
+    vector<int> vec1;           // Vector rỗng
+    vector<int> vec2(5);        // Vector chứa 5 phần tử, mỗi phần tử mặc định là 0
+    vector<int> vec3(5, 10);    // Vector chứa 5 phần tử, mỗi phần tử có giá trị là 10
+    vector<int> vec4 = {1, 2, 3, 4, 5}; // Khởi tạo với danh sách giá trị
+
+    return 0;
+}
+```
+- Một số method của vector:
+    + `at()`: Truy cập vào phần tử của vector
+    + `size()`: Trả về kích thước của vector
+    + `resize()`: Thay đổi kích thước của vector
+    + `begin()`: Địa chỉ của phần tử đầu tiên của vector
+    + `end()`: Địa chỉ của phần tử cuối cùng của vector
+    + `push_back()`: Thêm phần tử vào vị trí cuối của vector
+
+### List
+### Map
+### Array
+
+## 2. Interator
+
+
+## 3. Algorithm
+
+
+
 
 
 </p>
