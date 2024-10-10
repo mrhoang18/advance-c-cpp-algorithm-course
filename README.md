@@ -1,4 +1,4 @@
-# BÀI 1: COMPILER-MACRO
+﻿# BÀI 1: COMPILER-MACRO
 <details><summary>Chi tiết</summary>
 <p>
   
@@ -3599,11 +3599,11 @@ int main() {
 
 ## 3. Operator overloading
 
-Nạp chồng toán tử là định nghĩa lại cách hoạt động của một số toán tử (toán tử có sẵn trong C++) đối với các object của class tự định nghĩa (các object đó không thể tính toán như các biến thông thường).
+Nạp chồng toán tử là định nghĩa lại cách hoạt động của một số toán tử (toán tử có sẵn trong C++) để sử dụng cho các object của class tự định nghĩa (các object đó không thể tính toán như các biến thông thường).
 
 Các toán tử có thể nạp chồng (Overloadable Operators)
 
-| Nhóm toán tử                | Toán tử                                  |
+| Nhóm toán tử                | Ký hiệu                                  |
 |---------------------------- |------------------------------------------|
 | Toán tử số học              | `+` `-` `*` `/` `%`                      |
 | Toán tử gán                 | `=` `+=` `-=` `*=` `/=` `%=`             |
@@ -3621,25 +3621,418 @@ Các toán tử có thể nạp chồng (Overloadable Operators)
 
 Các toán tử không thể nạp chồng (Non-Overloadable Operators)
 
-| Nhóm toán tử                               | Toán tử                                      |
-|--------------------------------------------|----------------------------------------------|
-| Toán tử phạm vi                            | `::`                                         |
-| Toán tử truy xuất thành viên               | `.`                                          |
-| Toán tử truy xuất thành viên qua con trỏ tới đối tượng | `.*`                             |
-| Toán tử điều kiện ba ngôi                  | `?:`                                         |
-| Toán tử lấy kích thước                     | `sizeof`                                     |
-| Toán tử kiểm tra kiểu đối tượng            | `typeid`                                     |
-| Toán tử căn chỉnh                          | `alignof`                                    |
+| Nhóm toán tử                               | Ký hiệu                   |
+|--------------------------------------------|---------------------------|
+| Toán tử phạm vi                            | `::`                      |
+| Toán tử truy xuất thành viên               | `.`                       |
+| Toán tử truy xuất thành viên qua con trỏ tới đối tượng | `.*`          |
+| Toán tử điều kiện ba ngôi                  | `?:`                      |
+| Toán tử lấy kích thước                     | `sizeof`                  |
+| Toán tử kiểm tra kiểu đối tượng            | `typeid`                  |
+| Toán tử căn chỉnh                          | `alignof`                 |
 
-Ví dụ nạp chồng toán tử
+**Ví dụ nạp chồng toán tử:**
+```c++
+#include <iostream>
+using namespace std;
 
-xxxx
+// Hàm tìm ước số chung lớn nhất (Greatest Common Divisor)
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+
+// Class biểu diễn phân số
+class Fraction {
+private:
+    int numerator;   // Tử số
+    int denominator; // Mẫu số
+
+public:
+    // Hàm khởi tạo
+    Fraction(int num = 0, int den = 1) : numerator(num), denominator(den) {
+        if (denominator == 0) {
+            cout << "Mẫu số không được bằng 0. Đặt mẫu số = 1." << endl;
+            denominator = 1;
+        }
+        simplify(); // Rút gọn phân số ngay khi khởi tạo
+    }
+
+    // Hàm rút gọn phân số
+    void simplify() {
+        int divisor = gcd(numerator, denominator);
+        numerator /= divisor;
+        denominator /= divisor;
+        // Đảm bảo rằng mẫu số luôn dương
+        if (denominator < 0) {
+            numerator = -numerator;
+            denominator = -denominator;
+        }
+    }
+
+    // Nạp chồng toán tử * để nhân hai phân số
+    Fraction operator * (const Fraction& other) {
+        // Công thức: (a/b) * (c/d) = (a*c) / (b*d)
+        int new_numerator = numerator * other.numerator;
+        int new_denominator = denominator * other.denominator;
+        return Fraction(new_numerator, new_denominator); // Tạo phân số mới đã rút gọn
+    }
+
+    // Hàm in phân số ra màn hình
+    void print() const {
+        if (denominator == 1)
+            cout << numerator << endl;
+        else
+            cout << numerator << "/" << denominator << endl;
+    }
+};
+
+int main() {
+    // Tạo hai phân số
+    Fraction f1(2, 3); // 2/3
+    Fraction f2(3, 4); // 3/4
+
+    // Nhân hai phân số bằng toán tử *
+    Fraction result = f1 * f2;
+
+    // In kết quả
+    cout << "Kết quả của 2/3 * 3/4 = ";
+    result.print(); // Kết quả là 1/2
+
+    return 0;
+}
+```
+Có thể thay thế cách truy cập thành viên bằng con trỏ hằng `this->` :
+```c++
+    Fraction operator * (const Fraction& other) {
+        // Công thức: (a/b) * (c/d) = (a*c) / (b*d)
+        int new_numerator = this->numerator * other.numerator;
+        int new_denominator = this->denominator * other.denominator;
+        return Fraction(new_numerator, new_denominator); // Tạo phân số mới đã rút gọn
+    }
+```
+Hoặc `Fraction::` :
+```c++
+    Fraction operator * (const Fraction& other) {
+        // Công thức: (a/b) * (c/d) = (a*c) / (b*d)
+        int new_numerator = Fraction::numerator * other.numerator;
+        int new_denominator = Fraction::denominator * other.denominator;
+        return Fraction(new_numerator, new_denominator); // Tạo phân số mới đã rút gọn
+    }
+```
+## 4. Pass by value và pass by reference
+
+### Pass by value
+
+Tham trị là cách truyền tham số vào hàm mà giá trị của tham số được sao chép vào một biến cục bộ bên trong hàm.
+
+Khi truyền tham trị, một bản sao của giá trị gốc được tạo ra làm bộ nhớ RAM phình lên, và hàm chỉ làm việc với bản sao này.
+
+Do đó, mọi thay đổi trên tham số bên trong hàm sẽ chỉ ảnh hưởng đến bản sao, không ảnh hưởng đến giá trị của biến ban đầu ở bên ngoài hàm.
+
+**Ví dụ về tham trị:**
+```c++
+#include <iostream>
+using namespace std;
+
+void increment(int x) {
+    x = x + 1; // Thay đổi x chỉ ảnh hưởng trong phạm vi của hàm này
+}
+
+int main() {
+    int a = 5;
+    increment(a);
+    cout << "Giá trị của a sau khi gọi increment: " << a << endl; // a vẫn là 5
+    return 0;
+}
+```
+### Pass by reference
+
+Tham chiếu là truyền một tham chiếu đến biến gốc (địa chỉ của nó), tức là bạn đang làm việc trực tiếp trên biến ban đầu. 
+
+Bất kỳ sự thay đổi nào trên tham số trong hàm sẽ ảnh hưởng trực tiếp đến biến gốc.
+
+**Ví dụ về tham chiếu:**
+
+```c++
+#include <iostream>
+using namespace std;
+
+void modify(int& ref) {
+    ref = 10; // Thay đổi giá trị thông qua tham chiếu
+}
+
+int main() {
+    int a = 5;
+    modify(a); // Truyền a bằng tham chiếu
+    cout << "Giá trị của a sau khi gọi modify: " << a << endl; // a trở thành 10
+    return 0;
+}
+```
+
+### Ứng dụng của tham chiếu và tham trị
+
+```c++
+Fraction operator * (const Fraction& other) {
+    // Công thức: (a/b) * (c/d) = (a*c) / (b*d)
+    int new_numerator = numerator * other.numerator;
+    int new_denominator = denominator * other.denominator;
+    return Fraction(new_numerator, new_denominator);
+}
+```
+Ở hàm `Fraction()`, dù truyền tham trị hay tham chiếu thì kết quả của phép nhân hai phân số vẫn như nhau. 
+
+Tuy nhiên, có một số khác biệt về hiệu suất và cách thức làm việc:
+
+- Truyền tham chiếu (`const Fraction& other`):
+
+    + Không tạo bản sao của other, mà sử dụng tham chiếu đến đối tượng ban đầu.
+    +  Giúp tiết kiệm bộ nhớ và tăng tốc độ khi làm việc với các đối tượng lớn hoặc phức tạp.
+
+    + const đảm bảo rằng đối tượng other sẽ không bị thay đổi bên trong hàm, giúp giữ nguyên giá trị ban đầu của other.
+
+- Truyền tham trị (`Fraction other`):
+
+    + Tạo ra một bản sao của other khi gọi hàm.
+
+    + Điều này tốn thêm bộ nhớ để lưu trữ bản sao của other và có thể làm chậm hiệu suất nếu Fraction là một đối tượng phức tạp.
+
+    + Tuy nhiên, trong trường hợp này, nếu chỉ cần tính toán với bản sao của other, không phải lo về việc vô tình thay đổi đối tượng gốc.
+
 </p>
 </details>
 
 # BÀI 18: NAMESPACE
 <details><summary>Chi tiết</summary>
 <p>
+
+## 1. Namespace
+Namespace là cách nhóm các định danh như tên biến, hàm, class,... vào một không gian tách biệt.
+
+Namespace được sử dụng để tránh xung đột tên khi có các định danh giống nhau được khai báo trong các phần của chương trình hoặc các thư viện khác nhau.
+
+**Ví dụ cho việc sử dụng namespace tránh xung đột:**
+```c++
+#include <iostream>
+using namespace std;
+
+// Khai báo namespace đầu tiên
+namespace Math {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+// Khai báo namespace thứ hai
+namespace Physics {
+    int add(int a, int b) {
+        return a + b + 10; // Một phép cộng khác, thêm 10 vào kết quả
+    }
+}
+
+int main() {
+    // Gọi hàm add trong namespace Math
+    int sumMath = Math::add(3, 4); // Kết quả: 7
+
+    // Gọi hàm add trong namespace Physics
+    int sumPhysics = Physics::add(3, 4); // Kết quả: 17
+
+    cout << "Tong theo Math::add(3, 4) = " << sumMath << endl;        // In ra 7
+    cout << "Tong theo Physics::add(3, 4) = " << sumPhysics << endl;  // In ra 17
+
+    return 0;
+}
+```
+### Namespace ẩn danh
+Namespace ẩn danh là một namespace không có tên cụ thể. 
+
+Sử dụng để giới hạn phạm vi của các hàm, biến, hoặc lớp trong một file cụ thể (tức là các file khác không thể sử dụng được dù có từ khóa `extern`).
+
+Nó tương đương vơi việc sử dụng từ khóa `static` khai báo toán cục.
+
+Giúp tránh xung đột tên khi làm việc với các chương trình lớn hoặc nhiều file.
+
+**Ví dụ về namespace ẩn danh:**
+
+```c++
+namespace {
+    int hiddenVariable = 42;
+
+    void hiddenFunction() {
+        cout << "Hello from an anonymous namespace!" << endl;
+    }
+}
+```
+### Từ khóa using
+Từ khóa using cho phép bạn sử dụng các phần tử trong namespace mà không cần phải sử dụng toán tử '::' mỗi khi truy cập.
+
+```c++
+#include <iostream>
+using namespace std;
+using namespace Math;  
+
+// Khai báo namespace Math
+namespace Math {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+int main() {
+    // Gọi hàm add trực tiếp mà không cần Math::
+    int sumMath = add(3, 4); // Kết quả: 7
+
+    cout << "Tong theo add(3, 4) = " << sumMath << endl; // In ra 7
+
+    return 0;
+}
+```
+**Lưu ý:** Chỉ sử dụng using namespace khi member muốn truy cập đến là duy nhất.
+
+**Ví dụ về lỗi khí cố sử dụng using namespace cho hai namespace định nghĩa cùng tên thành viên:**
+```c++
+#include <iostream>
+using namespace std;
+using namespace Math;
+using namespace Physics;
+
+// Cả hai namespace đều có hàm add()
+namespace Math {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+
+namespace Physics {
+    int add(int a, int b) {
+        return a + b + 10;
+    }
+}
+
+int main() {
+    // Lỗi: add không rõ ràng vì có hai hàm add từ các namespace khác nhau
+    int result = add(3, 4);
+    cout << "Kết quả: " << result << endl;
+    return 0;
+}
+```
+## 2. Namespace lồng nhau
+
+Là một namespace có thể chứa một namespace khác bên trong nó.
+
+**Ví dụ về namespace lồng nhau:**
+```c++
+#include <iostream>
+using namespace std;
+
+// Khai báo namespace bên ngoài
+namespace Outer {
+    void displayOut() {
+        cout << "Hello from Outer namespace" << endl;
+    }
+
+    // Khai báo namespace bên trong
+    namespace Inner {
+        void displayIn() {
+            cout << "Hello from Inner namespace" << endl;
+        }
+    }
+}
+
+int main() {
+    // Đưa các thành phần của Outer vào phạm vi hiện tại
+    using namespace Outer;
+
+    // Gọi hàm displayOut từ namespace Outer
+    displayOut(); // Tương đương với Outer::displayOut()
+    Inner::displayIn();
+
+    // Đưa các thành phần của Inner vào phạm vi hiện tại
+    using namespace Outer::Inner;
+
+    // Gọi hàm displayIn từ namespace Inner
+    displayIn(); // Tương đương với Outer::Inner::displayIn()
+
+    return 0;
+}
+```
+## 3. Namespace mở rộng
+
+Namespace mở rộng là tính năng có thể được mở rộng namespace bằng cách khai báo nhiều lần cùng một tên namespace trong các phần khác nhau của chương trình kể cả ở file khác. 
+
+Các khai báo này sẽ được ghép lại thành một namespace duy nhất cho nên không được định nghĩa trùng trên các thành viên trong namespace.
+
+**Ví dụ về namespace mở rộng:**
+
+Ở file mở rộng
+```c++
+// morong.cpp
+#include <iostream>
+using namespace std;
+
+// Mở rộng namespace Math để định nghĩa hàm khác
+namespace Math {
+    void sum(int a, int b) {
+        cout << "Sum: " << a + b << endl;
+    }
+}
+```
+
+Ở file main
+```c++
+// file main.c
+#include <iostream>
+#include "morong.cpp"
+using namespace std;
+
+// Khai báo và định nghĩa hàm trong namespace Math
+namespace Math {
+    void subtract(int a, int b) {
+        cout << "Subtract: " << a - b << endl;
+    }
+}
+
+// Tiếp tục mở rộng namespace Math để định nghĩa hàm khác
+namespace Math {
+    void multiply(int a, int b) {
+        cout << "Multiply: " << a * b << endl;
+    }
+}
+
+int main() {
+    // Gọi các hàm trong namespace Math
+    Math::sum(3, 4);        
+    Math::multiply(3, 4);   
+    Math::subtract(5, 3);
+    return 0;
+}
+```
+</p>
+</details>
+
+## 4. Namespace tiêu chuẩn (std) trong C++
+
+`namespace std` cung câp tất cả các thành phần của thư viện chuẩn C++ (như cout, cin, vector, string).
+
+**Ví dụ sử dụng cout:**
+```c++
+#include <iostream>
+using std::cout;
+using std::endl;
+
+int main() {
+    cout << "Hello, World!" << endl;
+    return 0;
+}
+```
+
+Một số thành phần nâng cao hơn sẽ được nói ở bài STL.
+
+# BÀI 18: STANDARD TEMPLATE LIBRARY
+<details><summary>Chi tiết</summary>
+<p>
+
 
 </p>
 </details>
