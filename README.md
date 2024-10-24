@@ -176,6 +176,9 @@ int main() {
     return 0;
 }
 ```
+</p>
+</details>
+
 # BÀI 2: STDARG-ASSERT
 <details><summary>Chi tiết</summary>
 <p>
