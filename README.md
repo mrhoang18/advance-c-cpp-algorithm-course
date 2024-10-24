@@ -207,40 +207,42 @@ int main() {
   
 ## 1. Thư viện STDARG
 
-Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
-- `va_list va`: `va_list` là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là `va`. (Bản chất nó giống như con trỏ kiểu `char` được định nghĩa lại tên bằng `typedef`: `typedef char* va_list;)`.
+Thư viện stdarg.h hỗ trợ viết hàm với số lượng tham số không xác định. Một số từ khóau:
 
-- `va_start(va, count)`: hàm này mang các kí tự vào chuỗi `va`. Cách hoạt động của nó là sẽ tạo một con trỏ có giá trị bằng địa chỉ kí tự đầu tiên của chuỗi không xác định và thực hiện vòng lặp so sánh các kí tự trong chuỗi có giống với từng kí tự của label count không và con trỏ địa chỉ tăng dần dần ứng với địa chỉ của các kí tự tiếp theo của chuỗi. Sau khi xác định được kí tự giống với label count thì mới bắt đầu mang các kí tự sau dấu `,` vào chuỗi `va`.
+-**va_list va**: `va_list` là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là `va`. (Bản chất nó giống như con trỏ kiểu `char` được định nghĩa lại tên bằng `typedef`: `typedef char* va_list;)`.
+
+-**va_start(va, count)**: hàm này mang các kí tự vào chuỗi `va`. Cách hoạt động của nó là sẽ tạo một con trỏ có giá trị bằng địa chỉ kí tự đầu tiên của chuỗi không xác định và thực hiện vòng lặp so sánh các kí tự trong chuỗi có giống với từng kí tự của label count không và con trỏ địa chỉ tăng dần dần ứng với địa chỉ của các kí tự tiếp theo của chuỗi. Sau khi xác định được kí tự giống với label count thì mới bắt đầu mang các kí tự sau dấu `,` vào chuỗi `va`.
   
-- `va_arg(va, type)`: lấy giá trị của tham số tiếp theo từ chuỗi va và ép kiểu nó sang kiểu dữ liệu được chỉ định. Khi gọi hàm `va_arg(va, type)` thì nó đọc giá trị tại ô phía sau `va_start` và trỏ tới ô tiếp theo.
+-**va_arg(va, type)**: lấy giá trị của tham số tiếp theo từ chuỗi va và ép kiểu nó sang kiểu dữ liệu được chỉ định. Khi gọi hàm `va_arg(va, type)` thì nó đọc giá trị tại ô phía sau `va_start` và trỏ tới ô tiếp theo.
 
-- `va_end(va_list ap)`: kết thúc việc sử dụng danh sách đối số biến đổi, giải phóng bộ nhớ.
+-**va_end(va_list ap)**: Giải phóng bộ nhớ.
 
 **Ví dụ nhập vào 5 tham số:**
-```bash
-  #include <stdio.h>
-  #include <stdarg.h>
-  
-  void display(int count, ...) {
-      va_list av;
-      va_start(av, count);
-     
-      for (int i = 0; i < count; i++) {
-          printf("Value at %d: %d\n", i, va_arg(av,int)); 
-      }
-  
-      va_end(va);
-  }
-  
-  int main()
-  {
-      // Số lượng tham số là 5
-      display(5, 6, 8, 15, 10, 13);
-  
-      return 0;
-  }
-  ```
+
+```c
+#include <stdio.h>
+#include <stdarg.h>
+
+void display(int count, ...) {
+    va_list av;
+    va_start(av, count);
+    
+    for (int i = 0; i < count; i++) {
+        printf("Value at %d: %d\n", i, va_arg(av,int)); 
+    }
+
+    va_end(va);
+}
+
+int main(){
+    display(5, 6, 8, 15, 10, 13);
+
+    return 0;
+}
+```
+
 **Output:**
+
 ```bash
 > Value at 0: 6
 > Value at 1: 8
@@ -248,48 +250,53 @@ Thư viện stdarg.h hỗ trợ viết function với số lượng tham số kh
 > Value at 3: 10
 > Value at 4: 13
 ```
+
 ## 2. Thư viện ASSERT
 
 Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
-- Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
+-**Hàm assert()**: dùng để kiểm tra điều kiện, nếu đúng thì chương trình tiếp tục còn sai thì dừng và báo lỗi. 
 
 **Ví dụ báo lỗi chia cho 0:**
-```bash
-  #include <stdio.h>
-  #include <assert.h>
-  
-  double thuong(int a, int b){
-      assert( b != 0 && "Mẫu bằng 0");
-      return (double) a/b;
-  }
-  
-  int main(int argc, char const*argv[])
-  {
-      printf("Thuong: %f\n", thuong(6, 0)); 
-      return 0;
-  }
-  ```
-**Báo lỗi như sau:**
+
+```c
+#include <stdio.h>
+#include <assert.h>
+
+double thuong(int a, int b){
+    assert( b != 0 && "Mẫu bằng 0");
+    return (double) a/b;
+}
+
+int main(){
+    printf("Thuong: %f\n", thuong(6, 0)); 
+    return 0;
+}
+```
+
+**Báo lỗi:**
 ```bash
 > Assertion failed: b != 0 && "Mẫu bằng 0", file tempCodeRunnerFile.c, line 5
 ```
+
 Thường thấy hơn sẽ sử dụng macro để định nghĩa một lỗi.
-  ```bash
-  #include <stdio.h>
-  #include <assert.h>
-  #define LOG(condition, cmd) assert(condition && #cmd)
-  
-  double thuong(int a, int b){
-      LOG(b != 0, "Mau bang bang 0");
-  }
-  
-  int main(int argc, char const *argv[])
-  {
-      thuong(6,0);
-      return 0;
-  }
-  ```
+
+```c
+#include <stdio.h>
+#include <assert.h>
+#define LOG(condition, cmd) assert(condition && #cmd)
+
+double thuong(int a, int b){
+    LOG(b != 0, "Mau bang bang 0");
+}
+
+int main(int argc, char const *argv[])
+{
+    thuong(6,0);
+    return 0;
+}
+```
+
 </p>
 </details>
 
