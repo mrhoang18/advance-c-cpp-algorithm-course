@@ -179,14 +179,12 @@ int main() {
 </p>
 </details>
 
-# BÀI 2: STDARG-ASSERT
+# LESSON 2: STDARG-ASSERT
 <details><summary>Chi tiết</summary>
 <p>
   
 ## 1. Thư viện STDARG
-<details><summary>Chi tiết</summary>
-<p>
-	
+
 Thư viện stdarg.h hỗ trợ viết function với số lượng tham số không xác định. Thư viện này cung cấp một số từ khóa như sau:
 - `va_list va`: `va_list` là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là `va`. (Bản chất nó giống như con trỏ kiểu `char` được định nghĩa lại tên bằng `typedef`: `typedef char* va_list;)`.
 
@@ -228,13 +226,8 @@ Thư viện stdarg.h hỗ trợ viết function với số lượng tham số kh
 > Value at 3: 10
 > Value at 4: 13
 ```
-</p>
-</details>
-
 ## 2. Thư viện ASSERT
-<details><summary>Chi tiết</summary>
-<p>
-	
+
 Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 
 - Hàm assert(): dùng để kiểm tra điều kiện, nếu điều kiện đúng thì chương trình tiếp tục thực thi còn sai thì dừng chương trình và báo lỗi. 
@@ -275,14 +268,10 @@ Thường thấy hơn sẽ sử dụng macro để định nghĩa một lỗi.
       return 0;
   }
   ```
-  
 </p>
 </details>
 
-</p>
-</details>
-
-# BÀI 3: POINTER
+# LESSON 3: POINTER
 <details><summary>Chi tiết</summary>
 <p>
   
