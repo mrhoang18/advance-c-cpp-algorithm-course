@@ -45,11 +45,13 @@ Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền x
 #include <stdio.h>
 #include "test1.h"
 ```
+
  -`#define`: Được sử dụng để định nghĩa các hằng số hoặc các đoạn mã thay thế, không có kiểu dữ liệu. Việc sử dụng `#define` để định nghĩa được gọi là Macro.
 
 ```c
 #define PI 3.14
 ```
+
  -`#undef`: Để hủy định nghĩa một `#define` đã được định nghĩa trước đó.
 
 ```c
@@ -70,6 +72,7 @@ int main() {
 return 0;
 }
 ```
+
  -`#if`, `#elif`, `#else`: Để kiểm tra điều kiện của Macro.
 
 ```c
