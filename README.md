@@ -175,6 +175,7 @@ return 0;
 ```
 
 Kết quả trong file .i:
+
 ```c
 void test1() { printf("this is function test1"); printf("\n"); };
 int int_test;
@@ -234,7 +235,7 @@ void display(int count, ...) {
     va_end(va);
 }
 
-int main(){
+int main() {
     display(5, 6, 8, 15, 10, 13);
 
     return 0;
@@ -263,18 +264,19 @@ Thư viện assert.h là thư viện để hỗ trợ debug chương trình.
 #include <stdio.h>
 #include <assert.h>
 
-double thuong(int a, int b){
+double thuong(int a, int b) {
     assert( b != 0 && "Mẫu bằng 0");
     return (double) a/b;
 }
 
-int main(){
+int main() {
     printf("Thuong: %f\n", thuong(6, 0)); 
     return 0;
 }
 ```
 
 **Báo lỗi:**
+
 ```bash
 > Assertion failed: b != 0 && "Mẫu bằng 0", file tempCodeRunnerFile.c, line 5
 ```
@@ -286,12 +288,11 @@ Thường thấy hơn sẽ sử dụng macro để định nghĩa một lỗi.
 #include <assert.h>
 #define LOG(condition, cmd) assert(condition && #cmd)
 
-double thuong(int a, int b){
+double thuong(int a, int b) {
     LOG(b != 0, "Mau bang bang 0");
 }
 
-int main(int argc, char const *argv[])
-{
+int main() {
     thuong(6,0);
     return 0;
 }
@@ -305,376 +306,341 @@ int main(int argc, char const *argv[])
 <p>
   
 ## 1. Định nghĩa con trỏ
-<details><summary>Chi tiết</summary>
-<p>
-  
-Con trỏ (pointer) là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
+
+Con trỏ là một biến chứa địa chỉ của một đối tượng khác (đối tượng ở đây có thể là: biến, hàm, mảng,...).
 
 **Cú pháp:**
-   ```bash
-  int   *ptr;        // con trỏ kiểu int
-  char  *ptr_char;   // con trỏ kiểu char
-  float *ptr_float;  // con trỏ kiểu float
-  ```
+
+```c
+int   *ptr;        // con trỏ kiểu int
+char  *ptr_char;   // con trỏ kiểu char
+float *ptr_float;  // con trỏ kiểu float
+```
+
 **Ví dụ:**
-   ```bash
-  #include <stdio.h>
-  
-  int a = 10;
-  int *ptr = &a;                 // toán tử lấy địa chỉ &
-  int *ptr1 = (int*)0x01101010;  // phải ép kiểu khi gán trực tiếp cho địa chỉ
-  
-  int main(int argc, char const*argv[]){
-      printf("Dia chi a: %p\n", &a);
-      printf("Gia tri ptr: %p\n", ptr); 
-      printf("Gia tri ptr1: %p\n", ptr1); 
-      return 0;
-  }
-  ```
-**Kết quả:**
-  ```bash
-  > Dia chi a: 	  00007FF7960F3000  
-  > Gia tri ptr:  00007FF7960F3000
-  > Gia tri ptr1: 0000000001101010
-  ```
+
+```c
+#include <stdio.h>
+
+int a = 10;
+int *ptr = &a;                 // Toán tử lấy địa chỉ &
+int *ptr1 = (int*)0x01101010;  // Ép kiểu khi gán trực tiếp cho địa chỉ
+
+int main() {
+    printf("Dia chi a: %p\n", &a);          // 00007FF7960F3000 
+    printf("Gia tri ptr: %p\n", ptr);       // 00007FF7960F3000
+    printf("Gia tri ptr1: %p\n", ptr1);     // 0000000001101010
+    return 0;
+}
+```
+
 **Kích thước của con trỏ phụ thuộc vào kiến trúc vi xử lý.**
 
-Hệ thống 32 – bit, kích thước của con trỏ là 4 byte.
+Hệ thống 32 bit, kích thước của con trỏ là 4 byte.
 
-Hệ thống 64 – bit, kích thước của con trỏ là 8 byte.
+Hệ thống 64 bit, kích thước của con trỏ là 8 byte.
 
-  ```bash
-  #include <stdio.h>
-  #include <stdbool.h>
-  
-  int main(int argc, char const *argv[]){
-      printf("%d bytes\n", sizeof(int *));              // 8bytes
-      printf("%d bytes\n", sizeof(char *));             // 8bytes
-      printf("%d bytes\n", sizeof(float *));            // 8bytes
-      printf("%d bytes\n", sizeof(double *));           // 8bytes
-      printf("%d bytes\n", sizeof(long *));             // 8bytes
-      printf("%d bytes\n", sizeof(short *));            // 8bytes
-      printf("%d bytes\n", sizeof(long long *));        // 8bytes
-      printf("%d bytes\n", sizeof(bool *));             // 8bytes
-      return 0;
-  }
-  ```
-</p>
-</details>
+```c
+#include <stdio.h>
+#include <stdbool.h>
+
+int main() {
+    printf("%d bytes\n", sizeof(int *));              // 8bytes
+    printf("%d bytes\n", sizeof(char *));             // 8bytes
+    printf("%d bytes\n", sizeof(float *));            // 8bytes
+    printf("%d bytes\n", sizeof(double *));           // 8bytes
+    printf("%d bytes\n", sizeof(long *));             // 8bytes
+    printf("%d bytes\n", sizeof(short *));            // 8bytes
+    printf("%d bytes\n", sizeof(long long *));        // 8bytes
+    printf("%d bytes\n", sizeof(bool *));             // 8bytes
+    return 0;
+}
+```
 
 ## 2. Các kiểu con trỏ
 ### Function pointer (Con trỏ hàm)
-<details><summary>Chi tiết</summary>
-<p>
-  
+
 Con trỏ hàm là một biến giữ địa chỉ của hàm.
 
 **Cú pháp:**
-  ```bash
-  void (*ptr)(int, double);  
-  ```
-  - Con trỏ ptr trỏ đến hàm kiểu trả về là `void` (ngoài ra còn có thể là `int`,...), tham số truyền vào là kiểu `int` và `double`.
-  - Các hàm nào có cùng cú pháp trong cùng một chương trình, con trỏ đều trỏ đến được.
+
+```c
+void (*ptr)(int, double);  
+```
+
+ - Con trỏ ptr trỏ đến hàm kiểu trả về là `void` (ngoài ra còn có thể là `int`,...), tham số truyền vào là kiểu `int` và `double`.
+
+ - Các hàm nào có cùng cú pháp trong cùng một chương trình, con trỏ này đều trỏ đến được.
     
 **Ví dụ:**
-  ```bash
-  #include <stdio.h>
-  #include <assert.h>
-  
-  void chao() {
-      printf("Hello!\n");
-  }
-  
-  void chia(int a, int b) {
-      assert(b != 0);
-      printf("Thuong %d va %d: %f\n", a, b, (double)a / (double)b);
-  }
-  
-  int main(int argc, char const *argv[]){
-      // Khai báo con trỏ hàm
-      void (*ptr0)();
-      void (*ptr1)(int, int);
-  
-      // Gán địa chỉ của hàm cho con trỏ hàm
-      ptr0 = chao;
-      ptr1 = &chia;
-  
-      // Gọi hàm ra
-      ptr0();
-      ptr1(8, 2);
 
-      // Gọi hàm ra
-      (*ptr0)();
-      (*ptr1)(8, 2);
-  
-      return 0;
-  }
-  ```
-**Kết quả:**
-  ```bash
-  > Hello!
-  > Thuong 8 va 2: 4.000000
-  > Hello!
-  > Thuong 8 va 2: 4.000000
-  ```
+```c
+#include <stdio.h>
+#include <assert.h>
+
+void chao() {
+    printf("Hello!\n");
+}
+
+void chia(int a, int b) {
+    assert(b != 0);
+    printf("Thuong %d va %d: %f\n", a, b, (double)a / (double)b);
+}
+
+int main() {
+    // Khai báo con trỏ hàm
+    void (*ptr0)();
+    void (*ptr1)(int, int);
+
+    // Gán địa chỉ của hàm cho con trỏ hàm
+    ptr0 = chao;
+    ptr1 = &chia;
+
+    // Gọi hàm ra
+    ptr0();             // Hello!
+    ptr1(8, 2);         // Thuong 8 va 2: 4.000000
+
+    // Gọi hàm ra
+    (*ptr0)();          // Hello!
+    (*ptr1)(8, 2);      // Thuong 8 va 2: 4.000000
+
+    return 0;
+}
+```
+
 **Ví dụ sử dụng mảng lưu địa chỉ nhiều con trỏ hàm:**
-  ```bash
-  #include <stdio.h>
-  #include <assert.h>
-  
-  void tong(int a, int b) {
-      printf("Tong %d va %d: %d\n", a, b, a + b);
-  }
-  
-  void hieu(int a, int b) {
-      printf("Hieu %d va %d: %d\n", a, b, a - b);
-  }
-  
-  void tich(int a, int b) {
-      printf("Tich %d va %d: %d\n", a, b, a * b);
-  }
-  
-  void thuong(int a, int b) {
-      assert(b != 0);
-      printf("Thuong %d va %d: %d\n", a, b, a / b);
-  }
-  
-  int main(int argc, char const *argv[]){
-      // Khai báo con trỏ hàm
-      void (*array[])(int, int)={&tong,&hieu,&tich,&thuong};
-      //void (*array[4])(int, int)={&tong,&hieu,&tich,&thuong};
-  
-      // Tính
-      array[0](1,1);
-      array[1](1,1);
-      return 0;
-  }
-  ```
-**Kết quả:**
-  ```bash
-  > Tong 1 va 1: 2
-  > Hieu 1 va 1: 0
-  ```
+
+```c
+#include <stdio.h>
+#include <assert.h>
+
+void tong(int a, int b) {
+    printf("Tong %d va %d: %d\n", a, b, a + b);
+}
+
+void hieu(int a, int b) {
+    printf("Hieu %d va %d: %d\n", a, b, a - b);
+}
+
+void tich(int a, int b) {
+    printf("Tich %d va %d: %d\n", a, b, a * b);
+}
+
+void thuong(int a, int b) {
+    assert(b != 0);
+    printf("Thuong %d va %d: %d\n", a, b, a / b);
+}
+
+int main() {
+    // Khai báo mảng chứa con trỏ hàm
+    void (*array[])(int, int)={&tong,&hieu,&tich,&thuong};
+    //void (*array[4])(int, int)={&tong,&hieu,&tich,&thuong};
+
+    // Tính
+    array[0](1,1);      // Tong 1 va 1: 2
+    array[1](1,1);      // Hieu 1 va 1: 0
+    return 0;
+}
+```
+
 **ỨNG DỤNG CON TRỎ HÀM: Tham số truyền vào hàm là một hàm khác.**
-  ```bash
-  #include <stdio.h>
-  #include <assert.h>
-  
-  void tong(int a, int b) {
-      printf("Tong %d va %d: %d\n", a, b, a + b);
-  }
-  
-  void tinhToan(void (*ptr)(int, int), int a, int b) {
-      printf("Thuc hien phep toan duoi:\n");
-      ptr(a, b);
-  }
-  
-  int main(int argc, char const *argv[]){
-      // Gọi hàm
-      tinhToan(&tong, 5, 3);
-      return 0;
-  }
-  ```
-</p>
-</details>
+
+```c
+#include <stdio.h>
+#include <assert.h>
+
+void tong(int a, int b) {
+    printf("Tong %d va %d: %d\n", a, b, a + b);
+}
+
+void tinhToan(void (*ptr)(int, int), int a, int b) {
+    printf("Thuc hien phep toan duoi:\n");
+    ptr(a, b);
+}
+
+int main(){
+    // Gọi hàm
+    tinhToan(&tong, 5, 3);
+    return 0;
+}
+```
 
 ### Void pointer (Con trỏ void)
-<details><summary>Chi tiết</summary>
-<p>
 
-Void pointer là một con trỏ có thể trỏ đến bất kỳ kiểu dữ liệu nào. 
+Void pointer là con trỏ có thể trỏ đến bất kỳ kiểu dữ liệu nào. 
 
 **Cú pháp:**
-  ```bash
-  void *ptr; 
-  ```
 
-Khi in ra giá trị được void point trỏ đến, do nó không biết kiểu dữ liệu của giá trị được trỏ đến nên phải ép kiểu con trỏ void thành con trỏ kiểu đó trước rồi mới giải tham chiếu (Vd: `*(int*)ptr`).
+```c
+void *ptr; 
+```
+
+Khi in ra giá trị được void point trỏ đến, phải ép kiểu con trỏ void thành con trỏ kiểu đó trước rồi mới giải tham chiếu (Vd: `*(int*)ptr`).
   
 **Ví dụ:**
-  ```bash
-  #include <stdio.h>
-  
-  void tong(int a, int b) {
-      printf("Tong cua %d va %d la: %d\n", a, b, a + b);
-  }
-  
-  int main(int argc, char const *argv[]) {
-      int a = 10;
-      double b = 20.5;
-      char c = 'X';
-  
-      void *ptr;
-  
-      // Trỏ đến biến kiểu int
-      ptr = &a;
-      printf("Gia tri cua a = %d\n", *(int*)ptr);       // Ép kiểu và giải tham chiếu
-  
-      // Trỏ đến biến kiểu double
-      ptr = &b;
-      printf("Gia tri cua b = %.2f\n", *(double*)ptr);  // Ép kiểu và giải tham chiếu
-  
-      // Trỏ đến biến kiểu char
-      ptr = &c;
-      printf("Gia tri cua c = %c\n", *(char*)ptr);      // Ép kiểu và giải tham chiếu
 
-      // Trỏ đến hàm
-      ptr = &tong;
-      ((void (*)(int, int))ptr)(9, 3);                  // Ép kiểu về con trỏ hàm
-  
-      return 0;
-  }
-  ```
+```c
+#include <stdio.h>
+
+void tong(int a, int b) {
+    printf("Tong cua %d va %d la: %d\n", a, b, a + b);
+}
+
+int main() {
+    int a = 10;
+    double b = 20.5;
+    char c = 'X';
+
+    void *ptr;
+
+    // Trỏ đến biến kiểu int
+    ptr = &a;
+    printf("Gia tri cua a = %d\n", *(int*)ptr);       // Ép kiểu và giải tham chiếu
+
+    // Trỏ đến biến kiểu double
+    ptr = &b;
+    printf("Gia tri cua b = %.2f\n", *(double*)ptr);  // Ép kiểu và giải tham chiếu
+
+    // Trỏ đến biến kiểu char
+    ptr = &c;
+    printf("Gia tri cua c = %c\n", *(char*)ptr);      // Ép kiểu và giải tham chiếu
+
+    // Trỏ đến hàm
+    ptr = &tong;
+    ((void (*)(int, int))ptr)(9, 3);                  // Ép kiểu về con trỏ hàm
+
+    return 0;
+}
+```
+
 **Kết quả:**
-  ```bash
-  > Gia tri cua a = 10
-  > Gia tri cua b = 20.50
-  > Gia tri cua c = X
-  > Tong cua 9 va 3 la: 12
-  ```
-</p>
-</details>
+
+```bash
+Gia tri cua a = 10
+Gia tri cua b = 20.50
+Gia tri cua c = X
+Tong cua 9 va 3 la: 12
+```
 
 ### NULL pointer (Con trỏ NULL)
-<details><summary>Chi tiết</summary>
-<p>
 
-Con trỏ NULL  là một con trỏ không trỏ đến đối tượng nào hết. Nó có địa chỉ và giá trị bằng 0.
+Con trỏ NULL là con trỏ không trỏ đến bất kỳ đối tượng hoặc địa chỉ hợp lệ nào, có địa chỉ và giá trị bằng 0.
 
 Khi khai báo con trỏ mà chưa sử dụng ngay hoặc sử dụng xong thì phải gán NULL.
 
 **Cú pháp:**
-  ```bash
-  int *ptr_null = NULL;
-  //  ptr_null = 0x00: địa chỉ khởi tạo
-  // *ptr_null = 0   : giá trị tại địa chỉ khởi tạo
-  ```
 
-</p>
-</details>
+```c
+int *ptr_null = NULL;
+```
 
-### Pointer to constant (Con trỏ hằng)
-<details><summary>Chi tiết</summary>
-<p>
+### Pointer to constant (Con trỏ trỏ đến hằng)
 
-Con trỏ hằng là con trỏ **chỉ có thể đọc giá trị tại địa chỉ mà nó trỏ đến**, nghĩa là không được phép dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
+Con trỏ trỏ đến hằng là con trỏ chỉ có thể đọc giá trị tại địa chỉ mà nó trỏ đến nhưng không được dùng toán tử giải tham chiếu `*` truy cập đến địa chỉ để thay đổi giá trị.
+
+Con trỏ này vẫn có thể thay đổi địa chỉ mà nó trỏ đến.
 
 **Cú pháp:**
-  ```bash
-  <data_type> const *ptr_const; 
-  const <data_type> *ptr_const;
-  ```
+
+```c
+int const *ptr_const; 
+const int *ptr_const;
+```
+
 **Ví dụ**
-  ```bash
-  #include <stdio.h>
-  
-  int value = 10;
-  const int *ptr_const = &value;
-  
-  int main(int argc, char const *argv[]){
-      printf("%p\n", ptr_const);
-      printf("%d\n", *ptr_const);
 
-      // Lỗi: Không được phép thay đổi giá trị của con trỏ hằng!
-      *ptr_const = 20;
-      printf("%d\n", *ptr_const);
-      return 0;
-  }
-  ```
-Kết quả sau khi chạy sẽ gặp lỗi: ```assignment of read-only location '*ptr_const'```
+```c
+#include <stdio.h>
 
-</p>
-</details>
+int main() {
+    int a = 6;
+    int b = 8;
+    const int* ptr = &a;
+
+    printf("%d\n", *ptr);  // 6
+
+    // Gán địa chỉ mới
+    ptr = &b;
+    printf("%d\n", *ptr);  // 8
+
+    // Error: assignment of read-only location '*ptr'
+    // *ptr = 3;
+
+    return 0;
+}
+```
 
 ### Constant pointer (Hằng con trỏ)
-<details><summary>Chi tiết</summary>
-<p>
   
-Hằng con trỏ là một con trỏ mà **trỏ đến 1 địa chỉ cố định**, nghĩa là khi con trỏ này được khởi tạo thì nó sẽ không thể trỏ tới địa chỉ khác.
+Hằng con trỏ là con trỏ mà trỏ đến một địa chỉ cố định.
 
-Hằng con trỏ cho phép dùng toán tử giải tham chiếu `*` để thay đổi giá trị.
+Hằng con trỏ là một con trỏ mà trỏ đến 1 địa chỉ cố định. Nghĩa là, sau khi con trỏ được khởi tạo, địa chỉ mà nó trỏ đến không thể thay đổi. 
+
+Con trỏ này cho phép thay đổi giá trị tại địa chỉ mà nó trỏ đến thông qua toán tử giải tham chiếu `*` (Giá trị đó không phải là hằng).
 
 **Cú pháp:**
-  ```bash
-  <data_type> *const const_ptr = &value;
-  ```
-**Ví dụ**
-  ```cpp
-  #include <stdio.h>
-  
-  int value1 = 10;
-  int value2 = 20;
-  int *const const_ptr = &value1;
-  
-  int main(int argc, char const *argv[]){
-      printf("%p\n", const_ptr);
-      printf("%d\n", *const_ptr);
-  
-      const_ptr = &value2;
-      printf("%p\n", const_ptr);
-      return 0;
-  }
-  ```
-Kết quả sau khi chạy sẽ gặp lỗi: ```assignment of read-only variable 'const_ptr'```
 
-</p>
-</details>
+```c
+int *const const_ptr = &value;
+```
+
+**Ví dụ**
+
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 6;
+    int b = 10;
+    int* const ptr = &a;  
+
+    // Gán giá trị mới cho a
+    *ptr = 8; 
+
+    // Error: assignment of read-only variable 'ptr'
+    // ptr = &b;
+
+    return 0;
+}
+```
 
 ### Pointer to pointer (Con trỏ trỏ đến con trỏ)
-<details><summary>Chi tiết</summary>
-<p>
 
-Con trỏ đến con trỏ là một kiểu dữ liệu trong ngôn ngữ lập trình cho phép lưu trữ địa chỉ của một con trỏ.
+Con trỏ đến con trỏ là một kiểu dữ liệu cho phép lưu trữ địa chỉ của một con trỏ.
 
-Con trỏ đến con trỏ cung cấp một cấp bậc trỏ mới, cho phép thay đổi giá trị của con trỏ gốc.
+Nó cung cấp một cấp bậc trỏ mới, cho phép thay đổi giá trị của con trỏ gốc.
 
 Cấp bậc này có thể hữu ích trong nhiều tình huống, đặc biệt là khi làm việc với các hàm cần thay đổi giá trị của con trỏ.
 
 **Cú pháp:**
-  ```bash
-  int **ptp = &p;
-  ```
-**Ví dụ:**
-  ```bash
-  #include <stdio.h>
-  
-  int main() {
-      int value = 42;
-      int *ptr1 = &value;  // Con trỏ thường trỏ đến một biến
-  
-      int **ptr2 = &ptr1;  // Con trỏ đến con trỏ
-  
-      /*
-          **ptr2 = &ptr1
-          ptr2 = &ptr1;
-          *ptr2 = ptr1 = &value;
-          **ptr2 = *ptr1 = value
-      */
-  
-      printf("address of value: %p\n", &value);
-      printf("value of ptr1: %p\n", ptr1);
-  
-      printf("address of ptr1: %p\n", &ptr1);
-      printf("value of ptr2: %p\n", ptr2);
-  
-      printf("dereference ptr2 first time: %p\n", *ptr2);
-      printf("dereference ptr2 second time: %d\n", **ptr2);
-  
-      return 0;
-  }
-  ```
-**Kết quả:**
-  ```bash
-  address of value: 		000000E6425FF904
-  value of ptr1: 		000000E6425FF904
-  address of ptr1:		000000E6425FF8F8
-  value of ptr2: 		000000E6425FF8F8
-  dereference ptr2 first time: 	000000E6425FF904
-  dereference ptr2 second time: 42
-  ```
 
-</p>
-</details>
+```c
+int **ptp = &p;
+```
+
+**Ví dụ:**
+
+```c
+#include <stdio.h>
+
+int main() {
+    int value = 68;
+    int *ptr1 = &value;  // Con trỏ thường trỏ đến một biến
+
+    int **ptr2 = &ptr1;  // Con trỏ đến con trỏ
+
+    printf("value: %p\n", &value);      // 0x84
+    printf("ptr1: %p\n", ptr1);         // 0x84
+
+    printf("&ptr1: %p\n", &ptr1);       // 0x78
+    printf("ptr2: %p\n", ptr2);         // 0x78
+
+    printf("*ptr2 : %p\n", *ptr2);      // 0x84
+    printf("**ptr2: %d\n", **ptr2);     // 68
+
+    return 0;
+}
+```
 
 </p>
 </details>
