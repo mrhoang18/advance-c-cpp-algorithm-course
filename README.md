@@ -649,7 +649,7 @@ Từ khóa `extern` được sử dụng để khai báo rằng một **biến h
 #include <stdio.h>
 
 int value = 90;
-extern void display();
+extern void display();  // Hàm này ở other.c
 
 int main(){
     printf("hello\n");
@@ -664,7 +664,7 @@ int main(){
 ```c
 #include <stdio.h>
 
-extern int value;
+extern int value;   // Biến này ở main.c
 void display() {
     printf("value: %d\n", value);
 }
