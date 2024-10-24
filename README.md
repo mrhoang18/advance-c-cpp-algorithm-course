@@ -4149,12 +4149,11 @@ Design Patterns thường được chia thành các loại sau:
 
 ## 1. Singleton
 
-Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. Khi khởi tạo nhiều object thì tốn nhiều tài nguyên trên RAM. Vậy có cách nào chỉ khởi tạo một object và sử dụng lại nhiều lần hay không?
-
-Giải pháp là sử dụng Singleton, thường ứng dụng trong: kết nối cơ sở dữ liệu, bộ nhớ đệm (cache), logger để ghi log, hoặc cấu hình hệ thống.
+Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. Khi khởi tạo nhiều object thì tốn nhiều tài nguyên trên RAM. Thì Singleton sử dụng để khởi tạo một object và dùng lại nhiều lần.
 
 Đặc điểm chính của Singleton:
  **Chỉ một đối tượng duy nhất**: Không thể tạo ra nhiều hơn một instance của lớp Singleton.
+ 
  **Điểm truy cập toàn cục**: instance này có thể được truy cập từ mọi nơi trong chương trình.
 
 
