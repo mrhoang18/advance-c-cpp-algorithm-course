@@ -750,12 +750,14 @@ Các thiết bị ngoại vi (GPIO, UART, ...) chứa các thanh ghi mà giá tr
 **Ví dụ đợi một nút bấm, với địa chỉ thanh ghi GPIO tương ứng nút bấm được định nghĩa như sau**:
 
 ```c
-/* Input data register address */
+// Gán con trỏ button trực tiếp cho địa chỉ thanh ghi
 volatile uint32_t* button = (volatile uint32_t*)0x40020810;
 
 // Code...
 
-while ((*button & (1 << 13)) == 0);
+while ((*button & (1 << 13)) == 0) {
+    // Do something
+};
 ```
 
 Ở đây nếu không có `volatile`, con trỏ button sẽ đọc giá trị tại địa chỉ `0x40020810` (và giá trị này mắc định đang là 0).
