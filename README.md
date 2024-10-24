@@ -27,7 +27,7 @@ gcc main.i -S -o main.s
 ```bash
 gcc - c main.s -o main.o
 ```
- -**Linker**: Liên kết các file object.0 lại thành một chương trình thực thi duy nhất.
+ -**Linker**: Liên kết các file object.o lại thành một chương trình thực thi duy nhất.
 
 ```bash
 gcc test1.o test2.o main.o -o main
@@ -95,11 +95,11 @@ return 0;
 }
 ```
 
- -**#ifdef, #ifndef**: Kiểm tra xem một macro đã được định nghĩa hay chưa.
+-**#ifdef, #ifndef**: Kiểm tra xem một macro đã được định nghĩa hay chưa.
 
-    + `#ifdef` kiểm tra nếu một macro đã được định nghĩa.
++ `#ifdef` kiểm tra nếu một macro đã được định nghĩa.
 
-    + `#ifndef` kiểm tra nếu một macro chưa được định nghĩa. Nếu điều kiện kiểm tra là đúng, đoạn mã phía sau sẽ được biên dịch, ngược lại sẽ bị bỏ qua."
++ `#ifndef` kiểm tra nếu một macro chưa được định nghĩa. Nếu điều kiện kiểm tra là đúng, đoạn mã phía sau sẽ được biên dịch, ngược lại sẽ bị bỏ qua."
 
 ```c
 #include <stdio.h>
@@ -225,14 +225,14 @@ Thư viện stdarg.h hỗ trợ viết hàm với số lượng tham số không
 #include <stdarg.h>
 
 void display(int count, ...) {
-    va_list av;
-    va_start(av, count);
+    va_list va;
+    va_start(va, count);
     
     for (int i = 0; i < count; i++) {
-        printf("Value at %d: %d\n", i, va_arg(av,int)); 
+        printf("Value at %d: %d\n", i, va_arg(va,int)); 
     }
 
-    va_end(av);
+    va_end(va);
 }
 
 int main() {
@@ -640,124 +640,108 @@ int main() {
 <p>
 
 ## 1. Extern
-<details><summary>Chi tiết</summary>
-<p>
-  
+
 Từ khóa `extern` được sử dụng để khai báo rằng một **biến hoặc một hàm** được định nghĩa ở một nơi khác (thường là trong một tệp khác). 
 
 Từ khóa `extern` không tạo ra một biến mới mà chỉ thông báo cho trình biên dịch rằng **biến hoặc một hàm** này đã được định nghĩa ở nơi khác và có thể được sử dụng trong tệp hiện tại.
 
 **Ví dụ file main.c:**
-  ```bash
-  #include <stdio.h>
-  
-  int value = 90;
-  extern void display();
-  
-  int main(){
-  	printf("hello\n");
-  	display();
-  }
-  ```
+
+```c
+#include <stdio.h>
+
+int value = 90;
+extern void display();
+
+int main(){
+    printf("hello\n");
+    display();
+
+    return 0;
+}
+```
+
 **Ở file other.c:**
-  ```bash
-  #include <stdio.h>
-  
-  extern int value;
-  void display()
-  {
-  	printf("value: %d\n", value);
-  }
-  ```
-</p>
-</details>
+
+```c
+#include <stdio.h>
+
+extern int value;
+void display() {
+    printf("value: %d\n", value);
+}
+```
 
 ## 2. Static
 ### Static local variables
-<details><summary>Chi tiết</summary>
-<p>
-	
-Biến cục bộ tĩnh (Static local variables) là các biến được khai báo với từ khóa `static` ở **trong phạm vi của một hàm**. Nó có những tính chất đặc biệt như sau:
 
-  - **Tồn tại trong suốt vòng đời của chương trình**: Biến cục bộ tĩnh được khai báo bên trong một hàm và chỉ có thể truy cập được từ trong hàm đó, sau khi hàm kết thúc nó không bị phóng bộ nhớ. Thay vào đó, nó vẫn tồn tại trong suốt thời gian chạy của chương trình và giữ lại giá trị của nó giữa các lần gọi hàm.
-    
-  - **Chỉ khởi tạo một lần**: Biến cục bộ tĩnh chỉ được khởi tạo một lần duy nhất, vào lần đầu tiên hàm được gọi. Sau đó, biến này sẽ giữ nguyên giá trị của nó từ lần cuối cùng hàm được gọi và không được khởi tạo lại trong các lần gọi tiếp theo.
+Biến cục bộ tĩnh là các biến được khai báo với từ khóa `static` ở trong phạm vi của một hàm. Nó có những tính chất đặc biệt như sau:
+
+ -**Tồn tại trong suốt vòng đời của chương trình**: Biến cục bộ tĩnh được khai báo bên trong một hàm và chỉ có thể truy cập được từ trong hàm đó, sau khi hàm kết thúc nó không bị phóng bộ nhớ. Thay vào đó, nó vẫn tồn tại trong suốt thời gian chạy của chương trình và giữ lại giá trị của nó giữa các lần gọi hàm.
+
+ -**Chỉ khởi tạo một lần**: Biến cục bộ tĩnh chỉ được khởi tạo một lần duy nhất, vào lần đầu tiên hàm được gọi. Sau đó, biến này sẽ giữ nguyên giá trị của nó từ lần cuối cùng hàm được gọi và không được khởi tạo lại trong các lần gọi tiếp theo.
 
 **Ví dụ biến cục bộ tĩnh:**
-  ```bash
-  #include <stdio.h>
-  
-  void exampleFunction() {
-      static int count = 0;  // Biến static giữ giá trị qua các lần gọi hàm
-      count++;
-      printf("Count: %d\n", count);
-  }
-  
-  int main() {
-      exampleFunction();  // In ra lần 1
-      exampleFunction();  // In ra lần 2
-      exampleFunction();  // In ra lần 3
-      return 0;
-  }
-  ```
-**Kết quả:**
-  ```bash
-  > Count: 1
-  > Count: 2
-  > Count: 3
-  ```
 
-</p>
-</details>
+```c
+#include <stdio.h>
+
+void exampleFunction() {
+    static int count = 0; 
+    count++;
+    printf("Count: %d\n", count);
+}
+
+int main() {
+    exampleFunction();  // In ra lần 1: 1
+    exampleFunction();  // In ra lần 2: 2
+    exampleFunction();  // In ra lần 3: 3
+    return 0;
+}
+```
 
 ### Static global variables
-<details><summary>Chi tiết</summary>
-<p>
 	
-Biến toàn cục tĩnh (Static global variables) là các biến được khai báo với từ khóa `static` ở **ngoài tất cả các hàm** (tức là trong phạm vi toàn cục của file). Nó có những tính chất đặc biệt như sau:
-  - **Phạm vi truy cập chỉ giới hạn trong file**: Biến toàn cục tĩnh chỉ có thể truy cập được trong file nơi nó được khai báo. Có nghĩa là các biến này không thể được sử dụng bởi các file khác, ngay cả khi chúng được khai báo là `extern`. Khác với biến toàn cục không có từ khóa `static`, có thể được truy cập từ các file khác nếu được khai báo `extern`.
-  - **Thời gian tồn tại**: Biến toàn cục tĩnh có thời gian tồn tại từ khi chương trình bắt đầu cho đến khi chương trình kết thúc, tương tự như các biến toàn cục thông thường. Giá trị của chúng được duy trì trong suốt thời gian chạy của chương trình. Chỉ khởi tạo một lần duy nhất trước khi chương trình bắt đầu thực thi.
+Biến toàn cục tĩnh là các biến được khai báo với từ khóa `static` ở ngoài tất cả các hàm (tức là trong phạm vi toàn cục của file). Nó có những tính chất đặc biệt như sau:
+  -**Phạm vi truy cập chỉ giới hạn trong file**: Chỉ có thể truy cập được trong file nơi nó được khai báo, không thể được sử dụng bởi các file khác, ngay cả khi chúng được khai báo là `extern`. Khác với biến toàn cục không có từ khóa `static`, có thể được truy cập từ các file khác nếu được khai báo `extern`.
+
+  -**Thời gian tồn tại**: Biến toàn cục tĩnh có thời gian tồn tại từ khi chương trình bắt đầu cho đến khi chương trình kết thúc, tương tự như các biến toàn cục thông thường. Giá trị của chúng được duy trì trong suốt thời gian chạy của chương trình. Chỉ khởi tạo một lần duy nhất trước khi chương trình bắt đầu thực thi.
 
 **Ví dụ file main.c:**
-  ```bash
-  #include <stdio.h>
-  
-  extern void display();
-  //extern int s_g_value;      // Không được phép, vì s_g_value là biến toàn cục tĩnh của file other.c!!
-  extern int g_value;
-  
-  int main()
-  {
-  	printf("hello\n");
-  	g_value = 40;
-  	
-  	display();
-  
-  	return 0;
-  }
-  ```
+
+```c
+#include <stdio.h>
+
+extern void display();
+//extern int s_g_value;      // Không được phép, vì s_g_value là biến toàn cục tĩnh của file other.c!!
+extern int g_value;
+
+int main() {
+    printf("hello\n");
+    g_value = 40;
+
+    display();
+
+return 0;
+}
+```
+
 **Ở file other.c:**
-```bash
+```c
 #include <stdio.h>
 
 int g_value = 30;
 static int s_g_value = 20;
 
-void display()
-{
+void display() {
 	printf("static global value: %d\n", s_g_value);
 	printf("global value: %d\n", g_value);
 }
 ```
 
-</p>
-</details>
-
 ## 3. Volatile 
-<details><summary>Chi tiết</summary>
-<p>
-  
-Từ khóa `volatile` được sử dụng để thông báo cho trình biên dịch rằng giá trị của một biến có thể thay đổi bất kỳ lúc nào, trình biên dịch không được tối ưu hóa hoặc xóa bỏ các thao tác trên biến đó.
+
+Từ khóa `volatile` được sử dụng để thông báo cho trình biên dịch rằng giá trị của một biến có thể thay đổi bất kỳ lúc nào, trình biên dịch không được tối ưu hóa nó.
 
 Sau đây là một trường hợp đơn giản trong nhúng mà việc khai báo biến `volatile` rất cần thiết để tránh những lỗi sai khó phát hiện do tính năng optimization của compiler:
 
@@ -765,12 +749,14 @@ Sau đây là một trường hợp đơn giản trong nhúng mà việc khai b�
 
 Các thiết bị ngoại vi (GPIO, UART, ...) chứa các thanh ghi mà giá trị của nó có thể thay đổi ngoài ý muốn của dòng chương trình, đặc biệt là những thanh ghi trạng thái.
 
-Ví dụ: đợi một nút bấm, với địa chỉ thanh ghi GPIO tương ứng nút bấm được định nghĩa như sau:
+**Ví dụ đợi một nút bấm, với địa chỉ thanh ghi GPIO tương ứng nút bấm được định nghĩa như sau**:
 
-```bash
+```c
 /* Input data register address */
 volatile uint32_t* button = (volatile uint32_t*)0x40020810;
-...
+
+// Code...
+
 while ((*button & (1 << 13)) == 0);
 ```
 
@@ -782,57 +768,53 @@ Tức là `while (1);`
 
 Vòng lặp này đương nhiên không bao giờ dừng lại => Bug!
 
-</p>
-</details>
-
 ## 4. Register
-<details><summary>Chi tiết</summary>
-<p>
-  
- Từ khóa `register` được sử dụng để yêu cầu trình biên dịch lưu trữ một biến trong các thanh ghi của bộ xử lý thay vì trong bộ nhớ RAM. 
+
+Từ khóa `register` được sử dụng để yêu cầu trình biên dịch lưu trữ một biến trong các thanh ghi của bộ xử lý thay vì trong bộ nhớ RAM. 
   
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6fad29a3-47b2-41f3-98dd-cb39a7b65f8f" alt="Image description">
+  <img src="image/register-1.png" alt="Image description">
 </p>
 
 Cơ chế tính toán của máy tính:
 
-  - ALU (Arithmetic Logic Unit) nhận dữ liệu từ các thanh ghi (register) hoặc từ bộ nhớ (RAM).
-  - ALU thực hiện phép toán.
-  - Kết quả của phép toán được gửi và lưu lại về thanh ghi hoặc RAM.
+ -ALU (Arithmetic Logic Unit) nhận dữ liệu từ các thanh ghi (register) hoặc từ bộ nhớ (RAM).
+ -ALU thực hiện phép toán.
+ -Kết quả của phép toán được gửi và lưu lại về thanh ghi hoặc RAM.
     
 Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập vào các thanh ghi nhanh hơn nhiều so với truy cập vào bộ nhớ RAM.
 
 **Kiểm tra tốc độ chương trình khi lưu biến trong thanh ghi và trong RAM:**
-  ```bash
-  #include <stdio.h>
-  #include <time.h>
-  
-  int main(int argc, char const *argv[])
-  {
-      unsigned long i;                // Lưu trong RAM
-      //register unsigned long i;     // Lưu trong thanh ghi
-  
-      clock_t start, end;
-  
-      start = clock();
-  
-      for ( i = 0; i < 99999999; i++);
-  
-      end = clock();
-  
-      printf("Time: %f\n", (double)(end - start)/1000);
-      
-      return 0;
-  }
-  ```
+
+```c
+#include <stdio.h>
+#include <time.h>
+
+int main(int argc, char const *argv[])
+{
+    unsigned long i;                // Lưu trong RAM
+    //register unsigned long i;     // Lưu trong thanh ghi
+
+    clock_t start, end;
+
+    start = clock();
+
+    for ( i = 0; i < 99999999; i++);
+
+    end = clock();
+
+    printf("Time: %f\n", (double)(end - start)/1000);
+    
+    return 0;
+}
+```
+
 **Kết quả:**
-  ```bash
-  > Time: 0.144000    // Lưu trong RAM
-  > Time: 0.054000    // Lưu trong thanh ghi
-  ```
-</p>
-</details>
+
+```bash
+Time: 0.144000    // Lưu trong RAM
+Time: 0.054000    // Lưu trong thanh ghi
+```
 
 </p>
 </details>
