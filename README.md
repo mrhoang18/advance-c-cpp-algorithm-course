@@ -4149,7 +4149,7 @@ Design Patterns thường được chia thành các loại sau:
 
 ## 1. Singleton
 
-Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. Khi khởi tạo nhiều object thì tốn nhiều tài nguyên trên RAM. Thì Singleton sử dụng để khởi tạo một object và dùng lại nhiều lần.x
+Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. Khi khởi tạo nhiều object thì tốn nhiều tài nguyên trên RAM. Thì Singleton sử dụng để khởi tạo một object và dùng lại nhiều lần.
 
 Đặc điểm chính của Singleton:
 
