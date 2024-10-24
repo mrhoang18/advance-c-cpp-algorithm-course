@@ -14,25 +14,26 @@ Quá trình biên dịch gồm các giai đoạn như sau:
 
  -Preprocessor (Tiền xử lý): Thực hiện nhận source code (gồm: .c, .h, .cpp, .hpp,...), xóa bỏ comment, xử lý các chỉ thị tiền xử lý. Đầu ra là file .i.
 
-    ```bash
-    gcc -E main.c -o main.i
-    ```
+```bash
+gcc -E main.c -o main.i
+```
  -Compiler: Chuyển từ ngôn ngữ bậc cao sang ngôn ngữ bậc thấp assembly. Đầu vào là file .i, đầu ra là file .s.
 
-    ```bash
-    gcc main.i -S -o main.s
-    ```
+```bash
+gcc main.i -S -o main.s
+```
  -Assembler: Chuyển sang mã máy (0, 1). Đầu vào là file .s, đầu ra là file .o hay còn gọi là file object.
-  
-    ```bash
-    gcc - c main.s -o main.o
-    ```
+
+```bash
+gcc - c main.s -o main.o
+```
  -Linker: Liên kết các file object.0 lại thành một chương trình thực thi duy nhất.
 
-    ```bash
-    gcc test1.o test2.o main.o -o main
-    ./main
-    ```
+```bash
+gcc test1.o test2.o main.o -o main
+./main
+```
+
 ## 2. Macro
 ### Chỉ thị tiền xử lý
 
