@@ -3,10 +3,8 @@
 <p>
   
 ## 1. Compiler
-<details><summary>Chi tiết</summary>
-<p>
-  
-Compiler (trình biên dịch) là chương trình có nhiệm vụ xử lý chương trình ngôn ngữ bậc cao (C/C++, Python,...) thành ngôn ngữ bậc thấp hơn để máy tính thực thi (thường là ngôn ngữ máy).
+
+Compiler (trình biên dịch) là chương trình có nhiệm vụ xử lý chương trình ngôn ngữ bậc cao thành ngôn ngữ bậc thấp hơn để máy tính thực thi.
 
 Quá trình biên dịch gồm các giai đoạn như sau:
 
@@ -39,18 +37,13 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   gcc test1.o test2.o main.o -o main
   ./main
   ```
-</p>
-</details>
-
 ## 2. Macro
 ### Các chỉ thị tiền xử lý
-<details><summary>Chi tiết</summary>
-<p>
-	
+
 Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền xử lý để xử lý những thông tin trước khi bắt đầu quá trình biên dịch. Các chỉ thị tiền xử lý bắt đầu với `#`:
 - `#include`: mang toàn bộ mã nguồn của file được include vào file .i mà không cần viết lại, giúp chương trình dễ quản lý do phân chia thành các module.
 	
-```bash
+```c
 #include <stdio.h>
 #incldue "test1.h"
 ```
@@ -59,7 +52,7 @@ Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền x
 #define PI 3.14
 ```
 - `#undef`: để hủy định nghĩa một `#define` đã được định nghĩa trước đó.
-```bash
+```c
 #include <stdio.h>
 #define MAX_SIZE 100
 
@@ -78,7 +71,7 @@ return 0;
 }
 ```
 - `#if`, `#elif`, `#else`: để kiểm tra điều kiện của Macro.
-```bash
+```c
 #include <stdio.h>
 // Định nghĩa một macro
 #define VERSION 3
@@ -98,7 +91,7 @@ return 0;
 }
 ```
 - `#ifdef`, `#ifndef`: kiểm tra xem macro này đã hoặc chưa được định nghĩa ("đã" ứng với `#ifdef` và "chưa" ứng với `#ifndef`) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
-```bash
+```c
 #include <stdio.h>
 // Định nghĩa một macro
 #define FEATURE_ENABLED
@@ -117,16 +110,11 @@ int main() {
 return 0;
 }
 ```
-</p>
-</details>
-
 ### Macro function
-<details><summary>Chi tiết</summary>
-<p>
-	
+
 Macro function là khi đoạn chương trình `#define` là một hàm có tham số truyền vào. Nếu macro function có nhiều dòng thì cuối các dòng kết thúc bằng kí tự `\` và dòng cuối cùng không cần.
   
-```bash
+```c
 #include <stdio.h>
 
 #define DISPLAY_SUM(a,b)                        \
@@ -140,17 +128,12 @@ return 0;
 ```
 - Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong `main()`, programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
 
-</p>
-</details>
-
 ### Toán tử trong macro
-<details><summary>Chi tiết</summary>
-<p>
-	
+
 Toán tử `#`: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
 
 Toán tử `##`: nối các chuỗi lại với nhau.
-```bash
+```c
   #include <stdio.h>
   
   // Sử dụng toán tử tự chuẩn hóa 
@@ -172,19 +155,15 @@ Toán tử `##`: nối các chuỗi lại với nhau.
   }
 ```
 Kết quả trong file .i:
-```bash
+```c
 void test1() { printf("this is function test1"); printf("\n"); };
 int int_test;
 ```
-</p>
-</details>
-
 ### Variadic macro
-<details><summary>Chi tiết</summary>
-<p>
+
 Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
   
-```bash
+```c
 #include <stdio.h>
 
 // Định nghĩa một variadic macro
@@ -197,13 +176,6 @@ int main() {
     return 0;
 }
 ```
-
-</p>
-</details>
-
-</p>
-</details>
-
 # BÀI 2: STDARG-ASSERT
 <details><summary>Chi tiết</summary>
 <p>
@@ -4339,7 +4311,7 @@ int main()
 ```
 ## 2. Observer
 
-Ví dụ có 1 cảm biến đọc giá trị và có các hành động kèm theo là hiển thị LCD, điều khiển bật tắt quạt,....thì có cách nào khi đọc dữ liệu cảm biến thì tự động cập nhật giá trị cho các hành động trên không?
+Cảm biến đọc giá trị và có các hành động kèm theo là hiển thị LCD, điều khiển bật tắt quạt,....thì có cách nào khi đọc dữ liệu cảm biến thì tự động cập nhật giá trị cho các hành động trên không?
 
 Observer là một mẫu thiết kế thuộc nhóm Behavioral (mẫu hành vi), nơi một đối tượng gọi là Subject có thể thông báo cho một hoặc nhiều Observer (người quan sát) về bất kỳ thay đổi nào trong trạng thái của nó. Observer nhận thông báo và tự động cập nhật hoặc phản hồi lại.
 
