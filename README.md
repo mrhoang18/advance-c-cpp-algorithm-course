@@ -935,7 +935,7 @@ I'm here!
 Val = 5
 ```
 
-Ứng dụng của hai hàm `setjmp`/`longjmp` thường được sử dụng để thực hiện xử lý ngoại lệ. Nhưng, đó chưa phải là cách thông dụng nhất trong việc xử lý ngoại lệ.
+Ứng dụng của hai hàm `setjmp`/`longjmp` đôi khi được sử dụng để thực hiện xử lý ngoại lệ.
 
 **Ví dụ xử lý ngoại lệ khi chia cho 0:**
 
