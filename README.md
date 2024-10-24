@@ -635,7 +635,7 @@ int main() {
 </p>
 </details>
 
-# BÀI 4: EXTERN-STATIC-VOLATILE-REGISTER
+# LESSON 4: EXTERN-STATIC-VOLATILE-REGISTER
 <details><summary>Chi tiết</summary>
 <p>
 
