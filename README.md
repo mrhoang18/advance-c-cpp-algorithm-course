@@ -4152,6 +4152,7 @@ Design Patterns thường được chia thành các loại sau:
 Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. Khi khởi tạo nhiều object thì tốn nhiều tài nguyên trên RAM. Thì Singleton sử dụng để khởi tạo một object và dùng lại nhiều lần.x
 
 Đặc điểm chính của Singleton:
+
  **Chỉ một đối tượng duy nhất**: Không thể tạo ra nhiều hơn một instance của lớp Singleton.
 
  **Điểm truy cập toàn cục**: instance này có thể được truy cập từ mọi nơi trong chương trình.
