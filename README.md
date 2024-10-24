@@ -641,9 +641,7 @@ int main() {
 
 ## 1. Extern
 
-Từ khóa `extern` được sử dụng để khai báo rằng một **biến hoặc một hàm** được định nghĩa ở một nơi khác (thường là trong một tệp khác). 
-
-Từ khóa `extern` không tạo ra một biến mới mà chỉ thông báo cho trình biên dịch rằng **biến hoặc một hàm** này đã được định nghĩa ở nơi khác và có thể được sử dụng trong tệp hiện tại.
+Từ khóa `extern` được sử dụng để khai báo rằng một **biến hoặc một hàm** đã được định nghĩa ở một nơi khác (file khác) và có thể được sử dụng trong file hiện tại.
 
 **Ví dụ file main.c:**
 
