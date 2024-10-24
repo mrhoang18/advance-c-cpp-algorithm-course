@@ -4197,8 +4197,7 @@ class GpioManager {
         * Hàm getInstance() đặt trong public, trả về địa chỉ của GpioManager
         * Nếu ptr == NULL thì cấp phát động, khởi tạo GPIO, và trả về địa chỉ
         */
-        static GpioManager* getInstace() {
-            
+        static GpioManager* getInstace() {  
             if (!instance) {
                 instance = new GpioManager();
                 instance->init();
@@ -4210,7 +4209,6 @@ class GpioManager {
         void setPin(int pin, bool value) {
             gpioSetPin(pin, value);
         }
-
         void readPin(int pin) {
             gpioReadPin(pin);
         }
@@ -4339,7 +4337,6 @@ int main()
     }
 }
 ```
-
 ## 2. Observer
 
 Ví dụ có 1 cảm biến đọc giá trị và có các hành động kèm theo là hiển thị LCD, điều khiển bật tắt quạt,....thì có cách nào khi đọc dữ liệu cảm biến thì tự động cập nhật giá trị cho các hành động trên không?
