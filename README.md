@@ -210,11 +210,11 @@ int main() {
 
 Thư viện stdarg.h hỗ trợ viết hàm với số lượng tham số không xác định. Một số từ khóau:
 
--**va_list va**: `va_list` là một kiểu dữ liệu của tập hợp các đối số không xác định được đặt tên là `va`. (Bản chất nó giống như con trỏ kiểu `char` được định nghĩa lại tên bằng `typedef`: `typedef char* va_list;)`.
+-**va_list**: `va_list` là một kiểu dữ liệu của tập hợp các đối số không xác định. Bản chất là con trỏ kiểu `char` được định nghĩa lại tên bằng `typedef`: `typedef char* va_list;)`.
 
--**va_start(va, count)**: hàm này mang các kí tự vào chuỗi `va`. Cách hoạt động của nó là sẽ tạo một con trỏ có giá trị bằng địa chỉ kí tự đầu tiên của chuỗi không xác định và thực hiện vòng lặp so sánh các kí tự trong chuỗi có giống với từng kí tự của label count không và con trỏ địa chỉ tăng dần dần ứng với địa chỉ của các kí tự tiếp theo của chuỗi. Sau khi xác định được kí tự giống với label count thì mới bắt đầu mang các kí tự sau dấu `,` vào chuỗi `va`.
+-**va_start(va, count)**: Hàm này mang các kí tự vào chuỗi `va`. Cách hoạt động của nó là sẽ tạo một con trỏ có giá trị bằng địa chỉ kí tự đầu tiên của chuỗi không xác định và thực hiện vòng lặp so sánh các kí tự trong chuỗi có giống với từng kí tự của label count không và con trỏ địa chỉ tăng dần dần ứng với địa chỉ của các kí tự tiếp theo của chuỗi. Sau khi xác định được kí tự giống với label count thì mới bắt đầu mang các kí tự sau dấu `,` vào chuỗi `va`.
   
--**va_arg(va, type)**: lấy giá trị của tham số tiếp theo từ chuỗi va và ép kiểu nó sang kiểu dữ liệu được chỉ định. Khi gọi hàm `va_arg(va, type)` thì nó đọc giá trị tại ô phía sau `va_start` và trỏ tới ô tiếp theo.
+-**va_arg(va, type)**: Lấy giá trị của tham số tiếp theo từ chuỗi va và ép kiểu nó sang kiểu dữ liệu được chỉ định. Khi gọi hàm `va_arg(va, type)` thì nó đọc giá trị tại ô phía sau `va_start` và trỏ tới ô tiếp theo.
 
 -**va_end(va_list ap)**: Giải phóng bộ nhớ.
 
@@ -232,7 +232,7 @@ void display(int count, ...) {
         printf("Value at %d: %d\n", i, va_arg(av,int)); 
     }
 
-    va_end(va);
+    va_end(av);
 }
 
 int main() {
@@ -240,16 +240,6 @@ int main() {
 
     return 0;
 }
-```
-
-**Output:**
-
-```bash
-> Value at 0: 6
-> Value at 1: 8
-> Value at 2: 15
-> Value at 3: 10
-> Value at 4: 13
 ```
 
 ## 2. Thư viện ASSERT
