@@ -96,7 +96,9 @@ return 0;
 ```
 
  -**#ifdef, #ifndef**: Kiểm tra xem một macro đã được định nghĩa hay chưa.
+
     + `#ifdef` kiểm tra nếu một macro đã được định nghĩa.
+    
     + `#ifndef` kiểm tra nếu một macro chưa được định nghĩa. Nếu điều kiện kiểm tra là đúng, đoạn mã phía sau sẽ được biên dịch, ngược lại sẽ bị bỏ qua."
 
 ```c
