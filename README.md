@@ -98,7 +98,7 @@ return 0;
  -**#ifdef, #ifndef**: Kiểm tra xem một macro đã được định nghĩa hay chưa.
 
     + `#ifdef` kiểm tra nếu một macro đã được định nghĩa.
-    
+
     + `#ifndef` kiểm tra nếu một macro chưa được định nghĩa. Nếu điều kiện kiểm tra là đúng, đoạn mã phía sau sẽ được biên dịch, ngược lại sẽ bị bỏ qua."
 
 ```c
@@ -142,9 +142,9 @@ return 0;
 
 Ưu điểm của macro function so với function là tối ưu về tốc độ, nhưng không tối ưu về bộ nhớ RAM. Cụ thể:
 
-    + Khi function được gọi trong main(), Program Counter phải lưu địa chỉ hiện tại vào Stack Pointer, sau đó nhảy đến địa chỉ vùng nhớ chứa function. Quá trình này có thể làm giảm hiệu suất nếu gọi function nhiều lần.
-    
-    + Macro function sẽ thay thế trực tiếp mã trong chương trình chính tại vị trí macro được gọi nên tốc độ thực thi nhanh hơn. Tuy nhiên, do mỗi lần macro được sử dụng sẽ tạo ra một bản sao, nên chương trình sẽ chiếm nhiều bộ nhớ RAM hơn.
+ -Khi function được gọi trong main(), Program Counter phải lưu địa chỉ hiện tại vào Stack Pointer, sau đó nhảy đến địa chỉ vùng nhớ chứa function. Quá trình này có thể làm giảm hiệu suất nếu gọi function nhiều lần.
+
+ -Macro function sẽ thay thế trực tiếp mã trong chương trình chính tại vị trí macro được gọi nên tốc độ thực thi nhanh hơn. Tuy nhiên, do mỗi lần macro được sử dụng sẽ tạo ra một bản sao, nên chương trình sẽ chiếm nhiều bộ nhớ RAM hơn.
 
 ### Toán tử trong macro
 
