@@ -39,20 +39,20 @@ gcc test1.o test2.o main.o -o main
 
 Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền xử lý để xử lý các thông tin trước khi quá trình biên dịch bắt đầu. Các chỉ thị tiền xử lý bắt đầu bằng ký tự #.
 
- -`#include`: Chèn nội dung của file được include vào file .i. Giúp chương trình dễ quản lý do phân chia thành các module.
+ -**#include**: Chèn nội dung của file được include vào file .i. Giúp chương trình dễ quản lý do phân chia thành các module.
 
 ```c
 #include <stdio.h>
 #include "test1.h"
 ```
 
- -`#define`: Được sử dụng để định nghĩa các hằng số hoặc các đoạn mã thay thế, không có kiểu dữ liệu. Việc sử dụng `#define` để định nghĩa được gọi là Macro.
+ -**#define**: Được sử dụng để định nghĩa các hằng số hoặc các đoạn mã thay thế, không có kiểu dữ liệu. Việc sử dụng `#define` để định nghĩa được gọi là Macro.
 
 ```c
 #define PI 3.14
 ```
 
- -`#undef`: Để hủy định nghĩa một `#define` đã được định nghĩa trước đó.
+ -**#undef**: Để hủy định nghĩa một `#define` đã được định nghĩa trước đó.
 
 ```c
 #include <stdio.h>
@@ -73,7 +73,7 @@ return 0;
 }
 ```
 
- -`#if`, `#elif`, `#else`: Để kiểm tra điều kiện của Macro.
+ -**#if, #elif, #else**: Kiểm tra điều kiện của Macro.
 
 ```c
 #include <stdio.h>
@@ -95,7 +95,9 @@ return 0;
 }
 ```
 
- -`#ifdef`, `#ifndef`: kiểm tra xem macro này đã hoặc chưa được định nghĩa ("đã" ứng với `#ifdef` và "chưa" ứng với `#ifndef`) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
+ -**#ifdef, #ifndef**: Kiểm tra xem một macro đã được định nghĩa hay chưa.
+    + `#ifdef` kiểm tra nếu một macro đã được định nghĩa.
+    + `#ifndef` kiểm tra nếu một macro chưa được định nghĩa. Nếu điều kiện kiểm tra là đúng, đoạn mã phía sau sẽ được biên dịch, ngược lại sẽ bị bỏ qua."
 
 ```c
 #include <stdio.h>
@@ -119,8 +121,10 @@ return 0;
     
 ### Macro function
 
-Macro function là khi đoạn chương trình `#define` là một hàm có tham số truyền vào. Nếu macro function có nhiều dòng thì cuối các dòng kết thúc bằng kí tự `\` và dòng cuối cùng không cần.
-  
+Macro function là khi đoạn mã sử dụng `#define` với tham số truyền vào để hoạt động giống như một hàm. 
+
+Nếu macro function có nhiều dòng, mỗi dòng (trừ dòng cuối) phải kết thúc bằng ký tự  `\`.
+
 ```c
 #include <stdio.h>
 
@@ -133,13 +137,19 @@ int main() {
 return 0;
 }
 ```
-- Ưu điểm của macro function so với một function là không tối ưu về bộ nhớ trên RAM nhưng tối ưu về tốc độ. Cụ thể hơn khi viết một function, thì function đó sẽ được lưu vào một vùng nhớ. Khi function được gọi ra trong `main()`, programe counter sẽ lưu địa chỉ hiện tại vào stack pointer và trỏ đến từng địa chỉ của vùng nhớ chứa function. Còn macro function thì thay thế trực tiếp vô luôn, tuy chiếm một bộ nhớ trên RAM và không cần các các bước như trên nhưng tốc độ lại nhanh hơn.
+
+Ưu điểm của macro function so với function là tối ưu về tốc độ, nhưng không tối ưu về bộ nhớ RAM. Cụ thể:
+
+    + Khi function được gọi trong main(), Program Counter phải lưu địa chỉ hiện tại vào Stack Pointer, sau đó nhảy đến địa chỉ vùng nhớ chứa function. Quá trình này có thể làm giảm hiệu suất nếu gọi function nhiều lần.
+    
+    + Macro function sẽ thay thế trực tiếp mã trong chương trình chính tại vị trí macro được gọi nên tốc độ thực thi nhanh hơn. Tuy nhiên, do mỗi lần macro được sử dụng sẽ tạo ra một bản sao, nên chương trình sẽ chiếm nhiều bộ nhớ RAM hơn.
 
 ### Toán tử trong macro
 
-Toán tử `#`: tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
+**Toán tử #**: Tự chuẩn hóa kiểu chuỗi cho tham số nhập vào.
 
-Toán tử `##`: nối các chuỗi lại với nhau.
+**Toán tử ##**: Nối các chuỗi lại với nhau.
+
 ```c
   #include <stdio.h>
   
@@ -161,14 +171,16 @@ Toán tử `##`: nối các chuỗi lại với nhau.
       return 0;
   }
 ```
+
 Kết quả trong file .i:
 ```c
 void test1() { printf("this is function test1"); printf("\n"); };
 int int_test;
 ```
+
 ### Variadic macro
 
-Là loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép bạn truyền vào bất kỳ số lượng đối số nào khi sử dụng macro.
+Variadic macro là một loại macro có thể chấp nhận một số lượng tham số không xác định, cho phép truyền vào số lượng đối số bất kỳ. 
   
 ```c
 #include <stdio.h>
@@ -183,6 +195,7 @@ int main() {
     return 0;
 }
 ```
+
 </p>
 </details>
 
