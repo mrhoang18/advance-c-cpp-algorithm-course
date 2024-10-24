@@ -41,81 +41,78 @@ Chỉ thị tiền xử lý là những chỉ thị cung cấp cho bộ tiền x
 
  -`#include`: Chèn nội dung của file được include vào file .i. Giúp chương trình dễ quản lý do phân chia thành các module.
 
-    ```c
-    #include <stdio.h>
-    #include "test1.h"
-    ```
-
+```c
+#include <stdio.h>
+#include "test1.h"
+```
  -`#define`: Được sử dụng để định nghĩa các hằng số hoặc các đoạn mã thay thế, không có kiểu dữ liệu. Việc sử dụng `#define` để định nghĩa được gọi là Macro.
 
-    ```c
-    #define PI 3.14
-    ```
-
+```c
+#define PI 3.14
+```
  -`#undef`: Để hủy định nghĩa một `#define` đã được định nghĩa trước đó.
 
-    ```c
-    #include <stdio.h>
-    #define MAX_SIZE 100
+```c
+#include <stdio.h>
+#define MAX_SIZE 100
 
-    int main() {
-        printf("MAX_SIZE is defined as: %d\n", MAX_SIZE);
-        
-        // Bỏ định nghĩa của MAX_SIZE
-        #undef MAX_SIZE
-        
-        // Định nghĩa lại MAX_SIZE với giá trị khác
-        #define MAX_SIZE 50
-        
-        printf("MAX_SIZE is now redefined as: %d\n", MAX_SIZE);
+int main() {
+    printf("MAX_SIZE is defined as: %d\n", MAX_SIZE);
+    
+    // Bỏ định nghĩa của MAX_SIZE
+    #undef MAX_SIZE
+    
+    // Định nghĩa lại MAX_SIZE với giá trị khác
+    #define MAX_SIZE 50
+    
+    printf("MAX_SIZE is now redefined as: %d\n", MAX_SIZE);
 
-    return 0;
-    }
-    ```
-
+return 0;
+}
+```
  -`#if`, `#elif`, `#else`: Để kiểm tra điều kiện của Macro.
 
-    ```c
-    #include <stdio.h>
-    // Định nghĩa một macro
-    #define VERSION 3
+```c
+#include <stdio.h>
+// Định nghĩa một macro
+#define VERSION 3
 
-    int main() {
-        // Sử dụng #if, #elif, #else
-        #if VERSION == 1                               // Điều kiện #if sai, nếu không còn kiểm tra điều kiện nào
-                                                        // nữa đi tới #endif luôn
-        printf("This is version 1.\n");
-        #elif VERSION == 2                             // Tiếp tục kiểm tra với #elif
-        printf("This is version 2.\n");            
-        #else                                          // Không có điều kiện nào ở trên đúng
-        printf("This is another version.\n");
-        #endif
+int main() {
+    // Sử dụng #if, #elif, #else
+    #if VERSION == 1                               // Điều kiện #if sai, nếu không còn kiểm tra điều kiện nào
+                                                    // nữa đi tới #endif luôn
+    printf("This is version 1.\n");
+    #elif VERSION == 2                             // Tiếp tục kiểm tra với #elif
+    printf("This is version 2.\n");            
+    #else                                          // Không có điều kiện nào ở trên đúng
+    printf("This is another version.\n");
+    #endif
 
-    return 0;
-    }
-    ```
+return 0;
+}
+```
 
  -`#ifdef`, `#ifndef`: kiểm tra xem macro này đã hoặc chưa được định nghĩa ("đã" ứng với `#ifdef` và "chưa" ứng với `#ifndef`) hay chưa nếu đúng như vậy thì mã phía sau sẽ được biên dịch.
 
-    ```c
-    #include <stdio.h>
-    // Định nghĩa một macro
-    #define FEATURE_ENABLED
+```c
+#include <stdio.h>
+// Định nghĩa một macro
+#define FEATURE_ENABLED
 
-    int main() {
-        // Kiểm tra xem FEATURE_ENABLED đã được định nghĩa đúng không?
-        #ifdef FEATURE_ENABLED
-        printf("Feature is enabled.\n");
-        #endif
-        
-        // Kiểm tra xem ANOTHER_FEATURE chưa được định nghĩa đúng không?
-        #ifndef ANOTHER_FEATURE
-        printf("Another feature is not enabled.\n");
-        #endif
+int main() {
+    // Kiểm tra xem FEATURE_ENABLED đã được định nghĩa đúng không?
+    #ifdef FEATURE_ENABLED
+    printf("Feature is enabled.\n");
+    #endif
+    
+    // Kiểm tra xem ANOTHER_FEATURE chưa được định nghĩa đúng không?
+    #ifndef ANOTHER_FEATURE
+    printf("Another feature is not enabled.\n");
+    #endif
 
-    return 0;
-    }
-    ```
+return 0;
+}
+```
     
 ### Macro function
 
