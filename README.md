@@ -779,7 +779,9 @@ Từ khóa `register` được sử dụng để yêu cầu trình biên dịch 
 Cơ chế tính toán của máy tính:
 
  -ALU (Arithmetic Logic Unit) nhận dữ liệu từ các thanh ghi (register) hoặc từ bộ nhớ (RAM).
+
  -ALU thực hiện phép toán.
+
  -Kết quả của phép toán được gửi và lưu lại về thanh ghi hoặc RAM.
     
 Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập vào các thanh ghi nhanh hơn nhiều so với truy cập vào bộ nhớ RAM.
@@ -823,13 +825,12 @@ Time: 0.054000    // Lưu trong thanh ghi
 <p>
   
 ## 1. Goto
-<details><summary>Chi tiết</summary>
-<p>
 	
 Từ khóa `goto` được sử dụng để nhảy đến vị trí bất kì tùy vào label có phạm vi **trong cùng một hàm**.
 
 **Ví dụ:**
-```bash
+
+```c
 #include <stdio.h>
 
 int main() {
@@ -847,8 +848,10 @@ end:					       // Nhãn 'end'
     return 0;
 }
 ```
+
 Từ khóa `goto` có thể được thay thế nhiều `break` hoặc các phương pháp khác khi cần thoát ra khỏi một số lượng lớn các vòng lặp lồng nhau. Điều này làm đoạn code trở nên đơn giản hơn. 
-```bash
+
+```c
 #include <stdio.h>
 
 int main() {
@@ -870,31 +873,32 @@ end_loops:						       // Nhãn 'end_loops'
 }
 ```
 
-</p>
-</details>
-
 ## 2. Setjmp.h
-<details><summary>Chi tiết</summary>
-<p>
 
 Thư viện `setjmp.h` là cung cấp cơ chế nhảy đến một vị trí xác định trong chương trình. **Khác với `go to` phạm vi nhảy có thể nhảy đến vị trí ở một hàm khác**. 
 
 Thư viện này cung cấp hai hàm chính là `setjmp` và `longjmp`, cú pháp sử dụng như sau:
 
  - Trước tiên, cần khai báo một biến:
-```bash 
+
+```c
 jmp_buf buffer;  // Tên biến là `buffer` kiểu dữ liệu là `jmp_buf` (kiểu này được định nghĩa sẵn bởi thư viện)
 ```
+
 - Sử dụng `setjmp` để lưu trữ trạng thái của môi trường tại điểm mà nó được gọi, `setjmp` sẽ trả về 0 nếu nó được gọi lần đầu tiên.
-```bash 
+
+```c
 int val = setjmp(buffer);	// val = 0
 ```
+
 - Sử dung `longjmp`, chương trình sẽ quay trở lại điểm mà `setjmp` đã được gọi, và `setjmp` sẽ trả về giá trị là một số nguyên (không bao giờ là 0, vì giá trị 0 đặc biệt để nhận diện việc gọi setjmp lần đầu tiên).
-```bash 
+
+```c
 longjmp(buffer, 1); // Nhảy trở lại điểm trước đó với giá trị trả về val = 1
 ```
+
 **Ví dụ:**
-```bash
+```c
 #include <stdio.h>
 #include <setjmp.h>
 
@@ -920,6 +924,7 @@ int main() {
     return 0;
 }
 ```
+
 **Kết quả:**
 ```bash
 > I'm here! 
