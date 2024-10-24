@@ -9,34 +9,37 @@ Compiler (trình biên dịch) là chương trình có nhiệm vụ xử lý ch�
 Quá trình biên dịch gồm các giai đoạn như sau:
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/68c4be2c-ee5b-41ab-9aeb-bd986aac8a4f" alt="Compiler Macro" width="500">
+  <img src="image/compile-macro-1.png" alt="Compiler Macro" width="600">
 </p>
 
-- Giai đoạn Preprocessor (Tiền xử lý): thực hiện nhận source code (bao gồm các file: .c,.h,.cpp,.hpp,...), xóa bỏ comment và xử lý các chỉ thị tiền xử lý và đầu ra là file .i.
+- Giai đoạn Preprocessor (Tiền xử lý): Thực hiện nhận source code (gồm các file: .c,.h,.cpp,.hpp,...), xóa bỏ comment, xử lý các chỉ thị tiền xử lý. Đầu ra là file .i.
 
   Lệnh thực hiện trên terminal:
+
   ```bash
   gcc -E main.c -o main.i
   ```
-- Giai đoạn Compiler: chuyển từ ngôn ngữ bậc cao sang ngôn ngữ bậc thấp assembly, đầu vào là file .i đầu ra là file .s.
+- Giai đoạn Compiler: Chuyển từ ngôn ngữ bậc cao sang ngôn ngữ bậc thấp assembly. Đầu vào là file .i, đầu ra là file .s.
 
     Lệnh thực hiện trên terminal:
-  ```bash
-  gcc main.i -S -o main.s
-  ```
-- Giai đoạn Assembler: dịch chương trình sang mã máy 0 và 1, đầu vào là file .s đầu ra là file .o hay còn gọi là file Object.
-  
-  Lệnh thực hiện trên terminal:
-  ```bash
-  gcc - c main.s -o main.o
-  ```
-- Giai đoạn Linker: liên kết các file Object .0 lại thành một chương trình duy nhất.
 
-   Lệnh thực hiện và chạy file trên terminal:
-  ```bash
-  gcc test1.o test2.o main.o -o main
-  ./main
-  ```
+    ```bash
+    gcc main.i -S -o main.s
+    ```
+- Giai đoạn Assembler: Dịch chương trình sang mã máy (0, 1). Đầu vào là file .s, đầu ra là file .o hay còn gọi là file object.
+  
+    Lệnh thực hiện trên terminal:
+
+    ```bash
+    gcc - c main.s -o main.o
+    ```
+- Giai đoạn Linker: Liên kết các file object.0 lại thành một chương trình thực thi duy nhất.
+
+    Lệnh thực hiện và chạy file trên terminal:
+    ```bash
+    gcc test1.o test2.o main.o -o main
+    ./main
+    ```
 ## 2. Macro
 ### Các chỉ thị tiền xử lý
 
