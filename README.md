@@ -1429,7 +1429,6 @@ Chương trình C/C++ được tổ chức lưu trong memory layout (phân vùng
 ## 1. Text segment
 Phân vùng này chứa:
  - Mã máy (mã máy là tập hợp các lệnh thực thi).
- - Hằng số (const), con trỏ kiểu char
 
 Quyền truy cập thường chỉ có quyền đọc và thực thi, nhưng không có quyền ghi.
 
@@ -1455,8 +1454,10 @@ int main() {
 ## 2. Data segment
 Hay còn gọi là phân vùng Initialized Data Segment (Dữ liệu Đã Khởi Tạo), chứa:
  - Biến toàn cục và biến static (static global, static local) được khởi tạo với giá trị khác 0.
-   
-Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
+ - Giá trị của hằng số (const), giá trị của con trỏ kiểu char.
+  
+Đối với - thứ 1: quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
+Đối với - thứ 2: quyền truy cập là chỉ được đọc.
 
 Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
 
@@ -3597,6 +3598,47 @@ int main() {
 }
 ```
 
+## 3. Variadic template
+
+Tạo một hàm có thể chấp nhận số lượng tham số đầu vào không xác định.
+
+Gộp - Fold Expressions:
+
+```c++
+#include <iostream>
+using namespace std;
+
+// Trường hợp cơ sở: hàm kết thúc đệ quy
+void print() {
+    std::cout << "End\n";
+}
+
+// Hàm variadic template có thể chấp nhận bất kỳ số lượng tham số nào
+template <typename T, typename... Args>
+void print(T first, Args... rest) {
+    // In tham số đầu tiên
+    cout << first << endl;
+
+    // Gọi đệ quy với các tham số còn lại
+    print(rest...);
+}
+
+template <typename... Args>
+void print1(Args... args) {
+    // Fold Expressions
+    (cout << ... << args) << '\n';
+}
+
+int main() {
+    // Gọi hàm với các loại và số lượng tham số khác nhau
+    print(1, 2.5, "Hello", 'A');
+
+    print1(1, 2.5, "Hello", 'A');
+    return 0;
+}
+```
+
+
 ## 3. Operator overloading
 
 Nạp chồng toán tử là định nghĩa lại cách hoạt động của một số toán tử (toán tử có sẵn trong C++) để sử dụng cho các object của class tự định nghĩa (các object đó không thể tính toán như các biến thông thường).
@@ -4078,12 +4120,666 @@ int main() {
 ### Array
 
 ## 2. Interator
-
-
 ## 3. Algorithm
 
+</p>
+</details>
+
+# BÀI 20: GENERIC PROGRAMMING
+<details><summary>Chi tiết</summary>
+<p>
 
 
+
+</p>
+</details>
+
+# BÀI 21: DESIGN PATTERNS
+<details><summary>Chi tiết</summary>
+<p>
+
+Design Patterns có thể được hiểu là những giải pháp thiết kế tối ưu, được lập trình viên áp dụng cho những tình huống lặp đi lặp lại trong quá trình phát triển phần mềm. 
+
+Design Patterns thường được chia thành các loại sau:
+ - Creational Patterns (Mẫu khởi tạo): Quản lý việc khởi tạo đối tượng (VD: Singleton, Factory).
+
+ - Structural Patterns (Mẫu cấu trúc): Tổ chức cấu trúc của các lớp và đối tượng (VD: Decorator, Adapter, Composite).
+
+ - Behavioral Patterns (Mẫu hành vi): Xác định cách các đối tượng tương tác với nhau (VD: Observer, MVP,  Strategy).
+
+## 1. Singleton
+
+Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. Khi khởi tạo nhiều object thì tốn nhiều tài nguyên trên RAM. Vậy có cách nào chỉ khởi tạo một object và sử dụng lại nhiều lần hay không?
+
+Giải pháp là sử dụng Singleton, thường ứng dụng trong: kết nối cơ sở dữ liệu, bộ nhớ đệm (cache), logger để ghi log, hoặc cấu hình hệ thống.
+
+Đặc điểm chính của Singleton:
+ **Chỉ một đối tượng duy nhất**: Không thể tạo ra nhiều hơn một instance của lớp Singleton.
+ **Điểm truy cập toàn cục**: instance này có thể được truy cập từ mọi nơi trong chương trình.
+
+
+**Ví dụ 1, ứng dụng mẫu Singleton quản lý GPIO:**
+
+```c++
+#include <iostream>
+
+// Giả lập các hàm cho VĐK
+void gpioInit() {
+    std::cout << "GPIO initialized" << std::endl;
+}
+
+void gpioSetPin(int pin, bool value) {
+    std::cout << "GPIO Pin " << pin << " set to " << (value ? "HIGH" : "LOW") << std::endl;
+}
+
+void gpioReadPin(int pin) {
+    std::cout << "Reading GPIO Pin " << pin << std::endl;
+}
+
+class GpioManager {
+    private:
+        /*
+        * Form chuẩn của Sigleton!
+        * Constructor đặt trong private, ngăn việc khởi tạo trực tiếp từ bên ngoài
+        * Con trỏ static đặt trong private, lưu trữ địa chỉ duy nhất của lớp GpioManager
+        */
+        GpioManager();
+        static GpioManager* instance;
+
+        // Hàm khởi tạo GPIO (chỉ được gọi trong quá trình khởi tạo singleton)
+        void init() {
+            gpioInit();
+        }
+        
+    public:
+        /*
+        * Form chuẩn của Sigleton!
+        * Hàm getInstance() đặt trong public, trả về địa chỉ của GpioManager
+        * Nếu ptr == NULL thì cấp phát động, khởi tạo GPIO, và trả về địa chỉ
+        */
+        static GpioManager* getInstace() {
+            
+            if (!instance) {
+                instance = new GpioManager();
+                instance->init();
+            }
+            return instance;
+        }
+
+        // Giả lập set/read
+        void setPin(int pin, bool value) {
+            gpioSetPin(pin, value);
+        }
+
+        void readPin(int pin) {
+            gpioReadPin(pin);
+        }
+};
+
+class PORTx {
+    private:
+        /*
+        * Form chuẩn của Sigleton!
+        * Constructor đặt trong private, ngăn việc khởi tạo trực tiếp từ bên ngoài
+        * Con trỏ static, đặt trong private, lưu trữ địa chỉ duy nhất của lớp PORTx
+        */    
+        PORTx();
+        static PORTx* instance;
+
+        // Hàm khởi tạo PORT (chỉ được gọi trong quá trình khởi tạo singleton)
+        void init() {
+            // Do something...
+        }
+
+    public:
+        /*
+        * Form chuẩn của Sigleton!
+        * Hàm getInstance() đặt trong public, trả địa chỉ của PORTx
+        * Nếu ptr == NULL thì cấp phát động, khởi tạo Port, và trả về địa chỉ
+        */        
+        static PORTx* getInstace() {
+            if (!instance) {
+                instance = new PORTx();
+                instance->init(); 
+            }
+            return instance;
+        }
+};
+
+// Khởi tạo instance static ban đầu là nullptr
+GpioManager* GpioManager::instance = nullptr;
+
+int main(int argc, char const *argv[]) {
+    /*
+    * Khởi tạo con trỏ kiểu GpioManager
+    * Lấy địa chỉ trả về bẳng cách truy cập đến method getInstance()
+    */
+    GpioManager* gpioManager = GpioManager::getInstace();
+
+    // Giả lập là chân 13, bật HIGH
+    gpioManager->setPin(13, true);
+
+    // Đọc giá trị chân GPIO
+    gpioManager->readPin(13);
+
+    /*
+    * Khởi tạo con trỏ kiểu GpioManager khác cho lần sử dụng tiếp theo
+    * Lấy địa chỉ trả về bẳng cách truy cập đến method getInstance()
+    */
+    GpioManager* gpioManager2 = GpioManager::getInstace();
+
+    return 0;
+}
+```
+**Ví dụ 2, ứng dụng mẫu Singleton quản lý UART:**
+```c++
+#include <iostream>
+#include "stm32f10x.h"  
+
+class UART{
+    private:
+        static UART* instance;  
+        UART(){
+            initUART();
+        }
+
+        void initUART(){
+            RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+            USART_InitTypeDef USART_InitStructure;
+
+            USART_InitStructure.USART_BaudRate = 9600;
+            USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+            USART_InitStructure.USART_StopBits = USART_StopBits_1;
+            USART_InitStructure.USART_Parity = USART_Parity_No;
+            USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+            USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+            USART_Init(USART1, &USART_InitStructure);
+            USART_Cmd(USART1, ENABLE);
+        }
+
+    public:
+        /*
+        * Form chuẩn của Sigleton!
+        * Hàm getInstance() đặt trong public, trả địa chỉ của UART
+        * Nếu ptr == NULL thì cấp phát động, khởi tạo Port, và trả về địa chỉ
+        */   
+        static UART* getInstance(){
+            if (instance == nullptr){
+                instance = new UART(); 
+            }
+            return instance;
+        }
+
+        void sendData(uint8_t data){
+            while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
+            USART_SendData(USART1, data);
+        }
+
+        uint8_t receiveData(){
+            while (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET);
+            return USART_ReceiveData(USART1);
+        }
+};
+
+UART* UART::instance = nullptr;
+
+int main()
+{
+    UART* uart = UART::getInstance();
+
+    // Gửi một ký tự qua UART
+    uart->sendData('H');
+
+    // Nhận một ký tự từ UART
+    uint8_t received = uart->receiveData();
+
+    while (1) {
+        // Do something
+    }
+}
+```
+
+## 2. Observer
+
+Ví dụ có 1 cảm biến đọc giá trị và có các hành động kèm theo là hiển thị LCD, điều khiển bật tắt quạt,....thì có cách nào khi đọc dữ liệu cảm biến thì tự động cập nhật giá trị cho các hành động trên không?
+
+Observer là một mẫu thiết kế thuộc nhóm Behavioral (mẫu hành vi), nơi một đối tượng gọi là Subject có thể thông báo cho một hoặc nhiều Observer (người quan sát) về bất kỳ thay đổi nào trong trạng thái của nó. Observer nhận thông báo và tự động cập nhật hoặc phản hồi lại.
+
+Đặc điểm chính của Observer Pattern:
+ - **Mối quan hệ giữa Subject và Observer**: Subject giữ một danh sách các Observer. Các Observer đăng ký nhận thông báo từ Subject khi có sự thay đổi trạng thái.
+
+ - **Tự động thông báo (Push Notification)**: Khi trạng thái của Subject thay đổi, nó sẽ tự động thông báo cho tất cả các Observer đã đăng ký. 
+
+ -**Tính linh hoạt và mở rộng**: Thêm hoặc xóa các Observer mà không cần thay đổi Subject hoặc Observer có thể dễ dàng ngừng nhận thông báo từ Subject bằng cách hủy đăng ký.
+
+ - **Subject không phụ thuộc vào các hành động của Observer.**
+
+ - **Nhiều Observer có thể theo dõi một hoặc nhiều Subject.**
+
+```c++
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+// Interface for observers (display, logger, etc.)
+class Observer {
+public:
+    virtual void update(float temperature, float humidity, float light) = 0;
+};
+
+// Subject (SensorManager) holds the state and notifies observers
+class SensorManager {
+    float temperature;
+    float humidity;
+    float light;
+    std::vector<Observer*> observers;
+public:
+    void registerObserver(Observer* observer) {
+        observers.push_back(observer);
+    }
+
+    void removeObserver(Observer* observer) {
+        observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+    }
+
+    void notifyObservers() {
+        for (auto observer : observers) {
+            observer->update(temperature, humidity, light);
+        }
+    }
+
+    void setMeasurements(float temp, float hum, float lightLvl) {
+        temperature = temp;
+        humidity = hum;
+        light = lightLvl;
+        notifyObservers();
+    }
+};
+
+// Display component (an observer)
+class Display : public Observer {
+public:
+    void update(float temperature, float humidity, float light) override {
+        std::cout << "Display: Temperature: " << temperature
+                  << ", Humidity: " << humidity
+                  << ", Light: " << light << std::endl;
+    }
+};
+
+// Logger component (an observer)
+class Logger : public Observer {
+public:
+    void update(float temperature, float humidity, float light) override {
+        std::cout << "Logging data... Temp: " << temperature
+                  << ", Humidity: " << humidity
+                  << ", Light: " << light << std::endl;
+    }
+};
+
+int main() {
+    SensorManager sensorManager;
+
+    Display display;
+    Logger logger;
+
+    sensorManager.registerObserver(&display);
+    sensorManager.registerObserver(&logger);
+
+    sensorManager.setMeasurements(25.0, 60.0, 700.0); // Simulate sensor data update
+    sensorManager.setMeasurements(26.0, 65.0, 800.0); // Another sensor update
+
+    return 0;
+}
+```
+## 3. Factory
+
+
+</p>
+</details>
+
+# BÀI 23: SMART POINTERS
+<details><summary>Chi tiết</summary>
+<p>
+
+_Bài này chỉ học để hiểu bản chất bên trong một smart pointer, bài sau mới học sử dụng thư viện memory._
+
+Trong C++, con trỏ thông minh giúp quản lý tự động bộ nhớ để tránh các lỗi liên quan đến việc cấp phát và giải phóng bộ nhớ thủ công.
+
+Có 3 loại smart pointer phổ biến:
+ - Unique pointer.
+ - Shared pointer.
+ - Weak pointer.
+
+## Unique pointer
+
+Là con trỏ sở hữu duy nhất một đối tượng. Không con trỏ nào khác có quyền truy vào vùng nhớ đối tượng đó.
+
+Sau khi giải phóng vùng nhớ mà nó đang quản lý thì vùng nhớ đó có thể truy cập bình thường.
+
+**Class mô phỏng lại cách hoạt động của unique pointer**:
+```C++
+#include <iostream>
+
+using namespace std;
+
+template <typename T>
+class UniquePointer{
+    private:
+        T *ptr; // con trỏ quản lý bộ nhớ
+
+    public:
+        // constructor nhận vào 1 con trỏ thô
+        UniquePointer(T *p = nullptr): ptr(p){}
+
+        // destructor: giải phóng bộ nhớ khi đối tượng bị hủy
+        ~UniquePointer(){
+            if (ptr){
+                delete ptr;
+            }
+        }
+        /*
+         * địa chỉ uptr: 0xf4 - stack
+         * 
+         */
+
+        // xóa bỏ khả năng copy để đảm bảo chỉ có 1 pointer sở hữu object
+        UniquePointer(const UniquePointer&) = delete;
+        UniquePointer& operator = (const UniquePointer&) = delete;
+
+
+        // toán tử dereference (*) để truy cập giá trị, trả về địa chỉ của pointer
+        T& operator * () const{
+            return *ptr;
+        }
+
+        // toán tử -> để truy cập thành viên của con trỏ
+        T* operator -> () const{
+            return ptr;
+        }
+
+        // trả về con trỏ thô bên trong (nếu cần)
+        T* get() const{
+            return ptr;
+        }
+
+        // giải phóng quyền sở hữu và trả về con trỏ thô, không xóa đối tượng
+        T* release(){
+            T* temp = ptr;
+            ptr = nullptr;
+            return temp;
+        }
+
+        // thay thế con trỏ hiện tại bằng 1 con trỏ mới
+        void reset(T* p = nullptr){
+            if (ptr){
+                delete ptr;
+            }
+            ptr = p;
+        }
+};
+```
+**Thao tác với unique pointer**:
+
+ - Khởi tạo một unique pointer trỏ đến một vùng nhớ, và truyền vào tham số cho constructor 10
+
+```C++
+int main(int argc, char const *argv[])
+{
+    // 
+    UniquePointer<int> uPtr(new int(10));
+
+    // Sử dụng toán tử * truy cập và in giá trị
+    cout << "value: " << *uPtr << endl;
+
+    // Hàm get() trả về địa chỉ con trỏ thô ptr bên trong class
+    int* rawPtr = uPtr.get();
+    cout << "giá trị con trỏ thô: " << *rawPtr << endl;
+
+    // Hàm release() giải phóng quyền sở hữu của, trả về con trỏ thô mà không xóa đối tượng
+    int* rawPtr1 = uPtr.release();
+    delete rawPtr1;    // user tự giải phóng
+
+    // Hàm reset() sẽ giải phóng đối tượng hiện tại và bắt đầu quản lý đối tượng mới mà truyền vào.
+    uPtr.reset(new int(20));    // 0xa1: 20
+    cout << "new value: " << *uPtr << endl;
+
+    // Nếu không có giá trị mới truyền vào thì giải phóng đối tượng hiện tại và gán nó là nullptr
+    uPtr.reset();   // nulptr
+
+    return 0;
+}
+```
+</p>
+</details>
+
+# BÀI 23: SMART POINTERS (thư viện memory)
+<details><summary>Chi tiết</summary>
+<p>
+
+## 1. Unique Pointer
+
+**Ta có class Sensor như sau để thao tác với unique pointer:**
+```c++
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+class Sensor {
+private:
+    int data;
+
+public:
+    Sensor(int value): data(value) {
+        cout << "Construct called, data = " << data << endl;
+    }
+
+    ~Sensor() {
+        cout << "Destructor called\n";
+    }
+
+    void readData() {
+        cout << "Reading data...\n";
+    }
+
+    void display() {
+        cout << "Data: " << data << endl;
+    }
+};
+
+int main() {
+    // Do something...
+    return 0;
+}
+```
+
+### Hàm `make_unique<T>(args...)`
+
+Sử dụng để tạo một unique_ptr quản lý đối tượng Sensor.
+
+Cú pháp:
+```c++
+int main(){
+    unique_ptr<Sensor> uPtr = make_unique<Sensor>(10); // Tham số Constructor 10
+}
+```
+### Toán tử `->` và `*`
+
+Có hai cách để truy cập các thành viên:
+
+ - Toán tử `->` truy cập thành viên thông qua con trỏ một cách trực tiếp.
+
+ - Toán tử `*` giải tham chiếu con trỏ để truy cập đối tượng, sau đó sử dụng `.` để gọi các thành viên.
+```c++
+int main(){
+    unique_ptr<Sensor> uPtr = make_unique<Sensor>(10);
+
+    uPtr->display();    // Data: 10 
+    (*uPtr).display();  // Data: 10
+}
+```
+### Hàm `release()`
+
+Hàm trả về con trỏ thô trỏ đến địa chỉ mà unique_ptr quản lý và giải phóng quyền sở hữu của unique_ptr. Đối tượng không bị xóa, người dùng phải tự giải phóng đối tượng đó.
+
+```c++
+int main(int argc, char const *argv[]) {
+    unique_ptr<Sensor> uPtr = make_unique<Sensor>(10); 
+
+    Sensor* rawPtr = uPtr.release();    // Giải phóng quyền sở hữu của unique_ptr
+
+    rawPtr->display();  // Data: 10
+
+    delete rawPtr;      // Giải phóng bởi user
+
+    return 0;
+}
+```
+### Hàm `reset()`
+
+Hàm sẽ giải phóng đối tượng hiện tại và bắt đầu quản lý đối tượng mới mà truyền vào.
+
+Nếu không có tham số truyền vào thì nó giải phóng đối tượng hiện tại và trở thành con trỏ nullptr.
+
+```c++
+int main() {
+    unique_ptr<Sensor> uptr = make_unique<Sensor>(10);
+
+    uptr.reset(new Sensor(20));
+
+    uptr.reset();  // nullptr
+}
+```
+### Hàm `get()`
+
+Hàm trả về con trỏ thô trỏ đến đối tượng mà unique_ptr đang quản lý, nhưng không giải phóng quyền sở hữu đối tượng, unique_ptr vẫn quản lý chính.
+
+```c++
+int main() {
+    unique_ptr<Sensor> uptr = make_unique<Sensor>(10);
+
+    Sensor* rawPtr = uptr.get();  
+
+    rawPtr->display();  // Data: 10
+}
+
+```
+
+### Hàm `move()`
+
+Hàm sử dụng để chuyển quyền sở hữu từ một unique_ptr sang một unique_ptr khác. 
+
+Sau khi chuyển, con trỏ ban đầu sẽ trở thành nullptr và không còn quản lý đối tượng nữa.
+
+```c++
+int main() {
+    unique_ptr<Sensor> uPtr = make_unique<Sensor>(10);
+
+    unique_ptr<Sensor> new_uptr = move(uPtr);
+
+    if(!uPtr){
+        cout << "uPtr is null!" << endl; // uPtr is null!
+    }
+
+    new_uptr->display();    // Data: 10
+
+    return 0;
+```
+## 2. Shared pointer
+
+Nhiều con trỏ có thể cùng chia sẻ quyền sở hữu vùng nhớ của một đối tượng. 
+ 
+Chỉ khi tất cả các shared_ptr trỏ đến đối tượng đó bị thu hồi, vùng nhớ của đối tượng mới được giải phóng.
+
+### Hàm `make_shared<T>(args...)`
+
+Sử dụng make_shared để tạo một unique_ptr quản lý đối.
+
+```c++
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+int main() {
+    shared_ptr<int> sPtr1 = make_shared<int>(20); 
+    
+    // sptr2 cùng trỏ đến đối tượng mà sptr1 đang quản lý
+    shared_ptr<int> sPtr2 = sPtr1;
+    shared_ptr<int> sPtr3 = sPtr1
+    return 0;
+}
+```
+### Hàm `used_count()`
+
+Hàm này  trả về số lượng shared_ptr đang cùng chia sẻ quyền sở hữu đối với đối tượng.
+
+```c++
+int main() {
+    shared_ptr<int> sPtr1 = make_shared<int>(20); 
+
+    shared_ptr<int> sPtr2 = sPtr1;
+    
+    {
+        shared_ptr<int> sPtr3 = sPtr1;
+        cout << sPtr1.use_count() << endl;  // 3 (sPtr1, sPtr2, sPtr3)
+    }
+
+    // sPtr3 đã ra khỏi phạm vi
+    cout << sPtr1.use_count() << endl;  // 2 (sPtr1, sPtr2)
+
+    return 0;
+}
+```
+### Toán tử `->` và `*`, get(), reset(), release(), move()
+
+Đều giống như unique pointer.
+
+```c++
+int main() {
+    shared_ptr<int> sPtr1 = make_shared<int>(20); 
+
+    shared_ptr<int> sPtr2 = sPtr1;
+
+    cout << *sPtr1 << endl; // 20
+    cout << *sPtr2 << endl; // 20
+
+    /* -> dùng để truy cập các thành viên của 
+     * đối tượng kiểu class ý như unique pointer. 
+     */
+
+    return 0;
+}
+```
+### Toán tử `swap()`
+Sau khi gọi hàm swap(), vùng nhớ mà hai shared_ptr trỏ đến sẽ được hoán đổi. shared_ptr thứ nhất sẽ trỏ đến đối tượng mà shared_ptr thứ hai quản lý, và ngược lại.
+
+Ở unique_ptr cũng có, nay dạy vì do bữa trước chưa dạy.
+
+```c++
+int main() {
+    shared_ptr<int> sPtr1 = make_shared<int>(20); 
+    shared_ptr<int> sPtr2 = make_shared<int>(30);
+
+    cout << sPtr1 << endl;  // 0x00
+    cout << sPtr2 << endl;  // 0x04
+
+    sPtr1.swap(sPtr2);
+
+    cout << sPtr1 << endl;  // 0x04
+    cout << sPtr2 << endl;  // 0x00
+
+    cout << *sPtr1 << endl; // 30
+    cout << *sPtr2 << endl; // 20
+
+    return 0;
+}
+```
+## 3. Weak pointer
+
+Nó không quản lý quyền sở hữu đối tượng mà chỉ giữ tham chiếu yếu (weak reference) đến đối tượng được quản lý bởi một hoặc nhiều shared_ptr. 
 
 
 </p>
