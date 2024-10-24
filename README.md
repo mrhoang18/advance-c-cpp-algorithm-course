@@ -926,18 +926,20 @@ int main() {
 ```
 
 **Kết quả:**
+
 ```bash
-> I'm here! 
-> Val = 0
-> In jump_function.
-> I'm here! 
-> Val = 5
+I'm here! 
+Val = 0
+In jump_function.
+I'm here! 
+Val = 5
 ```
 
 Ứng dụng của hai hàm `setjmp`/`longjmp` thường được sử dụng để thực hiện xử lý ngoại lệ. Nhưng, đó chưa phải là cách thông dụng nhất trong việc xử lý ngoại lệ.
 
 **Ví dụ xử lý ngoại lệ khi chia cho 0:**
-```bash
+
+```c
 #include <stdio.h>
 #include <setjmp.h>
 
@@ -970,9 +972,6 @@ int main() {
     return 0;
 }
 ```
-
-</p>
-</details>
 
 </p>
 </details>
