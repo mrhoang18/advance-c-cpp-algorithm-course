@@ -651,7 +651,7 @@ Từ khóa `extern` được sử dụng để khai báo rằng một **biến h
 int value = 90;
 extern void display();  // Hàm này ở other.c
 
-int main(){
+int main() {
     printf("hello\n");
     display();
 
@@ -788,8 +788,7 @@ Từ khóa `register` làm tăng tốc độ truy cập biến, vì truy cập v
 #include <stdio.h>
 #include <time.h>
 
-int main(int argc, char const *argv[])
-{
+int main() {
     unsigned long i;                // Lưu trong RAM
     //register unsigned long i;     // Lưu trong thanh ghi
 
