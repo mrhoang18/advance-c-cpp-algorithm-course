@@ -12,22 +12,22 @@ Quá trình biên dịch gồm các giai đoạn như sau:
   <img src="image/compile-macro-1.png" alt="Compiler Macro" width="600">
 </p>
 
- -Preprocessor (Tiền xử lý): Thực hiện nhận source code (gồm: .c, .h, .cpp, .hpp,...), xóa bỏ comment, xử lý các chỉ thị tiền xử lý. Đầu ra là file .i.
+ -**Preprocessor (Tiền xử lý)**: Thực hiện nhận source code (gồm: .c, .h, .cpp, .hpp,...), xóa bỏ comment, xử lý các chỉ thị tiền xử lý. Đầu ra là file .i.
 
 ```bash
 gcc -E main.c -o main.i
 ```
- -Compiler: Chuyển từ ngôn ngữ bậc cao sang ngôn ngữ bậc thấp assembly. Đầu vào là file .i, đầu ra là file .s.
+ -**Compiler**: Chuyển từ ngôn ngữ bậc cao sang ngôn ngữ bậc thấp assembly. Đầu vào là file .i, đầu ra là file .s.
 
 ```bash
 gcc main.i -S -o main.s
 ```
- -Assembler: Chuyển sang mã máy (0, 1). Đầu vào là file .s, đầu ra là file .o hay còn gọi là file object.
+ -**Assembler**: Chuyển sang mã máy (0, 1). Đầu vào là file .s, đầu ra là file .o hay còn gọi là file object.
 
 ```bash
 gcc - c main.s -o main.o
 ```
- -Linker: Liên kết các file object.0 lại thành một chương trình thực thi duy nhất.
+ -**Linker**: Liên kết các file object.0 lại thành một chương trình thực thi duy nhất.
 
 ```bash
 gcc test1.o test2.o main.o -o main
