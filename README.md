@@ -820,7 +820,7 @@ Time: 0.054000    // Lưu trong thanh ghi
 </p>
 </details>
 
-# BÀI 5: GOTO-SETJMP.H
+# LESSON 5: GOTO-SETJMP.H
 <details><summary>Chi tiết</summary>
 <p>
   
@@ -976,7 +976,7 @@ int main() {
 </p>
 </details>
 
-# BÀI 6: BITMASK
+# LESSON 6: BITMASK
 <details><summary>Chi tiết</summary>
 <p>
 	
@@ -1154,7 +1154,7 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 </p>
 </details>
 
-# BÀI 7: STRUCT-UNION
+# LESSON 7: STRUCT-UNION
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -1353,7 +1353,7 @@ int main(int argc, char const *argv[]){
 </p>
 </details>
 
-# BÀI 8: MEMORY LAYOUT
+# LESSON 8: MEMORY LAYOUT
 <details><summary>Chi tiết</summary>
 <p>
 Chương trình main.exe (trên window), main.hex (nạp vào vi điều khiển) được lưu ở bộ nhớ SSD (ROM) hoặc FLASH. Khi nhấn run chương trình trên window (cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
@@ -1624,7 +1624,7 @@ free(ptr);
 </p>
 </details>
 
-# BÀI 9: LINKED LIST
+# LESSON 9: LINKED LIST
 <details><summary>Chi tiết</summary>
 <p>
 	
@@ -1935,7 +1935,7 @@ bool empty(node* array) {
 </p>
 </details>
 
-# BÀI 10: STACK-QUEUE
+# LESSON 10: STACK-QUEUE
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -2339,13 +2339,13 @@ int main() {
 </p>
 </details>
 
-# BÀI 11: JSON
+# LESSON 11: JSON
 <details><summary>Chi tiết</summary>
 <p>
 </p>
 </details>
 
-# BÀI 12: BINARY SEARCH-FILE OPERATIONS-CODE STANDARDS
+# LESSON 12: BINARY SEARCH-FILE OPERATIONS-CODE STANDARDS
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -2429,7 +2429,7 @@ Tham số truyền vào `access_mod` là quyền sử dụng file:
 </p>
 </details>
 
-# BÀI 13: PTHREAD
+# LESSON 13: PTHREAD
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -2471,7 +2471,7 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 </p>
 </details>
 
-# BÀI 14: CLASS
+# LESSON 14: CLASS
 <details><summary>Chi tiết</summary>
 <p>
 	
@@ -2771,7 +2771,7 @@ int main(int argc, char const *argv[]) {
 </p>
 </details>
 
-# BÀI 15: OOP
+# LESSON 15: OOP
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -3094,7 +3094,7 @@ int main()
 </p>
 </details>
 
-# BÀI 16: VIRTUAL FUNCTION
+# LESSON 16: VIRTUAL FUNCTION
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -3355,7 +3355,7 @@ int main() {
 </p>
 </details>
 
-# BÀI 17: GENERIC PROGRAMMING-TEMPLATE
+# LESSON 17: GENERIC PROGRAMMING-TEMPLATE
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -3779,7 +3779,7 @@ Tuy nhiên, có một số khác biệt về hiệu suất và cách thức làm
 </p>
 </details>
 
-# BÀI 18: NAMESPACE
+# LESSON 18: NAMESPACE
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -4004,7 +4004,7 @@ Một số thành phần nâng cao hơn sẽ được nói ở bài STL.
 </p>
 </details>
 
-# BÀI 19: STANDARD TEMPLATE LIBRARY
+# LESSON 19: STANDARD TEMPLATE LIBRARY
 <details><summary>Chi tiết</summary>
 <p>
 Standard Template Library ( STL) là một thư viện trong ngôn ngữ lập trình C++ cung cấp một tập hợp các template classes và functions để thực hiện nhiều loại cấu trúc dữ liệu và các thuật toán phổ biến.
@@ -4059,7 +4059,7 @@ int main() {
 </p>
 </details>
 
-# BÀI 20: GENERIC PROGRAMMING
+# LESSON 20: GENERIC PROGRAMMING
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -4068,7 +4068,7 @@ int main() {
 </p>
 </details>
 
-# BÀI 21: DESIGN PATTERNS
+# LESSON 21: DESIGN PATTERNS
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -4077,9 +4077,9 @@ Design Patterns có thể được hiểu là những giải pháp thiết kế 
 Design Patterns thường được chia thành các loại sau:
  - Creational Patterns (Mẫu khởi tạo): Quản lý việc khởi tạo đối tượng (VD: Singleton, Factory).
 
- - Structural Patterns (Mẫu cấu trúc): Tổ chức cấu trúc của các lớp và đối tượng (VD: Decorator, Adapter, Composite).
+ - Structural Patterns (Mẫu cấu trúc): Tổ chức cấu trúc của các lớp và đối tượng (VD: Decorator).
 
- - Behavioral Patterns (Mẫu hành vi): Xác định cách các đối tượng tương tác với nhau (VD: Observer, MVP,  Strategy).
+ - Behavioral Patterns (Mẫu hành vi): Xác định cách các đối tượng tương tác với nhau (VD: Observer, MVP).
 
 ## 1. Singleton
 
@@ -4098,95 +4098,109 @@ Khi lập trình với GPIO, Timer,... nó sẽ có địa chỉ cố định. K
 #include <iostream>
 
 // Giả lập các hàm cho VĐK
-void gpioInit() {
+void gpioInit()
+{
     std::cout << "GPIO initialized" << std::endl;
 }
 
-void gpioSetPin(int pin, bool value) {
+void gpioSetPin(int pin, bool value)
+{
     std::cout << "GPIO Pin " << pin << " set to " << (value ? "HIGH" : "LOW") << std::endl;
 }
 
-void gpioReadPin(int pin) {
+void gpioReadPin(int pin)
+{
     std::cout << "Reading GPIO Pin " << pin << std::endl;
 }
 
-class GpioManager {
-    private:
-        /*
-        * Form chuẩn của Sigleton!
-        * Constructor đặt trong private, ngăn việc khởi tạo trực tiếp từ bên ngoài
-        * Con trỏ static đặt trong private, lưu trữ địa chỉ duy nhất của lớp GpioManager
-        */
-        GpioManager();
-        static GpioManager* instance;
+class GpioManager
+{
+private:
+    /*
+     * Form chuẩn của Sigleton!
+     * Constructor đặt trong private, ngăn việc khởi tạo trực tiếp từ bên ngoài
+     * Con trỏ static đặt trong private, lưu trữ địa chỉ duy nhất của lớp GpioManager
+     */
+    GpioManager();
+    static GpioManager *instance;
 
-        // Hàm khởi tạo GPIO (chỉ được gọi trong quá trình khởi tạo singleton)
-        void init() {
-            gpioInit();
-        }
-        
-    public:
-        /*
-        * Form chuẩn của Sigleton!
-        * Hàm getInstance() đặt trong public, trả về địa chỉ của GpioManager
-        * Nếu ptr == NULL thì cấp phát động, khởi tạo GPIO, và trả về địa chỉ
-        */
-        static GpioManager* getInstace() {  
-            if (!instance) {
-                instance = new GpioManager();
-                instance->init();
-            }
-            return instance;
-        }
+    // Hàm khởi tạo GPIO (chỉ được gọi trong quá trình khởi tạo singleton)
+    void init()
+    {
+        gpioInit();
+    }
 
-        // Giả lập set/read
-        void setPin(int pin, bool value) {
-            gpioSetPin(pin, value);
+public:
+    /*
+     * Form chuẩn của Sigleton!
+     * Hàm getInstance() đặt trong public, trả về địa chỉ của GpioManager
+     * Nếu ptr == NULL thì cấp phát động, khởi tạo GPIO, và trả về địa chỉ
+     */
+    static GpioManager *getInstace()
+    {
+        if (!instance)
+        {
+            instance = new GpioManager();
+            instance->init();
         }
-        void readPin(int pin) {
-            gpioReadPin(pin);
-        }
+        return instance;
+    }
+
+    // Giả lập set/read
+    void setPin(int pin, bool value)
+    {
+        gpioSetPin(pin, value);
+    }
+    void readPin(int pin)
+    {
+        gpioReadPin(pin);
+    }
 };
 
-class PORTx {
-    private:
-        /*
-        * Form chuẩn của Sigleton!
-        * Constructor đặt trong private, ngăn việc khởi tạo trực tiếp từ bên ngoài
-        * Con trỏ static, đặt trong private, lưu trữ địa chỉ duy nhất của lớp PORTx
-        */    
-        PORTx();
-        static PORTx* instance;
+class PORTx
+{
+private:
+    /*
+     * Form chuẩn của Sigleton!
+     * Constructor đặt trong private, ngăn việc khởi tạo trực tiếp từ bên ngoài
+     * Con trỏ static, đặt trong private, lưu trữ địa chỉ duy nhất của lớp PORTx
+     */
+    PORTx();
+    static PORTx *instance;
 
-        // Hàm khởi tạo PORT (chỉ được gọi trong quá trình khởi tạo singleton)
-        void init() {
-            // Do something...
-        }
+    // Hàm khởi tạo PORT (chỉ được gọi trong quá trình khởi tạo singleton)
+    void init()
+    {
+        // Do something...
+    }
 
-    public:
-        /*
-        * Form chuẩn của Sigleton!
-        * Hàm getInstance() đặt trong public, trả địa chỉ của PORTx
-        * Nếu ptr == NULL thì cấp phát động, khởi tạo Port, và trả về địa chỉ
-        */        
-        static PORTx* getInstace() {
-            if (!instance) {
-                instance = new PORTx();
-                instance->init(); 
-            }
-            return instance;
+public:
+    /*
+     * Form chuẩn của Sigleton!
+     * Hàm getInstance() đặt trong public, trả địa chỉ của PORTx
+     * Nếu ptr == NULL thì cấp phát động, khởi tạo Port, và trả về địa chỉ
+     */
+    static PORTx *getInstace()
+    {
+        if (!instance)
+        {
+            instance = new PORTx();
+            instance->init();
         }
+        return instance;
+    }
 };
 
 // Khởi tạo instance static ban đầu là nullptr
-GpioManager* GpioManager::instance = nullptr;
+GpioManager *GpioManager::instance = nullptr;
 
-int main(int argc, char const *argv[]) {
+int main()
+{
     /*
-    * Khởi tạo con trỏ kiểu GpioManager
-    * Lấy địa chỉ trả về bẳng cách truy cập đến method getInstance()
-    */
-    GpioManager* gpioManager = GpioManager::getInstace();
+     * Khởi tạo con trỏ kiểu GpioManager
+     * Lấy địa chỉ trả về bẳng cách truy cập đến method getInstance()
+     */
+    GpioManager *gpioManager = GpioManager::getInstace();
 
     // Giả lập là chân 13, bật HIGH
     gpioManager->setPin(13, true);
@@ -4195,70 +4209,80 @@ int main(int argc, char const *argv[]) {
     gpioManager->readPin(13);
 
     /*
-    * Khởi tạo con trỏ kiểu GpioManager khác cho lần sử dụng tiếp theo
-    * Lấy địa chỉ trả về bẳng cách truy cập đến method getInstance()
-    */
-    GpioManager* gpioManager2 = GpioManager::getInstace();
+     * Khởi tạo con trỏ kiểu GpioManager khác cho lần sử dụng tiếp theo
+     * Lấy địa chỉ trả về bẳng cách truy cập đến method getInstance()
+     */
+    GpioManager *gpioManager2 = GpioManager::getInstace();
 
     return 0;
 }
 ```
+
 **Ví dụ 2, ứng dụng mẫu Singleton quản lý UART:**
 ```c++
 #include <iostream>
-#include "stm32f10x.h"  
+#include "stm32f10x.h"
 
-class UART{
-    private:
-        static UART* instance;  
-        UART(){
-            initUART();
+class UART
+{
+private:
+    static UART *instance;
+    UART()
+    {
+        initUART();
+    }
+
+    void initUART()
+    {
+        RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+        USART_InitTypeDef USART_InitStructure;
+
+        USART_InitStructure.USART_BaudRate = 9600;
+        USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+        USART_InitStructure.USART_StopBits = USART_StopBits_1;
+        USART_InitStructure.USART_Parity = USART_Parity_No;
+        USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+        USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+
+        USART_Init(USART1, &USART_InitStructure);
+        USART_Cmd(USART1, ENABLE);
+    }
+
+public:
+    /*
+     * Form chuẩn của Sigleton!
+     * Hàm getInstance() đặt trong public, trả địa chỉ của UART
+     * Nếu ptr == NULL thì cấp phát động, khởi tạo Port, và trả về địa chỉ
+     */
+    static UART *getInstance()
+    {
+        if (instance == nullptr)
+        {
+            instance = new UART();
         }
+        return instance;
+    }
 
-        void initUART(){
-            RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-            USART_InitTypeDef USART_InitStructure;
+    void sendData(uint8_t data)
+    {
+        while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET)
+            ;
+        USART_SendData(USART1, data);
+    }
 
-            USART_InitStructure.USART_BaudRate = 9600;
-            USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-            USART_InitStructure.USART_StopBits = USART_StopBits_1;
-            USART_InitStructure.USART_Parity = USART_Parity_No;
-            USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-            USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-
-            USART_Init(USART1, &USART_InitStructure);
-            USART_Cmd(USART1, ENABLE);
-        }
-
-    public:
-        /*
-        * Form chuẩn của Sigleton!
-        * Hàm getInstance() đặt trong public, trả địa chỉ của UART
-        * Nếu ptr == NULL thì cấp phát động, khởi tạo Port, và trả về địa chỉ
-        */   
-        static UART* getInstance(){
-            if (instance == nullptr){
-                instance = new UART(); 
-            }
-            return instance;
-        }
-
-        void sendData(uint8_t data){
-            while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
-            USART_SendData(USART1, data);
-        }
-
-        uint8_t receiveData(){
-            while (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET);
-            return USART_ReceiveData(USART1);
-        }
+    uint8_t receiveData()
+    {
+        while (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET)
+            ;
+        return USART_ReceiveData(USART1);
+    }
 };
 
-UART* UART::instance = nullptr;
+UART *UART::instance = nullptr;
 
 int main()
 {
-    UART* uart = UART::getInstance();
+    UART *uart = UART::getInstance();
 
     // Gửi một ký tự qua UART
     uart->sendData('H');
@@ -4266,7 +4290,8 @@ int main()
     // Nhận một ký tự từ UART
     uint8_t received = uart->receiveData();
 
-    while (1) {
+    while (1)
+    {
         // Do something
     }
 }
@@ -4275,7 +4300,7 @@ int main()
 
 Cảm biến đọc giá trị và có các hành động kèm theo là hiển thị LCD, điều khiển bật tắt quạt,....thì có cách nào khi đọc dữ liệu cảm biến thì tự động cập nhật giá trị cho các hành động trên không?
 
-Observer là một mẫu thiết kế thuộc nhóm Behavioral (mẫu hành vi), nơi một đối tượng gọi là Subject có thể thông báo cho một hoặc nhiều Observer (người quan sát) về bất kỳ thay đổi nào trong trạng thái của nó. Observer nhận thông báo và tự động cập nhật hoặc phản hồi lại.
+Observer là một mẫu thiết kế thuộc nhóm Behavioral, nơi một đối tượng gọi là Subject có thể thông báo cho một hoặc nhiều Observer (người quan sát) về bất kỳ thay đổi nào trong trạng thái của nó. Observer nhận thông báo và tự động cập nhật hoặc phản hồi lại.
 
 Đặc điểm chính của Observer Pattern:
  - **Mối quan hệ giữa Subject và Observer**: Subject giữ một danh sách các Observer. Các Observer đăng ký nhận thông báo từ Subject khi có sự thay đổi trạng thái.
@@ -4295,33 +4320,41 @@ Observer là một mẫu thiết kế thuộc nhóm Behavioral (mẫu hành vi),
 #include <algorithm>
 
 // Interface for observers (display, logger, etc.)
-class Observer {
+class Observer
+{
 public:
     virtual void update(float temperature, float humidity, float light) = 0;
 };
 
 // Subject (SensorManager) holds the state and notifies observers
-class SensorManager {
+class SensorManager
+{
     float temperature;
     float humidity;
     float light;
-    std::vector<Observer*> observers;
+    std::vector<Observer *> observers;
+
 public:
-    void registerObserver(Observer* observer) {
+    void registerObserver(Observer *observer)
+    {
         observers.push_back(observer);
     }
 
-    void removeObserver(Observer* observer) {
+    void removeObserver(Observer *observer)
+    {
         observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
     }
 
-    void notifyObservers() {
-        for (auto observer : observers) {
+    void notifyObservers()
+    {
+        for (auto observer : observers)
+        {
             observer->update(temperature, humidity, light);
         }
     }
 
-    void setMeasurements(float temp, float hum, float lightLvl) {
+    void setMeasurements(float temp, float hum, float lightLvl)
+    {
         temperature = temp;
         humidity = hum;
         light = lightLvl;
@@ -4330,9 +4363,11 @@ public:
 };
 
 // Display component (an observer)
-class Display : public Observer {
+class Display : public Observer
+{
 public:
-    void update(float temperature, float humidity, float light) override {
+    void update(float temperature, float humidity, float light) override
+    {
         std::cout << "Display: Temperature: " << temperature
                   << ", Humidity: " << humidity
                   << ", Light: " << light << std::endl;
@@ -4340,16 +4375,19 @@ public:
 };
 
 // Logger component (an observer)
-class Logger : public Observer {
+class Logger : public Observer
+{
 public:
-    void update(float temperature, float humidity, float light) override {
+    void update(float temperature, float humidity, float light) override
+    {
         std::cout << "Logging data... Temp: " << temperature
                   << ", Humidity: " << humidity
                   << ", Light: " << light << std::endl;
     }
 };
 
-int main() {
+int main()
+{
     SensorManager sensorManager;
 
     Display display;
@@ -4364,13 +4402,493 @@ int main() {
     return 0;
 }
 ```
+
 ## 3. Factory
 
+Factory Pattern là một mẫu thiết kế thuộc nhóm creational patterns, cung cấp một cơ chế để tạo ra các đối tượng mà không cần chỉ rõ lớp cụ thể của các đối tượng đó. 
 
+Thay vì khởi tạo trực tiếp các đối tượng, Factory Pattern sử dụng một phương thức hoặc một lớp trung gian (Factory) để quyết định loại đối tượng nào sẽ được khởi tạo dựa trên tham số đầu vào hoặc logic cụ thể.
+
+Đặc điểm của Factory Pattern:
+
+ -**Tính trừu tượng**: Factory Pattern ẩn đi chi tiết về cách các đối tượng được tạo ra, giúp chương trình tách biệt giữa việc khởi tạo đối tượng và việc sử dụng đối tượng đó.
+
+ -**Tính linh hoạt**: Factory giúp hệ thống dễ dàng mở rộng khi cần thêm các lớp con mới mà không làm ảnh hưởng đến mã nguồn hiện có.
+
+ -**Giảm sự phụ thuộc**: Factory Pattern giúp mã nguồn giảm sự phụ thuộc vào các lớp cụ thể, từ đó tăng tính module và khả năng tái sử dụng.
+
+**Ví dụ, sử dụng cấu trúc điều kiện để kiểm tra tham số truyền vào để khởi tạo đối tượng phù hợp**:
+
+```c++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Abstract class
+class Sensor
+{
+public:
+    virtual void readData() = 0;
+};
+
+// Temperature class
+class TemperatureSensor : public Sensor
+{
+public:
+    void readData() override
+    {
+        cout << "Reading temp data... " << endl;
+    }
+};
+
+// Humidity class
+class HumiditySensor : public Sensor
+{
+public:
+    void readData() override
+    {
+        cout << "Reading humidity data... " << endl;
+    }
+};
+
+// Sensor type
+typedef enum
+{
+    TEMPERATURE,
+    HUMIDITY,
+    PRESSURE
+    // More...
+} SensorType;
+
+// Factory class (Creator)
+class SensorFactory
+{
+public:
+    static Sensor *createSensor(SensorType type)
+    {
+        switch (type)
+        {
+        case SensorType::TEMPERATURE:
+            return new TemperatureSensor(); // Trả về đối tượng TemperatureSensor
+
+        case SensorType::HUMIDITY:
+            return new HumiditySensor(); // Trả về đối tượng HumiditySensor
+
+        default:
+            cout << "Failed to create sensor." << endl;
+            return nullptr; // Trả về con trỏ null
+        }
+    }
+};
+
+int main()
+{
+    Sensor *sensor = SensorFactory::createSensor(TEMPERATURE);
+    sensor->readData();
+
+    return 0;
+}
+```
+
+**Có thể sử dụng nhiều loại cấu trúc điều kiện khác như if-else**:
+
+```c++
+/*
+    * Dùng if-else thay vì switch-case cũng được nhưng ko phổ biến
+    * Gọi hàm trong main: Sensor* sensor = SensorFactory::createSensor("temp"); 
+*/
+static Sensor *createSensor(const string &sensorType)
+{
+    if (sensorType == "temp")
+    {
+        return new TemperatureSensor(); // Trả về đối tượng TemperatureSensor
+    }
+    else if (sensorType == "humi")
+    {
+        return new HumiditySensor(); // Trả về đối tượng HumiditySensor
+    }
+    else
+    {
+        cout << "Failed to create sensor." << endl;
+        return nullptr; // Trả về con trỏ null
+    }
+}
+```
+
+## 4. Decorator
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+class Sensor
+{
+public:
+    virtual void readData() = 0;
+};
+
+// Cảm biến nhiệt độ
+class TemperatureSensor : public Sensor
+{
+public:
+    void readData() override
+    {
+        cout << "Reading temperature data. " << endl;
+    }
+};
+
+// Cảm biến độ ẩm
+class HumiditySensor : public Sensor
+{
+public:
+    void readData() override
+    {
+        cout << "Reading humidity data. " << endl;
+    }
+};
+
+// Decorator Pattern
+class SensorDecorator : public Sensor
+{
+protected:
+    Sensor *wrappedSensor;
+
+public:
+    SensorDecorator(Sensor *sensor) : wrappedSensor(sensor) {}
+
+    virtual void readData() override
+    {
+        wrappedSensor->readData();
+    }
+};
+
+// Thêm tính năng Log
+class LoggingSensor : public SensorDecorator
+{
+public:
+    LoggingSensor(Sensor *sensor) : SensorDecorator(sensor) {}
+
+    void readData() override
+    {
+        cout << "LOG: Sensor data" << endl;
+        SensorDecorator::readData();
+    }
+};
+
+int main()
+{
+    Sensor *tempSensor = new TemperatureSensor();
+    Sensor *log = new LoggingSensor(tempSensor);
+    log->readData();
+
+    return 0;
+}
+```
+## 5. MVP
+
+MVP (Model - View - Presenter) là một mẫu thiết kế thuộc nhóm Behavioral, phổ biến trong lập trình giao diện người dùng (UI) và phát triển ứng dụng. MVP tách biệt các thành phần của ứng dụng thành ba phần chính: Model, View, và Presenter. Cấu trúc này giúp dễ dàng quản lý, kiểm thử, và bảo trì mã nguồn.
+
+-Model: Chứa logic liên quan đến dữ liệu của ứng dụng, bao gồm các đối tượng, cơ sở dữ liệu, và giao tiếp với các API khác.
+ 
+-View: Hiển thị giao diện (Interface) và nhận tương tác từ người dùng (như nhập liệu, bấm nút). 
+
+-Presenter: Là cầu nối giữa Model và View, chịu trách nhiệm xử lý logic, điều phối dữ liệu từ Model đến View và ngược lại.
+
+Đặc điểm của MVP Pattern:
+Tách biệt logic và giao diện: Presenter chứa logic của ứng dụng, giúp View chỉ tập trung vào hiển thị.
+Presenter không biết đến giao diện cụ thể: Presenter chỉ tương tác với View thông qua một interface, giúp việc kiểm thử và thay đổi giao diện trở nên dễ dàng.
+Thích hợp cho ứng dụng có giao diện phức tạp: MVP rất hữu ích khi giao diện cần tương tác với nhiều dữ liệu và các thành phần phức tạp.
+
+Luồng hoạt động của MVP Pattern:
+Người dùng tương tác với giao diện người dùng (View).
+View chuyển sự kiện này cho Presenter.
+Presenter xử lý yêu cầu bằng cách lấy dữ liệu từ Model.
+Model xử lý dữ liệu và trả về kết quả cho Presenter.
+Presenter tiếp tục cập nhật View với dữ liệu đã xử lý từ Model.
+
+
+```c++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class SinhVienModel
+{
+private:
+    string name;
+    int age;
+    string studentId;
+
+public:
+    SinhVienModel(const string &name, int age, const string &studentId) : name(name), age(age), studentId(studentId) {}
+
+    // setter method
+    void setName(const string &newName)
+    {
+        name = newName;
+    }
+
+    void setAge(int newAge)
+    {
+        age = newAge;
+    }
+
+    void setStudentId(const string &newStudentId)
+    {
+        studentId = newStudentId;
+    }
+
+    // getter method
+    string getName() const
+    {
+        return name;
+    }
+
+    int getAge() const
+    {
+        return age;
+    }
+
+    string getStudentId() const
+    {
+        return studentId;
+    }
+};
+
+class SinhVienView
+{
+public:
+    void displayStudentInfo(const string &name, int age, const string &studentId)
+    {
+        cout << "Thông tin sinh viên:" << endl;
+        cout << "Tên: " << name << endl;
+        cout << "Tuổi: " << age << endl;
+        cout << "Mã số sinh viên: " << studentId << endl;
+    }
+
+    void inputStudentInfo(string &name, int &age, string &studentId)
+    {
+        cout << "Nhập thông tin sinh viên:" << endl;
+
+        cout << "Tên: ";
+        getline(cin, name);
+
+        cout << "Tuổi: ";
+        cin >> age;
+        cin.ignore(); // Bỏ qua ký tự newline trong buffer
+
+        cout << "Mã số sinh viên: ";
+        getline(cin, studentId);
+    }
+};
+
+class SinhVienPresenter
+{
+private:
+    SinhVienModel &model;
+    SinhVienView &view;
+
+public:
+    SinhVienPresenter(SinhVienModel &m, SinhVienView &v) : model(m), view(v) {}
+
+    void updateStudentInfo()
+    {
+        string name;
+        int age;
+        string studentId;
+
+        view.inputStudentInfo(name, age, studentId);
+        model.setName(name);
+        model.setAge(age);
+        model.setStudentId(studentId);
+    }
+
+    void showStudentInfo()
+    {
+        view.displayStudentInfo(model.getName(), model.getAge(), model.getStudentId());
+    }
+};
+
+int main()
+{
+    // Tạo model, view và presenter
+    SinhVienModel model("Tuấn", 20, "HTN123");
+    SinhVienView view;
+    SinhVienPresenter presenter(model, view);
+
+    int choice;
+    do
+    {
+        cout << "\n1. Hiển thị thông tin sinh viên" << std::endl;
+        cout << "2. Cập nhật thông tin sinh viên" << std::endl;
+        cout << "3. Thoát" << std::endl;
+        cout << "Nhập lựa chọn: ";
+        cin >> choice;
+        cin.ignore(); // Bỏ qua ký tự newline trong buffer
+
+        switch (choice)
+        {
+        case 1:
+            presenter.showStudentInfo();
+            break;
+
+        case 2:
+            presenter.updateStudentInfo();
+            break;
+
+        case 3:
+            cout << "Thoát chương trình." << endl;
+            break;
+
+        default:
+            cout << "Lựa chọn không hợp lệ!" << endl;
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
+```
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+class ClimateControlModel
+{
+private:
+    int temperature; // Nhiệt độ hiện tại trong xe
+    bool isAirOn;    // Trạng thái của điều hòa (bật/tắt)
+
+public:
+    ClimateControlModel(int temp = 24, bool air = true) : temperature(temp), isAirOn(air) {}
+
+    int getTemperature() const
+    {
+        return temperature;
+    }
+
+    bool getAirStatus() const
+    {
+        return isAirOn;
+    }
+
+    void setTemperature(int newTemperature)
+    {
+        temperature = newTemperature;
+    }
+
+    void setAirStatus(bool status)
+    {
+        isAirOn = status;
+    }
+};
+
+class ClimateControlView
+{
+public:
+    void displayCurrentSettings(int temperature, bool isAirOn)
+    {
+        cout << "---- Thông tin điều hòa xe hơi ----" << endl;
+        cout << "Nhiệt độ hiện tại: " << temperature << "°C" << endl;
+        cout << "Trạng thái điều hòa: " << (isAirOn ? "Bật" : "Tắt") << endl;
+    }
+
+    int getUserTemperatureInput()
+    {
+        int temp;
+        cout << "Nhập nhiệt độ mong muốn: ";
+        cin >> temp;
+        return temp;
+    }
+
+    bool getUserAirStatusInput()
+    {
+        int choice;
+        cout << "Bật/Tắt điều hòa (1: Bật, 0: Tắt): ";
+        cin >> choice;
+        return (choice == 1);
+    }
+};
+
+class ClimateControlPresenter
+{
+private:
+    ClimateControlModel &model;
+    ClimateControlView &view;
+
+public:
+    ClimateControlPresenter(ClimateControlModel &m, ClimateControlView &v) : model(m), view(v) {}
+
+    void showCurrentSettings()
+    {
+        view.displayCurrentSettings(model.getTemperature(), model.getAirStatus());
+    }
+
+    void updateTemperature()
+    {
+        int newTemperature = view.getUserTemperatureInput();
+        model.setTemperature(newTemperature);
+    }
+
+    void updateAirStatus()
+    {
+        bool newAirStatus = view.getUserAirStatusInput();
+        model.setAirStatus(newAirStatus);
+    }
+};
+
+int main()
+{
+    ClimateControlModel model;
+    ClimateControlView view;
+    ClimateControlPresenter presenter(model, view);
+
+    int choice;
+    do
+    {
+        cout << "\n1. Hiển thị thông tin điều hòa" << endl;
+        cout << "2. Điều chỉnh nhiệt độ" << endl;
+        cout << "3. Bật/Tắt điều hòa" << endl;
+        cout << "4. Thoát" << endl;
+        cout << "Nhập lựa chọn: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            presenter.showCurrentSettings();
+            break;
+
+        case 2:
+            presenter.updateTemperature();
+            break;
+
+        case 3:
+            presenter.updateAirStatus();
+            break;
+
+        case 4:
+            cout << "Thoát chương trình." << endl;
+            break;
+
+        default:
+            cout << "Lựa chọn không hợp lệ!" << endl;
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+```
 </p>
 </details>
 
-# BÀI 23: SMART POINTERS
+# LESSON 22: SMART POINTERS
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -4390,94 +4908,102 @@ Là con trỏ sở hữu duy nhất một đối tượng. Không con trỏ nào
 Sau khi giải phóng vùng nhớ mà nó đang quản lý thì vùng nhớ đó có thể truy cập bình thường.
 
 **Class mô phỏng lại cách hoạt động của unique pointer**:
-```C++
+```c++
 #include <iostream>
 
 using namespace std;
 
 template <typename T>
-class UniquePointer{
-    private:
-        T *ptr; // con trỏ quản lý bộ nhớ
+class UniquePointer
+{
+private:
+    T *ptr; // con trỏ quản lý bộ nhớ
 
-    public:
-        // constructor nhận vào 1 con trỏ thô
-        UniquePointer(T *p = nullptr): ptr(p){}
+public:
+    // constructor nhận vào 1 con trỏ thô
+    UniquePointer(T *p = nullptr) : ptr(p) {}
 
-        // destructor: giải phóng bộ nhớ khi đối tượng bị hủy
-        ~UniquePointer(){
-            if (ptr){
-                delete ptr;
-            }
+    // destructor: giải phóng bộ nhớ khi đối tượng bị hủy
+    ~UniquePointer()
+    {
+        if (ptr)
+        {
+            delete ptr;
         }
-        /*
-         * địa chỉ uptr: 0xf4 - stack
-         * 
-         */
+    }
+    /*
+     * địa chỉ uptr: 0xf4 - stack
+     *
+     */
 
-        // xóa bỏ khả năng copy để đảm bảo chỉ có 1 pointer sở hữu object
-        UniquePointer(const UniquePointer&) = delete;
-        UniquePointer& operator = (const UniquePointer&) = delete;
+    // xóa bỏ khả năng copy để đảm bảo chỉ có 1 pointer sở hữu object
+    UniquePointer(const UniquePointer &) = delete;
+    UniquePointer &operator=(const UniquePointer &) = delete;
 
+    // toán tử dereference (*) để truy cập giá trị, trả về địa chỉ của pointer
+    T &operator*() const
+    {
+        return *ptr;
+    }
 
-        // toán tử dereference (*) để truy cập giá trị, trả về địa chỉ của pointer
-        T& operator * () const{
-            return *ptr;
+    // toán tử -> để truy cập thành viên của con trỏ
+    T *operator->() const
+    {
+        return ptr;
+    }
+
+    // trả về con trỏ thô bên trong (nếu cần)
+    T *get() const
+    {
+        return ptr;
+    }
+
+    // giải phóng quyền sở hữu và trả về con trỏ thô, không xóa đối tượng
+    T *release()
+    {
+        T *temp = ptr;
+        ptr = nullptr;
+        return temp;
+    }
+
+    // thay thế con trỏ hiện tại bằng 1 con trỏ mới
+    void reset(T *p = nullptr)
+    {
+        if (ptr)
+        {
+            delete ptr;
         }
-
-        // toán tử -> để truy cập thành viên của con trỏ
-        T* operator -> () const{
-            return ptr;
-        }
-
-        // trả về con trỏ thô bên trong (nếu cần)
-        T* get() const{
-            return ptr;
-        }
-
-        // giải phóng quyền sở hữu và trả về con trỏ thô, không xóa đối tượng
-        T* release(){
-            T* temp = ptr;
-            ptr = nullptr;
-            return temp;
-        }
-
-        // thay thế con trỏ hiện tại bằng 1 con trỏ mới
-        void reset(T* p = nullptr){
-            if (ptr){
-                delete ptr;
-            }
-            ptr = p;
-        }
+        ptr = p;
+    }
 };
 ```
 **Thao tác với unique pointer**:
 
  - Khởi tạo một unique pointer trỏ đến một vùng nhớ, và truyền vào tham số cho constructor 10
 
-```C++
-int main(int argc, char const *argv[])
+```c++
+int main()
 {
-    // 
+    //
     UniquePointer<int> uPtr(new int(10));
 
     // Sử dụng toán tử * truy cập và in giá trị
     cout << "value: " << *uPtr << endl;
 
     // Hàm get() trả về địa chỉ con trỏ thô ptr bên trong class
-    int* rawPtr = uPtr.get();
+    int *rawPtr = uPtr.get();
     cout << "giá trị con trỏ thô: " << *rawPtr << endl;
 
     // Hàm release() giải phóng quyền sở hữu của, trả về con trỏ thô mà không xóa đối tượng
-    int* rawPtr1 = uPtr.release();
-    delete rawPtr1;    // user tự giải phóng
+    int *rawPtr1 = uPtr.release();
+    delete rawPtr1; // user tự giải phóng
 
     // Hàm reset() sẽ giải phóng đối tượng hiện tại và bắt đầu quản lý đối tượng mới mà truyền vào.
-    uPtr.reset(new int(20));    // 0xa1: 20
+    uPtr.reset(new int(20)); // 0xa1: 20
     cout << "new value: " << *uPtr << endl;
 
     // Nếu không có giá trị mới truyền vào thì giải phóng đối tượng hiện tại và gán nó là nullptr
-    uPtr.reset();   // nulptr
+    uPtr.reset(); // nulptr
 
     return 0;
 }
@@ -4485,7 +5011,7 @@ int main(int argc, char const *argv[])
 </p>
 </details>
 
-# BÀI 23: SMART POINTERS (thư viện memory)
+# LESSON 23: SMART POINTERS (thư viện memory)
 <details><summary>Chi tiết</summary>
 <p>
 
