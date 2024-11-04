@@ -1949,10 +1949,9 @@ bool empty(node* array) {
 <p>
 
 ## 1. Stack
-<details><summary>Chi tiết</summary>
-<p>
 
 ## Khái niệm
+
 Stack (ngăn xếp) là một cấu trúc dữ liệu hoạt động theo nguyên tắc LIFO (Last In, First Out), tức là phần tử được thêm vào sau cùng sẽ được lấy ra đầu tiên.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ff1ed8f0-1567-4264-86fc-458bc7c80420" width="200">	
@@ -1960,6 +1959,7 @@ Stack (ngăn xếp) là một cấu trúc dữ liệu hoạt động theo nguyê
 
 ## Các thao tác trên stack
 ### Push
+
 Push trong stack dùng để thêm một phần tử mới vào đỉnh của stack.
 
 Stack đầy khi chỉ số của phần tử đỉnh top bằng kích thước của stack trừ đi 1 (top == size - 1).
@@ -2010,7 +2010,9 @@ int main() {
     return 0;
 }
 ```
+
 ### Pop
+
 Pop trong stack dùng để xóa một phần tử ở đỉnh của stack. 
 
 Khi stack không có phần tử nào thì không thể dùng pop.
@@ -2066,7 +2068,9 @@ int main() {
     return 0;
 }
 ```
+
 ### Top
+
 Top trong stack dùng để lấy giá trị của phần tử ở đỉnh.
 
 Khi stack không có phần tử nào (tức là stack rỗng), giá trị của top thường sẽ là -1.
@@ -2126,14 +2130,10 @@ int main() {
 }
 ```
 
-</p>
-</details>
-
 ## 2. Queue
-<details><summary>Chi tiết</summary>
-<p>
 
 ## Khái niệm
+
 Queue là một cấu trúc dữ liệu tuân theo nguyên tắc "First In, First Out" (FIFO), nghĩa là phần tử đầu tiên được thêm vào hàng đợi sẽ là phần tử đầu tiên được lấy ra. 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/22122325-0c9c-4fa2-892e-440d462ad60e" width="200">	
@@ -2160,6 +2160,7 @@ Nếu hàng đợi đầy, rear sẽ quay vòng theo cơ chế vòng tròn (circ
 
 ## Các thao tác trên stack
 ### Enqueue
+
 Enqueue trong hàng chờ queue được sử dụng để thêm một phần tử vào cuối hàng chờ.
 
 Chỉ có thể thực hiện enqueue khi hàng đợi không đầy.
@@ -2220,6 +2221,7 @@ int main() {
     return 0;
 }
 ```
+
 ### Dequeue
 Dequeue trong hàng chờ queue dùng để lấy phần tử từ đầu hàng chờ ra.
 
@@ -2287,7 +2289,9 @@ int main() {
     return 0;
 }
 ```
+
 ### Front
+
 Front để lấy giá trị phần tử ở đầu hàng đợi mà không xóa nó.
 
 **Ví dụ 6:**
@@ -2343,8 +2347,7 @@ int main() {
     return 0;
 }
 ```
-</p>
-</details>
+
 </p>
 </details>
 
