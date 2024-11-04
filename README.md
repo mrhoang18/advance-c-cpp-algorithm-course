@@ -1391,6 +1391,7 @@ Hay còn gọi là phân vùng Initialized Data Segment (Dữ liệu Đã Khởi
  - Giá trị của hằng số (const), giá trị của con trỏ kiểu char.
   
 Đối với - thứ 1: quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
+
 Đối với - thứ 2: quyền truy cập là chỉ được đọc.
 
 Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
@@ -1420,9 +1421,9 @@ int main(int argc, char const *argv[]){
 }
 ```
 ## 3. Bss segment
+
 Hay còn gọi là phân vùng Uninitialized Data Segment (Dữ liệu Chưa Khởi Tạo):
- - Biến toàn cục khởi tạo với giá trị bằng 0 hoặc không gán giá trị.
- - Biến static với giá trị khởi tạo bằng 0 hoặc không gán giá trị.
+ - Biến toàn cục và biến static khởi tạo với giá trị bằng 0 hoặc không gán giá trị.
    
 Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
 
@@ -1461,10 +1462,11 @@ int main() {
 }
 ```
 ## 4. Stack
+
 Phân vùng này chứa:
  - Các biến cục bộ, tham số truyền vào.
    
-Quyền truy cập là đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
+Quyền truy cập là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
 
 Sau khi ra khỏi hàm, sẽ thu hồi vùng nhớ.
 
@@ -1503,9 +1505,10 @@ int main() {
 }
 ```
 ## 5. Heap
-Heap được sử dụng để **cấp phát bộ nhớ động** trong quá trình thực thi của chương trình.
 
-Quyền truy cập: có quyền đọc và ghi, nghĩa là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
+Heap được sử dụng để cấp phát bộ nhớ động trong quá trình thực thi của chương trình.
+
+Quyền truy cập là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
 
 Nếu liên tục cấp phát vùng nhớ mà không giải phóng thì sẽ bị lỗi tràn vùng nhớ Heap (Heap overflow).
 
@@ -1519,13 +1522,10 @@ int *A = (int *)malloc(18446744073709551615);
 Các hàm như `malloc()`, `calloc()`, `realloc()`, và `free()` được sử dụng để cấp phát và giải phóng bộ nhớ trên heap.
 
 ### Hàm `malloc()`
+
 Cấp phát một vùng nhớ có kích thước được xác định bằng số byte và trả về một con trỏ đến vùng nhớ này. 
 
-Vùng nhớ được cấp phát nhưng không được khởi tạo (nội dung là ngẫu nhiên).
-
-Tại sao gọi là ngẫu nhiên vì nó có thể chứa các giá trị rác từ trước đó, lập trình viên cần tự khởi tạo giá trị cho vùng nhớ sau khi cấp phát.
-
-**Đây là điểm khác biệt so với calloc!**
+Vùng nhớ được cấp phát nhưng không được khởi tạo (nội dung là ngẫu nhiên). Vì thế nên nó có thể chứa các giá trị rác từ trước đó, cần tự khởi tạo giá trị cho vùng nhớ sau khi cấp phát.
 
 **Ví dụ:**
 ```c
@@ -1571,7 +1571,8 @@ Giải thích tại sao lại có kết quả như vậy, lấy phần tử `ptr
  - Byte 4: 0b00000000 (0).
 
 ### Hàm `calloc()`
-Cấp phát bộ nhớ cho một mảng gồm nhiều phần tử, **khởi tạo tất cả các phần tử của mảng với giá trị 0**, và trả về một con trỏ đến vùng nhớ này.
+
+Cấp phát bộ nhớ cho một mảng gồm nhiều phần tử, khởi tạo tất cả các phần tử của mảng với giá trị 0, và trả về một con trỏ đến vùng nhớ này.
 
 **Ví dụ:**
 ```c
@@ -1605,17 +1606,20 @@ int main() {
 > Địa chỉ: 00000241654EE9DA, giá trị: 0
 ```
 ### Hàm `realloc()`
-Thay đổi kích thước của vùng nhớ đã được cấp phát trước đó bằng malloc hoặc calloc, và trả về một con trỏ đến vùng nhớ mới (nội dung của vùng nhớ có thể thay đổi).
+
+Thay đổi kích thước của vùng nhớ đã cấp phát trước đó bằng malloc hoặc calloc, và trả về một con trỏ đến vùng nhớ mới (địa chỉ có thể thay đổi). Phần bộ nhớ mới được cấp phát **thêm** không được khởi tạo và có thể chứa giá trị rác.
 
 ```c
 uint16_t *ptr = NULL;
-ptr = (uint16_t*)malloc(sizeof(uint16_t)*4); 		//0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08
+// Cấp phát bộ nhớ cho 4 phần tử uint16_t (tổng cộng 8 byte)
+ptr = (uint16_t*)malloc(sizeof(uint16_t)*4);
 
-//Cấp phát thêm 4 byte nữa
-ptr = (uint16_t*)realloc(ptr, sizeof(uint16_t)*6); 	//0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 0x09 0x0A 0x0B 0x0C
+// Cấp phát thêm bộ nhớ cho 6 phần tử uint16_t (tổng cộng 12 byte)
+ptr = (uint16_t*)realloc(ptr, sizeof(uint16_t)*6);
 ```
 
 ### Hàm `free()`
+
 Giải phóng bộ nhớ đã được cấp phát trước đó bằng `malloc`, `calloc`, hoặc `realloc`.
 ```c
 free(ptr);
