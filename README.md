@@ -1633,9 +1633,7 @@ free(ptr);
 <p>
 	
 ## 1. Khái niệm
-<details><summary>Chi tiết</summary>
-<p>
-	
+
 Linked List là một cấu trúc dữ liệu bao gồm một chuỗi các node (nút), mỗi nút chứa hai thành phần chính:
 - Dữ liệu (data): Đây là giá trị được lưu trữ trong nút.
 - Con trỏ (pointer): Đây là tham chiếu (địa chỉ) đến nút tiếp theo trong danh sách.
@@ -1652,14 +1650,11 @@ typedef struct Node {
     struct Node* next;  // Con trỏ trỏ đến node tiếp theo
 } Node_t;
 ```
-</p>
-</details>
 
 ## 2. Thao tác trên danh sách liên kết
-<details><summary>Chi tiết</summary>
-<p>
-	
-### Khởi tạo một node mới 
+
+### Khởi tạo một node mới
+
 ```c
 // Hàm khởi tạo một node mới
 Node* create_node(int value) {
@@ -1675,6 +1670,7 @@ Node* create_node(int value) {
 ```
 
 ### Thêm một node vào vị trí cuối cùng
+
 ```c
 // Hàm khởi tạo một node mới
 Node* create_node(int value) {...}
@@ -1700,7 +1696,9 @@ void push_back(node** array, int value) {
     temp->next = new_node;
 }
 ```
+
 ### Thêm một node vào vị trí đầu tiên
+
 ```c
 // Hàm khởi tạo một node mới
 Node* create_node(int value) {...}
@@ -1718,7 +1716,9 @@ void push_front(node** array, int value) {
 }
 
 ```
+
 ### Thêm một node vào vị trí bất kì
+
 ```c
 // Hàm tạo node mới
 node* create_node(int value) {...}
@@ -1755,6 +1755,7 @@ void insert(node** array, int value, int pos) {
 ```
 
 ### Xóa node ở vị trí cuối cùng
+
 ```c
 // Hàm xóa node cuối cùng trong danh sách
 void pop_back(node** array) {
@@ -1784,6 +1785,7 @@ void pop_back(node** array) {
 ```
 
 ### Xóa node ở vị trí đầu tiên
+
 ```c
 // Hàm xóa node đầu tiên trong danh sách
 void pop_front(node** array) {
@@ -1805,6 +1807,7 @@ void pop_front(node** array) {
 ```
 
 ### Xóa một node tại vị trí bất kì
+
 ```c
 // Hàm xóa node tại vị trí `pos` trong danh sách
 void delete_list(node** array, int pos) {
@@ -1843,6 +1846,7 @@ void delete_list(node** array, int pos) {
 ```
 
 ### Lấy giá trị của node cuối cùng
+
 ```c
 // Hàm lấy giá trị của node cuối cùng trong danh sách
 int back(node* array) {
@@ -1864,6 +1868,7 @@ int back(node* array) {
 ```
 
 ### Lấy giá trị của node đầu tiên
+
 ```c
 // Hàm lấy giá trị của node đầu tiên trong danh sách
 int front(node* array) {
@@ -1879,6 +1884,7 @@ int front(node* array) {
 ```
 
 ### Lấy giá trị tại vị trí bất kì
+
 ```c
 // Hàm lấy giá trị của node tại vị trí `pos`
 int get(node* array, int pos) {
@@ -1909,6 +1915,7 @@ int get(node* array, int pos) {
 ```
 
 ### Lấy kích thước của list
+
 ```c
 // Hàm tính kích thước của danh sách liên kết
 int size(node* array) {
@@ -1926,15 +1933,13 @@ int size(node* array) {
 ```
 
 ### Kiểm tra list có rỗng hay không
+
 ```c
 // Hàm kiểm tra xem danh sách có rỗng hay không
 bool empty(node* array) {
     return (array == NULL);
 }
 ```
-
-</p>
-</details>
 
 </p>
 </details>
