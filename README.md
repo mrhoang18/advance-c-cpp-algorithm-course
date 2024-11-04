@@ -140,7 +140,7 @@ return 0;
 }
 ```
 
-Ưu điểm của macro function so với function là tối ưu về tốc độ, nhưng không tối ưu về bộ nhớ RAM. Cụ thể:
+Ưu điểm của macro function so với function là tối ưu về tốc độ, nhưng không tối ưu về bộ nhớ. Cụ thể:
 
  -Khi function được gọi trong main(), Program Counter phải lưu địa chỉ hiện tại vào Stack Pointer, sau đó nhảy đến địa chỉ vùng nhớ chứa function. Quá trình này có thể làm giảm hiệu suất nếu gọi function nhiều lần.
 
@@ -5011,7 +5011,7 @@ int main()
 </p>
 </details>
 
-# LESSON 23: SMART POINTERS (thư viện memory)
+# LESSON 23: SMART POINTERS (memory library)
 <details><summary>Chi tiết</summary>
 <p>
 
@@ -5239,5 +5239,21 @@ int main() {
 Nó không quản lý quyền sở hữu đối tượng mà chỉ giữ tham chiếu yếu (weak reference) đến đối tượng được quản lý bởi một hoặc nhiều shared_ptr. 
 
 
+</p>
+</details>
+
+# LESSON 24: MULTITHREADING
+<details><summary>Chi tiết</summary>
+<p>
+
+## Khái niệm multithreading
+
+## Hàm `join()`
+
+## Hàm `detach()`
+
+## Hàm `joinable()
+
+`
 </p>
 </details>
