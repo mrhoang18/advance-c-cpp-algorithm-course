@@ -2434,8 +2434,8 @@ Tham số truyền vào `access_mod` là quyền sử dụng file:
 
 ### Ghi file
 
-
 ### Một số hàm khác
+
 ## 3. Code standards
 
 </p>
@@ -2446,6 +2446,7 @@ Tham số truyền vào `access_mod` là quyền sử dụng file:
 <p>
 
 ## 1. Thread
+
 Thread (luồng) là đơn vị thực thi nhỏ nhất của một tiến trình. Mỗi tiến trình có thể chứa nhiều thread, và các thread này chạy song song với nhau.
 
 Các thread trong cùng tiến trình chia sẻ tài nguyên với nhau nhưng sẽ có stack và bộ đếm chương trình riêng biệt.
@@ -2477,9 +2478,6 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
 
 `void *arg`: Tham số sẽ được truyền vào hàm `start_routine`. Tham số này thường được sử dụng để truyền dữ liệu cho thread. Nếu không cần tham số, có thể truyền `NULL`.   
 
-
-
-
 </p>
 </details>
 
@@ -2495,7 +2493,7 @@ Trong C++, từ khóa "class" được sử dụng để định nghĩa một l�
 
 ### Access specifier (Phạm vi truy cập)
 
-Các từ khóa như `private`, `public`, và `protected` được gọi chung là access specifiers hay phạm vi truy cập.
+Các từ khóa như `private`, `public`, và `protected` được gọi chung là phạm vi truy cập.
 
 Phạm vi truy cập xác định quyền truy cập của các thành viên trong một class:
 
@@ -2788,6 +2786,7 @@ int main(int argc, char const *argv[]) {
 <p>
 
 ## 1. Tính đóng gói (Encapsulation)
+
 Tính đóng gói là ẩn đi các property “mật” khỏi người dùng. 
 
 Và để làm được điều này, ta sẽ khai báo các property ở quyền truy cập private (tức là không thể truy cập trực tiếp tới các property này). 
@@ -2801,6 +2800,7 @@ class SinhVien{
         int id;
 };
 ```
+
 Trong trường hợp muốn đọc hoặc ghi các property này, thì ta truy cập gián tiếp bằng các method ở quyền truy cập public.
 
 Bài trước đã học method đặc biệt để làm việc với property là Contructor và Destructor, bài này có thêm method đặc biệt Setter và Getter.
@@ -2863,6 +2863,7 @@ int main(int argc, char const *argv[])
 }
 ```
 ## 2. Tính kế thừa (Inheritance)
+
 Tính kế thừa là khả năng sử dụng lại các property và method của một class trong một class khác. 
 
 Trong tính kế thừa, ta chia làm hai loại class: class cha (base class) và class con (subclass hay derived class). 
@@ -2872,6 +2873,7 @@ Trong tính kế thừa, ta chia làm hai loại class: class cha (base class) v
 Có 3 kiểu kế thừa là public, private và protected. Những property và method được kế thừa từ class cha sẽ nằm ở quyền truy cập của class con tương ứng với kiểu kế thừa.
 
 ### Kế thừa public
+
 - Các member public của class cha vẫn sẽ là public trong class con.
 
 - Các member protected của class cha vẫn sẽ là protected trong class con.
@@ -2925,6 +2927,7 @@ int main() {
 }
 ```
 ### Kế thừa private
+
 - Các member public, protected của class cha sẽ trở thành private trong class con.
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
@@ -2932,11 +2935,13 @@ int main() {
 **Không cần ví dụ thêm vì logic cũng như ví dụ trên.**
 
 ### Kế thừa protected
+
 - Các member public, protected của class cha sẽ là protected trong class con.
 
 - Các member private của class cha không thể truy cập trực tiếp từ class con nhưng có thể được truy cập gián tiếp qua các phương thức public hoặc protected của class cha.
 
 **Không cần ví dụ thêm vì logic cũng như ví dụ trên.**
+
 ### Ghi đè hàm (Function overriding)
 
 Điều này xảy ra khi một class con định nghĩa lại một method đã được định nghĩa trong class cha.
@@ -2976,6 +2981,7 @@ int main() {
 Tính đa hình có nghĩa là "nhiều dạng" và nó xảy ra khi chúng ta có nhiều class có liên quan với nhau thông qua tính kế thừa.
 
 Tính đa hình chủ yếu được chia thành hai loại:
+
 <p align="center">
   <img src="image-1.png" alt="alt text" width="450">
 </p>
@@ -4019,7 +4025,7 @@ Một số thành phần nâng cao hơn sẽ được nói ở bài STL.
 # LESSON 19: STANDARD TEMPLATE LIBRARY
 <details><summary>Chi tiết</summary>
 <p>
-Standard Template Library ( STL) là một thư viện trong ngôn ngữ lập trình C++ cung cấp một tập hợp các template classes và functions để thực hiện nhiều loại cấu trúc dữ liệu và các thuật toán phổ biến.
+Standard Template Library (STL) là một thư viện trong ngôn ngữ lập trình C++ cung cấp một tập hợp các template classes và functions để thực hiện nhiều loại cấu trúc dữ liệu và các thuật toán phổ biến.
 
 Một số thành phần chính của STL:
 Container
