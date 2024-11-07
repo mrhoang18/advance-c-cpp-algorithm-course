@@ -1132,7 +1132,7 @@ uint8_t shifted_value = value >> 2;  // Dịch phải 2 bit
 
 ## Bit field
 
-Bit fields là chỉ định các thành viên trong struct chiếm số lượng bit cụ thể bằng dấu `:`. 
+Bit fields là kỹ thuật chỉ định các thành viên trong struct chiếm số lượng bit cụ thể bằng dấu `:`. 
 
 Các biến thành viên này thường chỉ cần biểu thị trạng thái cờ on/off là đủ.
 
