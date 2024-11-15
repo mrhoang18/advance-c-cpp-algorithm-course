@@ -1374,27 +1374,33 @@ int main(int argc, char const *argv[]){
 # LESSON 8: MEMORY LAYOUT
 <details><summary>Chi tiết</summary>
 <p>
-Chương trình main.exe (trên window), main.hex (nạp vào vi điều khiển) được lưu ở bộ nhớ SSD (ROM) hoặc FLASH. Khi nhấn run chương trình trên window (cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
+
+Chương trình.exe/.hex (nạp vào máy tính/vi điều khiển) được lưu ở bộ nhớ SSD (ROM) hoặc FLASH. Khi nhấn run chương trình trên window (hoặc cấp nguồn cho vi điều khiển) thì những chương trình này sẽ được copy vào bộ nhớ RAM để thực thi.
 
 Chương trình C/C++ được tổ chức lưu trong memory layout (phân vùng nhớ) thành các phần như sau:
 
 ## 1. Text segment
-Phân vùng này chứa:
- - Mã máy (mã máy là tập hợp các lệnh thực thi).
 
-Quyền truy cập thường chỉ có quyền đọc và thực thi, nhưng không có quyền ghi.
+Text segment: chứa mã máy. Quyền truy cập là chỉ đọc và thực thi.
 
-Tất cả các biến lưu ở phần vùng Text đều không thể thay đổi giá trị mà chỉ được đọc.
+## 2. Data segment - Initialized Data Segment
+  
+Read-Only Data Segment: Chứa biến `const` toàn cục, biến `static const`, và nội dung của chuỗi hằng. Quyền truy cập là chỉ đọc.
+  
+Initialized Data Segment: Chứa biến toàn cục và `static` (`static global` và `static local`) được khởi tạo với giá trị khác 0. Quyền truy cập là đọc và ghi.
 
-**Ví dụ:**
+Tất cả các chúng sẽ được thu hồi sau khi chương trình kết thúc.
+
+**Ví dụ 1:**
 ```c
 #include <stdio.h>
 
-const int a = 10;			//Hằng số
-char *arr1 = "Hello";			//Con trỏ kiểu char
+const int a = 10;			    // Hằng số
+char *arr1 = "Hello";			// Con trỏ kiểu char
 
-int main() {
-    //a=10;             		//Không được phép thay đổi->Bị lỗi
+int main() 
+{
+    //a=10;             		// Không được phép thay đổi->Bị lỗi
     //arr1[3] = 'E';
 
     printf("a: %d\n", a);
@@ -1403,34 +1409,27 @@ int main() {
     return 0;
 }
 ```
-## 2. Data segment
-Hay còn gọi là phân vùng Initialized Data Segment (Dữ liệu Đã Khởi Tạo), chứa:
- - Biến toàn cục và biến static (static global, static local) được khởi tạo với giá trị khác 0.
- - Giá trị của hằng số (const), giá trị của con trỏ kiểu char.
-  
-Đối với - thứ 1: quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
 
-Đối với - thứ 2: quyền truy cập là chỉ được đọc.
-
-Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
-
-**Ví dụ:**
+**Ví dụ 2:**
 ```c
 #include <stdio.h>
 
-int a = 10;			//Biến toàn cục khởi tạo khác 0
-double d = 20.5;		//Biến toàn cục khởi tạo khác 0
+int a = 10;			        // Biến toàn cục khởi tạo khác 0
+double d = 20.5;		    // Biến toàn cục khởi tạo khác 0
 
-static int var = 5;		//Biến static toàn cục khởi tạo khác 0
+static int var = 5;		    // Biến static toàn cục khởi tạo khác 0
 
-void test(){
-    static int local = 10;	//Biến static cục bộ khởi tạo khác 0
+void test()
+{
+    static int local = 10;	// Biến static cục bộ khởi tạo khác 0
 }
 
-int main(int argc, char const *argv[]){  
-    a = 15;			//Có thể đọc và thay đổi giá trị của biến
+int main()
+{  
+    a = 15;			// Có thể đọc và thay đổi giá trị của biến
     d = 25.7;
     var = 12;
+
     printf("a: %d\n", a);
     printf("d: %f\n", d);
     printf("var: %d\n", var);
@@ -1438,12 +1437,10 @@ int main(int argc, char const *argv[]){
     return 0;
 }
 ```
-## 3. Bss segment
 
-Hay còn gọi là phân vùng Uninitialized Data Segment (Dữ liệu Chưa Khởi Tạo):
- - Biến toàn cục và biến static khởi tạo với giá trị bằng 0 hoặc không gán giá trị.
-   
-Quyền truy cập là đọc và ghi, tức là có thể đọc và thay đổi giá trị của biến.
+## 3. Bss segment - Uninitialized Data Segment
+
+Uninitialized Data Segment: Chứa biến toàn cục và `static` chưa khởi tạo hoặc khởi tạo bằng 0. Quyền truy cập là đọc và ghi.
 
 Tất cả các biến sẽ được thu hồi sau khi chương trình kết thúc.
 
@@ -1451,27 +1448,27 @@ Tất cả các biến sẽ được thu hồi sau khi chương trình kết th�
 ```c
 #include <stdio.h>
 
-typedef struct 			//Lưu ý: Đây là kiểu dữ liệu,
-{				//nó không nằm bất kì trong phân vùng nào!	
+typedef struct 			// Đây là kiểu dữ liệu,
+{				        // Không nằm bất kì trong phân vùng nào!	
     int x;
     int y;
 } Point_Data;
 
-int a = 0;			//Biến toàn cục khởi tạo bằng 0
-int b;				//Biến toàn cục ko khởi tạo
+int a = 0;			// Biến toàn cục khởi tạo bằng 0
+int b;				// Biến toàn cục ko khởi tạo
 
-static int global = 0;		//Biến static toàn cục khởi tạo bằng 0
-static int global_2;		//Biến static toàn cục ko khởi tạo
+static int global = 0;		// Biến static toàn cục khởi tạo bằng 0
+static int global_2;		// Biến static toàn cục ko khởi tạo
 
-static Point_Data p1 = {5,7};	//Lưu ý: biến p1 này đã khởi tạo có giá trị nên nằm ở DS
+static Point_Data p1 = {5,7};	// Biến p1 này đã khởi tạo có giá trị nên nằm ở DS
 
 void test(){
-    static int local = 0;	//Biến static cục bộ khởi tạo bằng 0
-    static int local_2;		//Biến static cục bộ ko khởi tạo
+    static int local = 0;	// Biến static cục bộ khởi tạo bằng 0
+    static int local_2;		// Biến static cục bộ ko khởi tạo
 }
 
 int main() {
-    global = 0;			//Lưu ý: dù thay đổi giá trị nó vẫn nằm ở BSS
+    global = 0;			// Dù thay đổi giá trị nó vẫn nằm ở BSS
 
     printf("a: %d\n", a);
     printf("global: %d\n", global);
@@ -1479,17 +1476,14 @@ int main() {
     return 0;
 }
 ```
-## 4. Stack
 
-Phân vùng này chứa:
- - Các biến cục bộ, tham số truyền vào.
-   
-Quyền truy cập là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
+## 4. Stack 
 
-Sau khi ra khỏi hàm, sẽ thu hồi vùng nhớ.
+Stack: Chứa biến cục bộ và tham số truyền vào. Sau khi ra khỏi hàm, sẽ thu hồi vùng nhớ.
+
+Quyền truy cập là có thể đọc và ghi.
 
 LIFO(Last In Fist Out).
-
 
 **Ví dụ:**
 ```c
@@ -1524,13 +1518,11 @@ int main() {
 ```
 ## 5. Heap
 
-Heap được sử dụng để cấp phát bộ nhớ động trong quá trình thực thi của chương trình.
-
-Quyền truy cập là có thể đọc và thay đổi giá trị của biến trong suốt thời gian chương trình chạy.
+Heap được sử dụng để cấp phát bộ nhớ động. Quyền truy cập là có thể đọc và ghi. Tồn tại cho đến khi được giải phóng bằng `free`.
 
 Nếu liên tục cấp phát vùng nhớ mà không giải phóng thì sẽ bị lỗi tràn vùng nhớ Heap (Heap overflow).
 
-Nếu khởi tạo một vùng nhớ quá lớn mà vùng nhớ Heap không thể lưu trữ một lần được sẽ bị lỗi khởi tạo vùng nhớ Heap thất bại.
+Nếu khởi tạo một vùng nhớ quá lớn mà vùng nhớ Heap không thể lưu trữ thì sẽ bị lỗi khởi tạo vùng nhớ Heap thất bại.
 
 **Ví dụ:**
 ```c
@@ -1625,7 +1617,9 @@ int main() {
 ```
 ### Hàm `realloc()`
 
-Thay đổi kích thước của vùng nhớ đã cấp phát trước đó bằng malloc hoặc calloc, và trả về một con trỏ đến vùng nhớ mới (địa chỉ có thể thay đổi). Phần bộ nhớ mới được cấp phát **thêm** không được khởi tạo và có thể chứa giá trị rác.
+Thay đổi kích thước của vùng nhớ đã cấp phát trước đó bằng malloc hoặc calloc, và trả về một con trỏ đến vùng nhớ mới (địa chỉ có thể thay đổi).
+
+Phần bộ nhớ mới được cấp phát **thêm** không được khởi tạo và có thể chứa giá trị rác.
 
 ```c
 uint16_t *ptr = NULL;
@@ -1653,8 +1647,11 @@ free(ptr);
 ## 1. Khái niệm
 
 Linked List là một cấu trúc dữ liệu bao gồm một chuỗi các node (nút), mỗi nút chứa hai thành phần chính:
+
 - Dữ liệu (data): Đây là giá trị được lưu trữ trong nút.
+
 - Con trỏ (pointer): Đây là tham chiếu (địa chỉ) đến nút tiếp theo trong danh sách.
+
  <p align="center">
   <img src="https://github.com/user-attachments/assets/8b38af8e-24fa-41f4-a6e6-01f6c683b6db" width="600">	
 </p>
@@ -1662,6 +1659,7 @@ Linked List là một cấu trúc dữ liệu bao gồm một chuỗi các node 
 Trong C, ta thường dùng cấu trúc (struct) để định nghĩa một node. Cấu trúc này bao gồm:
 - Một thành viên lưu dữ liệu.
 - Một thành viên là con trỏ trỏ đến node tiếp theo cùng kiểu dữ liệu.
+
 ```c
 typedef struct Node {
     int data;           // Giá trị (dữ liệu) của node
@@ -1971,6 +1969,7 @@ bool empty(node* array) {
 ## Khái niệm
 
 Stack (ngăn xếp) là một cấu trúc dữ liệu hoạt động theo nguyên tắc LIFO (Last In, First Out), tức là phần tử được thêm vào sau cùng sẽ được lấy ra đầu tiên.
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ff1ed8f0-1567-4264-86fc-458bc7c80420" width="200">	
 </p>
@@ -4098,8 +4097,6 @@ int main() {
 # LESSON 20: GENERIC PROGRAMMING
 <details><summary>Chi tiết</summary>
 <p>
-
-
 
 </p>
 </details>
